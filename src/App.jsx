@@ -1,10 +1,5 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import stepPage2 from './assets/images/step-page-2.jpg'
-import stepPage3 from './assets/images/step-page-3.jpg'
-import stepPage4 from './assets/images/step-page-4.jpg'
-import stepPage5 from './assets/images/step-page-5.jpg'
-import stepPage6 from './assets/images/step-page-6.jpg'
 
 function App() {
   const [formData, setFormData] = useState({
@@ -142,127 +137,6 @@ function App() {
         </div>
       </section>
 
-      {/* 12 STEPS TO WINNING OFFER */}
-      <section id="winning-offer" className="winning-offer fade-in-section">
-        <div className="container">
-          <h2 className="section-title">12 Steps to Creating a Winning Offer</h2>
-          <p className="section-subtitle">With over 5,275 successful contracts, we've perfected the art of crafting offers that win. Here's our proven process:</p>
-          
-          {/* Visual Guide Images */}
-          <div className="offer-images-gallery">
-            <div className="offer-image-wrapper">
-              <img 
-                src={stepPage2} 
-                alt="Steps to Creating a Winning Offer - Page 1"
-                className="offer-image"
-                loading="lazy"
-              />
-            </div>
-            <div className="offer-image-wrapper">
-              <img 
-                src={stepPage3} 
-                alt="Steps to Creating a Winning Offer - Page 2"
-                className="offer-image"
-                loading="lazy"
-              />
-            </div>
-            <div className="offer-image-wrapper">
-              <img 
-                src={stepPage4} 
-                alt="Steps to Creating a Winning Offer - Page 3"
-                className="offer-image"
-                loading="lazy"
-              />
-            </div>
-            <div className="offer-image-wrapper">
-              <img 
-                src={stepPage5} 
-                alt="Steps to Creating a Winning Offer - Page 4"
-                className="offer-image"
-                loading="lazy"
-              />
-            </div>
-            <div className="offer-image-wrapper">
-              <img 
-                src={stepPage6} 
-                alt="Steps to Creating a Winning Offer - Page 5"
-                className="offer-image"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          <div className="offer-steps-grid">
-            <div className="offer-step-card">
-              <div className="offer-step-number">1</div>
-              <h3 className="offer-step-title">Get Pre-Approved First</h3>
-              <p className="offer-step-description">Full pre-approval (not just pre-qualification) shows sellers you're serious and ready to move fast.</p>
-            </div>
-            <div className="offer-step-card">
-              <div className="offer-step-number">2</div>
-              <h3 className="offer-step-title">Research Comparable Sales</h3>
-              <p className="offer-step-description">We analyze recent sales in the area to determine fair market value and craft a competitive offer.</p>
-            </div>
-            <div className="offer-step-card">
-              <div className="offer-step-number">3</div>
-              <h3 className="offer-step-title">Understand Seller Motivation</h3>
-              <p className="offer-step-description">We discover what matters most to the seller—timing, price, or terms—and tailor your offer accordingly.</p>
-            </div>
-            <div className="offer-step-card">
-              <div className="offer-step-number">4</div>
-              <h3 className="offer-step-title">Price Strategically</h3>
-              <p className="offer-step-description">We determine the right price point: competitive enough to win, but not so high you overpay.</p>
-            </div>
-            <div className="offer-step-card">
-              <div className="offer-step-number">5</div>
-              <h3 className="offer-step-title">Optimize Earnest Money</h3>
-              <p className="offer-step-description">A strong earnest money deposit (typically 1-3%) shows commitment and makes your offer stand out.</p>
-            </div>
-            <div className="offer-step-card">
-              <div className="offer-step-number">6</div>
-              <h3 className="offer-step-title">Minimize Contingencies</h3>
-              <p className="offer-step-description">While protecting your interests, we structure contingencies to be as seller-friendly as possible.</p>
-            </div>
-            <div className="offer-step-card">
-              <div className="offer-step-number">7</div>
-              <h3 className="offer-step-title">Flexible Closing Date</h3>
-              <p className="offer-step-description">Working with the seller's preferred timeline can make your offer more attractive than others.</p>
-            </div>
-            <div className="offer-step-card">
-              <div className="offer-step-number">8</div>
-              <h3 className="offer-step-title">Personal Letter to Seller</h3>
-              <p className="offer-step-description">A heartfelt letter can make an emotional connection and set your offer apart in competitive situations.</p>
-            </div>
-            <div className="offer-step-card">
-              <div className="offer-step-number">9</div>
-              <h3 className="offer-step-title">Limit Inspection Requests</h3>
-              <p className="offer-step-description">We focus on major issues only, showing you're reasonable and won't nickel-and-dime the seller.</p>
-            </div>
-            <div className="offer-step-card">
-              <div className="offer-step-number">10</div>
-              <h3 className="offer-step-title">Quick Response Time</h3>
-              <p className="offer-step-description">We submit your offer promptly and respond to counteroffers within hours, showing you're decisive.</p>
-            </div>
-            <div className="offer-step-card">
-              <div className="offer-step-number">11</div>
-              <h3 className="offer-step-title">Strong Financing Terms</h3>
-              <p className="offer-step-description">Pre-approval from a reputable lender and solid down payment demonstrate financial strength.</p>
-            </div>
-            <div className="offer-step-card">
-              <div className="offer-step-number">12</div>
-              <h3 className="offer-step-title">Expert Negotiation</h3>
-              <p className="offer-step-description">With 5,275+ contracts negotiated, we know how to navigate counteroffers and win in any market.</p>
-            </div>
-          </div>
-          <div className="offer-cta-box">
-            <p className="offer-cta-text">Ready to craft your winning offer? Let's discuss your strategy.</p>
-            <button className="cta-button primary" onClick={scrollToContact}>
-              Schedule Strategy Call
-            </button>
-          </div>
-        </div>
-      </section>
-
       {/* SECTION 2: MONEY TALK */}
       <section id="money-talk" className="money-talk fade-in-section">
         <div className="container">
@@ -393,6 +267,103 @@ function App() {
             <p className="wealth-takeaway">
               This is why more wealth is created in real estate than any other sector. You're not just paying a mortgage—you're paying yourself.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CRAFTING A WINNING OFFER */}
+      <section id="winning-offer" className="winning-offer fade-in-section">
+        <div className="container">
+          <h2 className="section-title">Crafting a Winning Offer</h2>
+          <p className="section-subtitle">With over 5,275 successful contracts, we've perfected the art of crafting offers that win. Here are the key components we'll optimize for your success:</p>
+          
+          <div className="offer-components-grid">
+            <div className="offer-component-card">
+              <div className="component-icon">📅</div>
+              <h3 className="component-title">Closing Date</h3>
+              <p className="component-subtitle">Also called Settlement date</p>
+              <p className="component-description">
+                We will find out what time frame is preferred by the seller before submitting an offer, and we will want to do everything in our power to ensure you are getting a timeframe that works for you and the seller is also pleased with the closing time frame. A 21 to 30-day close is what we see the most in this market, although every seller is different so time frames can be anywhere from 15-90 days.
+              </p>
+            </div>
+
+            <div className="offer-component-card">
+              <div className="component-icon">🏠</div>
+              <h3 className="component-title">Post Settlement Occupancy</h3>
+              <p className="component-description">
+                Sometimes, a seller will request a rent back - this can be a very compelling tactic because many agents do not ask the right questions to determine if this will be helpful for the seller and can really set your offer apart. The reason it can be very compelling is because if the seller needs to purchase another home after the closing they can have a window where they have the proceeds from the sale to purchase their next home without the stress and concern that something may go wrong. When financing the home purchase, lenders typically will allow a Post Settlement Occupancy for up to 60 days.
+              </p>
+            </div>
+
+            <div className="offer-component-card">
+              <div className="component-icon">💰</div>
+              <h3 className="component-title">EMD (Earnest Money Deposit)</h3>
+              <p className="component-description">
+                The EMD (earnest money deposit) goes into an escrow account at the title company until settlement, at which time it is credited back to you and can be used towards your down payment, or refunded. The EMD is required to make any contract binding. The market average in the DMV is 1-5%, however the larger the EMD the more security the seller has that you will move forward to settlement. In our experience this is an easy and free way to leverage having liquidity to give you an advantage in the negotiation.
+              </p>
+            </div>
+
+            <div className="offer-component-card">
+              <div className="component-icon">🏦</div>
+              <h3 className="component-title">Lender/Title Company</h3>
+              <p className="component-description">
+                <strong>The Lender</strong> provides your mortgage financing, reviews your financial documents, and approves your loan. They ensure you have the funds to purchase the home and handle all the financial aspects of the transaction.
+              </p>
+              <p className="component-description" style={{marginTop: '1rem'}}>
+                <strong>The Title Company</strong> conducts a title search to ensure the property has a clear title (no liens or ownership disputes), handles the closing process, and ensures the legal transfer of ownership. They also hold your earnest money deposit in escrow.
+              </p>
+              <p className="component-description" style={{marginTop: '1rem'}}>
+                <strong>How They Work Together:</strong> The lender provides the financing, while the title company ensures the legal transfer is clean and handles the closing. They coordinate to ensure all funds are properly transferred and all documents are correctly executed. We have preferred vendors for both, but we'll always confirm who you decide to work with.
+              </p>
+            </div>
+
+            <div className="offer-component-card">
+              <div className="component-icon">🔍</div>
+              <h3 className="component-title">Home Inspection Contingency & Appraisal Contingency</h3>
+              <p className="component-description">
+                <strong>Home Inspection Contingency:</strong> This gives you the right to have the property professionally inspected and to negotiate repairs or withdraw from the contract if major issues are found. The inspection typically covers structural elements, systems (HVAC, plumbing, electrical), and safety concerns. This contingency protects you from buying a home with hidden problems.
+              </p>
+              <p className="component-description" style={{marginTop: '1rem'}}>
+                <strong>Appraisal Contingency:</strong> This protects you if the home appraises for less than your offer price. The lender requires an appraisal to ensure the property is worth the loan amount. If the appraisal comes in low, you can renegotiate the price, make up the difference in cash, or walk away from the deal. This ensures you're not overpaying for the property.
+              </p>
+              <p className="component-description" style={{marginTop: '1rem'}}>
+                Both contingencies are crucial protections for buyers, but shorter contingency periods can make your offer more competitive in hot markets.
+              </p>
+            </div>
+
+            <div className="offer-component-card">
+              <div className="component-icon">💵</div>
+              <h3 className="component-title">Down Payment</h3>
+              <p className="component-description">
+                The down payment is the initial cash amount you pay toward the purchase price of the home. It's your equity stake in the property from day one. The minimum down payment is typically 3% for conventional loans (though some programs allow less), and can go up to 20% or more. A larger down payment can result in better loan terms, lower monthly payments, and may eliminate the need for private mortgage insurance (PMI). The amount you put down will depend on your financial situation, the type of loan you're using, and your long-term financial goals.
+              </p>
+            </div>
+
+            <div className="offer-component-card">
+              <div className="component-icon">🤝</div>
+              <h3 className="component-title">Seller Subsidy</h3>
+              <p className="component-description">
+                Depending on how much competition there is on the property, you may be able to negotiate seller subsidy for your client. It could be closing costs or money to repair something in the property.
+              </p>
+            </div>
+
+            <div className="offer-component-card">
+              <div className="component-icon">✅</div>
+              <h3 className="component-title">Financing Contingency</h3>
+              <p className="component-description">
+                Adding a financing contingency to your contract does cause pause for many sellers, and can make or break an offer. We will be working with your lender to get you fully approved, with all of your documents reviewed and your credit reviewed prior to submitting your offer. If you need to add a financing contingency because of your personal circumstances, the shorter the contingency the more compelling your offer will be.
+              </p>
+              <div className="component-note">
+                <strong>Note:</strong> Oftentimes, larger banks need more time to work through loan approval, as they work with several 3rd party vendors throughout the lending process. This can be detrimental in the offer process since the seller is looking for the most concrete offer and extended contingencies can make them very nervous. Additionally, the lack of speed can be extremely stressful for the purchaser as we work through the waiting game of approval. This is why we recommend using our preferred lenders. If you do not have a financing contingency and cannot qualify for the loan, your deposit is at risk, so make sure you discuss your options with your lender and your agent as you navigate this decision.
+              </div>
+            </div>
+          </div>
+
+          <div className="offer-cta-box">
+            <p className="offer-cta-text">Ready to craft your winning offer? Let's discuss your strategy.</p>
+            <button className="cta-button primary" onClick={scrollToContact}>
+              Schedule Strategy Call
+            </button>
           </div>
         </div>
       </section>
