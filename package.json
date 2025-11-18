@@ -8,7 +8,11 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "keywords": ["homebuyer", "consultation", "real-estate"],
+  "keywords": [
+    "homebuyer",
+    "consultation",
+    "real-estate"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
@@ -19,7 +23,7 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "netlify-cli": "^23.11.0",
     "vite": "^5.0.8"
   }
 }
-
