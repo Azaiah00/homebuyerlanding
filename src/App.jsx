@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import stepPage2 from './assets/images/step-page-2.jpg'
+import stepPage3 from './assets/images/step-page-3.jpg'
+import stepPage4 from './assets/images/step-page-4.jpg'
+import stepPage5 from './assets/images/step-page-5.jpg'
+import stepPage6 from './assets/images/step-page-6.jpg'
 
 function App() {
   const [formData, setFormData] = useState({
@@ -72,6 +77,7 @@ function App() {
           <div className="nav-logo">Frederick Sales</div>
           <div className="nav-links">
             <button onClick={() => scrollToSection('game-plan')}>Process</button>
+            <button onClick={() => scrollToSection('winning-offer')}>Winning Offer</button>
             <button onClick={() => scrollToSection('money-talk')}>Costs</button>
             <button onClick={() => scrollToSection('team-advantage')}>Why Us</button>
             <button className="nav-cta" onClick={scrollToContact}>Get Started</button>
@@ -132,6 +138,127 @@ function App() {
                 We'll even help throw your housewarming party! Welcome to the family.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 12 STEPS TO WINNING OFFER */}
+      <section id="winning-offer" className="winning-offer fade-in-section">
+        <div className="container">
+          <h2 className="section-title">12 Steps to Creating a Winning Offer</h2>
+          <p className="section-subtitle">With over 5,275 successful contracts, we've perfected the art of crafting offers that win. Here's our proven process:</p>
+          
+          {/* Visual Guide Images */}
+          <div className="offer-images-gallery">
+            <div className="offer-image-wrapper">
+              <img 
+                src={stepPage2} 
+                alt="Steps to Creating a Winning Offer - Page 1"
+                className="offer-image"
+                loading="lazy"
+              />
+            </div>
+            <div className="offer-image-wrapper">
+              <img 
+                src={stepPage3} 
+                alt="Steps to Creating a Winning Offer - Page 2"
+                className="offer-image"
+                loading="lazy"
+              />
+            </div>
+            <div className="offer-image-wrapper">
+              <img 
+                src={stepPage4} 
+                alt="Steps to Creating a Winning Offer - Page 3"
+                className="offer-image"
+                loading="lazy"
+              />
+            </div>
+            <div className="offer-image-wrapper">
+              <img 
+                src={stepPage5} 
+                alt="Steps to Creating a Winning Offer - Page 4"
+                className="offer-image"
+                loading="lazy"
+              />
+            </div>
+            <div className="offer-image-wrapper">
+              <img 
+                src={stepPage6} 
+                alt="Steps to Creating a Winning Offer - Page 5"
+                className="offer-image"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <div className="offer-steps-grid">
+            <div className="offer-step-card">
+              <div className="offer-step-number">1</div>
+              <h3 className="offer-step-title">Get Pre-Approved First</h3>
+              <p className="offer-step-description">Full pre-approval (not just pre-qualification) shows sellers you're serious and ready to move fast.</p>
+            </div>
+            <div className="offer-step-card">
+              <div className="offer-step-number">2</div>
+              <h3 className="offer-step-title">Research Comparable Sales</h3>
+              <p className="offer-step-description">We analyze recent sales in the area to determine fair market value and craft a competitive offer.</p>
+            </div>
+            <div className="offer-step-card">
+              <div className="offer-step-number">3</div>
+              <h3 className="offer-step-title">Understand Seller Motivation</h3>
+              <p className="offer-step-description">We discover what matters most to the seller—timing, price, or terms—and tailor your offer accordingly.</p>
+            </div>
+            <div className="offer-step-card">
+              <div className="offer-step-number">4</div>
+              <h3 className="offer-step-title">Price Strategically</h3>
+              <p className="offer-step-description">We determine the right price point: competitive enough to win, but not so high you overpay.</p>
+            </div>
+            <div className="offer-step-card">
+              <div className="offer-step-number">5</div>
+              <h3 className="offer-step-title">Optimize Earnest Money</h3>
+              <p className="offer-step-description">A strong earnest money deposit (typically 1-3%) shows commitment and makes your offer stand out.</p>
+            </div>
+            <div className="offer-step-card">
+              <div className="offer-step-number">6</div>
+              <h3 className="offer-step-title">Minimize Contingencies</h3>
+              <p className="offer-step-description">While protecting your interests, we structure contingencies to be as seller-friendly as possible.</p>
+            </div>
+            <div className="offer-step-card">
+              <div className="offer-step-number">7</div>
+              <h3 className="offer-step-title">Flexible Closing Date</h3>
+              <p className="offer-step-description">Working with the seller's preferred timeline can make your offer more attractive than others.</p>
+            </div>
+            <div className="offer-step-card">
+              <div className="offer-step-number">8</div>
+              <h3 className="offer-step-title">Personal Letter to Seller</h3>
+              <p className="offer-step-description">A heartfelt letter can make an emotional connection and set your offer apart in competitive situations.</p>
+            </div>
+            <div className="offer-step-card">
+              <div className="offer-step-number">9</div>
+              <h3 className="offer-step-title">Limit Inspection Requests</h3>
+              <p className="offer-step-description">We focus on major issues only, showing you're reasonable and won't nickel-and-dime the seller.</p>
+            </div>
+            <div className="offer-step-card">
+              <div className="offer-step-number">10</div>
+              <h3 className="offer-step-title">Quick Response Time</h3>
+              <p className="offer-step-description">We submit your offer promptly and respond to counteroffers within hours, showing you're decisive.</p>
+            </div>
+            <div className="offer-step-card">
+              <div className="offer-step-number">11</div>
+              <h3 className="offer-step-title">Strong Financing Terms</h3>
+              <p className="offer-step-description">Pre-approval from a reputable lender and solid down payment demonstrate financial strength.</p>
+            </div>
+            <div className="offer-step-card">
+              <div className="offer-step-number">12</div>
+              <h3 className="offer-step-title">Expert Negotiation</h3>
+              <p className="offer-step-description">With 5,275+ contracts negotiated, we know how to navigate counteroffers and win in any market.</p>
+            </div>
+          </div>
+          <div className="offer-cta-box">
+            <p className="offer-cta-text">Ready to craft your winning offer? Let's discuss your strategy.</p>
+            <button className="cta-button primary" onClick={scrollToContact}>
+              Schedule Strategy Call
+            </button>
           </div>
         </div>
       </section>

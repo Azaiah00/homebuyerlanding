@@ -385,6 +385,149 @@ section {
 }
 
 /* ============================================
+   12 STEPS TO WINNING OFFER SECTION
+   ============================================ */
+
+.winning-offer {
+  background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);
+  position: relative;
+}
+
+.winning-offer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.05), transparent);
+}
+
+.offer-images-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0 4rem;
+}
+
+.offer-image-wrapper {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 8px 32px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.offer-image-wrapper:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15), 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.offer-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  background: white;
+}
+
+.offer-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.offer-step-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.offer-step-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #6366f1, #8b5cf6, #a855f7);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s ease;
+}
+
+.offer-step-card:hover::before {
+  transform: scaleY(1);
+}
+
+.offer-step-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15), 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.offer-step-number {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  transition: all 0.3s ease;
+}
+
+.offer-step-card:hover .offer-step-number {
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.offer-step-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1a202c;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+
+.offer-step-description {
+  color: #64748b;
+  line-height: 1.7;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.offer-cta-box {
+  margin-top: 4rem;
+  text-align: center;
+  padding: 3rem;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+  border-radius: 24px;
+  border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.offer-cta-text {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* ============================================
    MONEY TALK SECTION
    ============================================ */
 
@@ -1235,6 +1378,15 @@ section {
   .trust-badges {
     flex-direction: column;
     align-items: center;
+  }
+
+  .offer-steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .offer-images-gallery {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
