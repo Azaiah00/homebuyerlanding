@@ -330,10 +330,125 @@
   line-height: 1.8;
   margin-bottom: 3rem;
   opacity: 0.9;
-  max-width: 750px;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
   font-weight: 400;
+}
+
+.hero-intro-main {
+  margin-bottom: 1.5rem;
+}
+
+.hero-intro-benefits {
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.hero-benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  text-align: left;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-benefits-list li {
+  padding: 0.8rem 0;
+  padding-left: 2rem;
+  position: relative;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.hero-benefits-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #c9a961;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.hero-intro-cta {
+  margin-top: 1.5rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.hero-intro strong {
+  color: #c9a961;
+  font-weight: 700;
+}
+
+/* ============================================
+   TRUST BAR
+   ============================================ */
+
+.trust-bar {
+  background: linear-gradient(135deg, #2d2d2d 0%, #3a3a3a 50%, #4a4a4a 100%);
+  padding: 2.5rem 0;
+  border-top: 1px solid rgba(201, 169, 97, 0.2);
+  border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+}
+
+.trust-bar-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.trust-stat {
+  text-align: center;
+  color: white;
+}
+
+.trust-number {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #c9a961;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 0.3rem;
+  line-height: 1;
+}
+
+.trust-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.trust-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .trust-bar-content {
+    gap: 2rem;
+  }
+
+  .trust-number {
+    font-size: 1.8rem;
+  }
+
+  .trust-label {
+    font-size: 0.85rem;
+  }
+
+  .trust-divider {
+    display: none;
+  }
+
+  .hero-benefits-list {
+    max-width: 100%;
+  }
 }
 
 @keyframes fadeInUp {
@@ -1950,6 +2065,34 @@ section {
 
   .hero-intro {
     font-size: 1rem;
+  }
+
+  .hero-intro-main,
+  .hero-intro-benefits,
+  .hero-intro-cta {
+    font-size: 0.95rem;
+  }
+
+  .hero-benefits-list li {
+    font-size: 0.9rem;
+    padding: 0.6rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .trust-bar {
+    padding: 2rem 0;
+  }
+
+  .trust-bar-content {
+    gap: 1.5rem;
+  }
+
+  .trust-number {
+    font-size: 1.5rem;
+  }
+
+  .trust-label {
+    font-size: 0.8rem;
   }
 
   .section-title {

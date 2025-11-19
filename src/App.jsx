@@ -229,15 +229,54 @@ function App() {
             </div>
           </div>
           <h1 className="hero-title">Your Keys to the DMV: A Step-by-Step Home Buying Plan</h1>
-          <p className="hero-slogan">Work with a DMV Native who knows the neighborhoods, not just the listings.</p>
-          <p className="hero-intro">
-            Hi, I'm Frederick Sales! I grew up in Alexandria, VA and currently live in Washington DC's SW Waterfront Neighborhood. 
-            Finding your next home is a huge step, and I'm here to make it smarter, simpler, and way more fun. 
-            With 7+ years of experience in VA, DC, and MD, I've built a "Winning Game Plan" to get you the perfect home. Let's get started!
-          </p>
+          <p className="hero-slogan">Work with a DMV Native who knows the neighborhoods, not just the listings—so you see homes before they hit Zillow.</p>
+          <div className="hero-intro">
+            <p className="hero-intro-main">
+              Hi, I'm Frederick Sales—a DMV native who's helped <strong>5,275+ families</strong> find their perfect home. I grew up in Alexandria, live in SW Waterfront, and know these neighborhoods like the back of my hand.
+            </p>
+            <p className="hero-intro-benefits">
+              Here's the truth: Buying a home in the DMV is competitive. The average home gets <strong>8 offers</strong>. But with my proven system and the KS Team's resources, you'll have an advantage most buyers don't:
+            </p>
+            <ul className="hero-benefits-list">
+              <li><strong>48-hour pre-approval</strong> with our trusted lenders</li>
+              <li><strong>Real-time MLS alerts</strong> (not 24-hour-delayed Zillow data)</li>
+              <li><strong>Exclusive off-market homes</strong> through Priority Access</li>
+              <li><strong>Winning offers</strong> crafted with 5,275+ contracts of experience</li>
+            </ul>
+            <p className="hero-intro-cta">
+              Ready to see how it works? Let's get started!
+            </p>
+          </div>
           <button className="cta-button primary" onClick={scrollToContact}>
             Schedule My Free Strategy Session
           </button>
+        </div>
+      </section>
+
+      {/* TRUST BAR */}
+      <section className="trust-bar">
+        <div className="container">
+          <div className="trust-bar-content">
+            <div className="trust-stat">
+              <div className="trust-number">5,275+</div>
+              <div className="trust-label">Families Helped</div>
+            </div>
+            <div className="trust-divider"></div>
+            <div className="trust-stat">
+              <div className="trust-number">$5B+</div>
+              <div className="trust-label">In Team Sales</div>
+            </div>
+            <div className="trust-divider"></div>
+            <div className="trust-stat">
+              <div className="trust-number">7+</div>
+              <div className="trust-label">Years Experience</div>
+            </div>
+            <div className="trust-divider"></div>
+            <div className="trust-stat">
+              <div className="trust-number">TOP TEAM</div>
+              <div className="trust-label">In DMV Since 2008</div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -250,32 +289,40 @@ function App() {
               <div className="step-number">1</div>
               <h3 className="step-title">Get "Power-Buyer" Ready</h3>
               <p className="step-description">
-                It all starts here. We'll connect you with our trusted local lenders to get you fully Pre-Approved 
-                (not just Pre-Qualified!). This makes you a 'power-buyer' and sets you up to win from day one.
+                It all starts here. We'll connect you with our trusted local lenders to get you fully Pre-Approved (not just Pre-Qualified!).
+              </p>
+              <p className="step-description">
+                <strong>Average time: 48 hours.</strong> This makes you a 'power-buyer' and sets you up to win from day one.
               </p>
             </div>
             <div className="step-card">
               <div className="step-number">2</div>
               <h3 className="step-title">The "Priority Access" Hunt</h3>
               <p className="step-description">
-                This is the fun part! We'll set you up with real-time MLS alerts (not 24-hour-delayed Zillow data) 
-                AND give you access to our exclusive 'Priority Access' list of off-market homes you can't find online.
+                This is the fun part! We'll set you up with <strong>real-time MLS alerts</strong> (not 24-hour-delayed Zillow data).
+              </p>
+              <p className="step-description">
+                Plus, you'll get access to our exclusive <strong>'Priority Access' list</strong> of off-market homes you can't find online. Last month alone, 3 of our clients found homes that never hit the market.
               </p>
             </div>
             <div className="step-card">
               <div className="step-number">3</div>
               <h3 className="step-title">Craft the Winning Offer</h3>
               <p className="step-description">
-                Found 'the one'? Now we put our experience to work. The KS Team has negotiated over 5,275 contracts. 
-                We know how to craft an offer that wins, even in a tough market.
+                Found 'the one'? Now we put our experience to work. The KS Team has negotiated over <strong>5,275 contracts</strong>.
+              </p>
+              <p className="step-description">
+                We'll analyze comparable sales, seller motivations, and market conditions to craft an offer that stands out—even when there are 10+ competing bids.
               </p>
             </div>
             <div className="step-card">
               <div className="step-number">4</div>
               <h3 className="step-title">Close, Get Your Keys & Party!</h3>
               <p className="step-description">
-                We're with you every step of the way, from contract to closing. And to celebrate? 
-                We'll even help throw your housewarming party! Welcome to the family.
+                We handle every detail from contract to closing. <strong>Our average closing time: 28 days.</strong>
+              </p>
+              <p className="step-description">
+                And yes, we really do throw housewarming parties for our clients! Welcome to the family.
               </p>
             </div>
           </div>
@@ -537,7 +584,7 @@ function App() {
       <section id="winning-offer" className="winning-offer fade-in-section">
         <div className="container">
           <h2 className="section-title">Crafting a Winning Offer</h2>
-          <p className="section-subtitle">With over 5,275 successful contracts, we've perfected the art of crafting offers that win. Here are the key components we'll optimize for your success:</p>
+          <p className="section-subtitle">The average home in the DMV receives <strong>8 offers</strong>. Here's how we make yours the one that wins:</p>
           
           <div className="offer-components-grid">
             <div className="offer-component-card">
@@ -545,7 +592,10 @@ function App() {
               <h3 className="component-title">Closing Date</h3>
               <p className="component-subtitle">Also called Settlement date</p>
               <p className="component-description">
-                We will find out what time frame is preferred by the seller before submitting an offer, and we will want to do everything in our power to ensure you are getting a timeframe that works for you and the seller is also pleased with the closing time frame. A 21 to 30-day close is what we see the most in this market, although every seller is different so time frames can be anywhere from 15-90 days.
+                We'll find out what timeframe the seller prefers before submitting your offer. This ensures you get a closing date that works for you while keeping the seller happy.
+              </p>
+              <p className="component-description">
+                <strong>Typical timeframe:</strong> 21-30 days is most common in the DMV, though it can range from 15-90 days depending on the seller's needs.
               </p>
             </div>
 
@@ -553,7 +603,13 @@ function App() {
               <div className="component-icon">🏠</div>
               <h3 className="component-title">Post Settlement Occupancy</h3>
               <p className="component-description">
-                Sometimes, a seller will request a rent back - this can be a very compelling tactic because many agents do not ask the right questions to determine if this will be helpful for the seller and can really set your offer apart. The reason it can be very compelling is because if the seller needs to purchase another home after the closing they can have a window where they have the proceeds from the sale to purchase their next home without the stress and concern that something may go wrong. When financing the home purchase, lenders typically will allow a Post Settlement Occupancy for up to 60 days.
+                Sometimes a seller will request a "rent back"—allowing them to stay in the home after closing. This can be a very compelling tactic that sets your offer apart.
+              </p>
+              <p className="component-description">
+                <strong>Why it works:</strong> If the seller needs to buy another home, they get a window to use the sale proceeds without the stress of timing two closings perfectly. Many agents don't ask about this, but we do.
+              </p>
+              <p className="component-description">
+                Lenders typically allow Post Settlement Occupancy for up to 60 days, making this a powerful negotiation tool.
               </p>
             </div>
 
@@ -561,7 +617,13 @@ function App() {
               <div className="component-icon">💰</div>
               <h3 className="component-title">EMD (Earnest Money Deposit)</h3>
               <p className="component-description">
-                The EMD (earnest money deposit) goes into an escrow account at the title company until settlement, at which time it is credited back to you and can be used towards your down payment, or refunded. The EMD is required to make any contract binding. The market average in the DMV is 1-5%, however the larger the EMD the more security the seller has that you will move forward to settlement. In our experience this is an easy and free way to leverage having liquidity to give you an advantage in the negotiation.
+                The EMD (earnest money deposit) goes into an escrow account at the title company until settlement. At closing, it's credited back to you and can be used toward your down payment or refunded.
+              </p>
+              <p className="component-description">
+                <strong>Market average in DMV:</strong> 1-5% of purchase price. The larger the EMD, the more security the seller has that you'll move forward to settlement.
+              </p>
+              <p className="component-description">
+                <strong>Our strategy:</strong> If you have liquidity, a larger EMD is an easy way to make your offer stand out—at no extra cost to you.
               </p>
             </div>
 
@@ -569,13 +631,16 @@ function App() {
               <div className="component-icon">🏦</div>
               <h3 className="component-title">Lender/Title Company</h3>
               <p className="component-description">
-                <strong>The Lender</strong> provides your mortgage financing, reviews your financial documents, and approves your loan. They ensure you have the funds to purchase the home and handle all the financial aspects of the transaction.
+                <strong>The Lender</strong> provides your mortgage financing, reviews your financial documents, and approves your loan. They handle all the financial aspects of the transaction.
               </p>
-              <p className="component-description" style={{marginTop: '1rem'}}>
+              <p className="component-description">
                 <strong>The Title Company</strong> conducts a title search to ensure the property has a clear title (no liens or ownership disputes), handles the closing process, and ensures the legal transfer of ownership. They also hold your earnest money deposit in escrow.
               </p>
-              <p className="component-description" style={{marginTop: '1rem'}}>
-                <strong>How They Work Together:</strong> The lender provides the financing, while the title company ensures the legal transfer is clean and handles the closing. They coordinate to ensure all funds are properly transferred and all documents are correctly executed. We have preferred vendors for both, but we'll always confirm who you decide to work with.
+              <p className="component-description">
+                <strong>How They Work Together:</strong> The lender provides financing, while the title company ensures the legal transfer is clean and handles closing. They coordinate to ensure all funds are properly transferred and documents are correctly executed.
+              </p>
+              <p className="component-description">
+                We have preferred vendors for both, but we'll always confirm who you decide to work with.
               </p>
             </div>
 
@@ -583,13 +648,19 @@ function App() {
               <div className="component-icon">🔍</div>
               <h3 className="component-title">Home Inspection Contingency & Appraisal Contingency</h3>
               <p className="component-description">
-                <strong>Home Inspection Contingency:</strong> This gives you the right to have the property professionally inspected and to negotiate repairs or withdraw from the contract if major issues are found. The inspection typically covers structural elements, systems (HVAC, plumbing, electrical), and safety concerns. This contingency protects you from buying a home with hidden problems.
+                <strong>Home Inspection Contingency:</strong> This gives you the right to have the property professionally inspected and to negotiate repairs or withdraw from the contract if major issues are found.
               </p>
-              <p className="component-description" style={{marginTop: '1rem'}}>
-                <strong>Appraisal Contingency:</strong> This protects you if the home appraises for less than your offer price. The lender requires an appraisal to ensure the property is worth the loan amount. If the appraisal comes in low, you can renegotiate the price, make up the difference in cash, or walk away from the deal. This ensures you're not overpaying for the property.
+              <p className="component-description">
+                The inspection typically covers structural elements, systems (HVAC, plumbing, electrical), and safety concerns. This contingency protects you from buying a home with hidden problems.
               </p>
-              <p className="component-description" style={{marginTop: '1rem'}}>
-                Both contingencies are crucial protections for buyers, but shorter contingency periods can make your offer more competitive in hot markets.
+              <p className="component-description">
+                <strong>Appraisal Contingency:</strong> This protects you if the home appraises for less than your offer price. The lender requires an appraisal to ensure the property is worth the loan amount.
+              </p>
+              <p className="component-description">
+                If the appraisal comes in low, you can renegotiate the price, make up the difference in cash, or walk away from the deal. This ensures you're not overpaying for the property.
+              </p>
+              <p className="component-description">
+                <strong>Strategy:</strong> Both contingencies are crucial protections, but shorter contingency periods can make your offer more competitive in hot markets.
               </p>
             </div>
 
@@ -597,7 +668,16 @@ function App() {
               <div className="component-icon">💵</div>
               <h3 className="component-title">Down Payment</h3>
               <p className="component-description">
-                The down payment is the initial cash amount you pay toward the purchase price of the home. It's your equity stake in the property from day one. The minimum down payment is typically 3% for conventional loans (though some programs allow less), and can go up to 20% or more. A larger down payment can result in better loan terms, lower monthly payments, and may eliminate the need for private mortgage insurance (PMI). The amount you put down will depend on your financial situation, the type of loan you're using, and your long-term financial goals.
+                The down payment is the initial cash amount you pay toward the purchase price of the home. It's your equity stake in the property from day one.
+              </p>
+              <p className="component-description">
+                <strong>Minimum down payment:</strong> Typically 3% for conventional loans (though some programs allow less), and can go up to 20% or more.
+              </p>
+              <p className="component-description">
+                <strong>Benefits of a larger down payment:</strong> Better loan terms, lower monthly payments, and may eliminate the need for private mortgage insurance (PMI).
+              </p>
+              <p className="component-description">
+                The amount you put down will depend on your financial situation, the type of loan you're using, and your long-term financial goals.
               </p>
             </div>
 
@@ -605,7 +685,10 @@ function App() {
               <div className="component-icon">🤝</div>
               <h3 className="component-title">Seller Subsidy</h3>
               <p className="component-description">
-                Depending on how much competition there is on the property, you may be able to negotiate seller subsidy for your client. It could be closing costs or money to repair something in the property.
+                Depending on how much competition there is on the property, you may be able to negotiate seller subsidy.
+              </p>
+              <p className="component-description">
+                This could be closing costs or money to repair something in the property. We'll assess each situation to see if this is a viable strategy for your offer.
               </p>
             </div>
 
@@ -613,7 +696,13 @@ function App() {
               <div className="component-icon">✅</div>
               <h3 className="component-title">Financing Contingency</h3>
               <p className="component-description">
-                Adding a financing contingency to your contract does cause pause for many sellers, and can make or break an offer. We will be working with your lender to get you fully approved, with all of your documents reviewed and your credit reviewed prior to submitting your offer. If you need to add a financing contingency because of your personal circumstances, the shorter the contingency the more compelling your offer will be.
+                Adding a financing contingency to your contract can cause pause for many sellers, and can make or break an offer.
+              </p>
+              <p className="component-description">
+                We'll work with your lender to get you fully approved—with all documents and credit reviewed—prior to submitting your offer.
+              </p>
+              <p className="component-description">
+                <strong>Strategy:</strong> If you need to add a financing contingency, the shorter the contingency period, the more compelling your offer will be.
               </p>
               <div className="component-note">
                 <strong>Note:</strong> Oftentimes, larger banks need more time to work through loan approval, as they work with several 3rd party vendors throughout the lending process. This can be detrimental in the offer process since the seller is looking for the most concrete offer and extended contingencies can make them very nervous. Additionally, the lack of speed can be extremely stressful for the purchaser as we work through the waiting game of approval. This is why we recommend using our preferred lenders. If you do not have a financing contingency and cannot qualify for the loan, your deposit is at risk, so make sure you discuss your options with your lender and your agent as you navigate this decision.
