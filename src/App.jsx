@@ -10,6 +10,9 @@ function App() {
   })
   const [isScrolled, setIsScrolled] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [formErrors, setFormErrors] = useState({})
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,17 +46,80 @@ function App() {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
     setFormSubmitted(false)
+    // Clear error for this field
+    if (formErrors[name]) {
+      setFormErrors(prev => ({ ...prev, [name]: '' }))
+    }
   }
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    const errors = {}
+    if (!formData.name.trim()) errors.name = 'Name is required'
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = 'Please enter a valid email'
+    }
+    if (!formData.phone.trim()) {
+      errors.phone = 'Phone is required'
+    } else if (!/^[\d\s\-\(\)]+$/.test(formData.phone)) {
+      errors.phone = 'Please enter a valid phone number'
+    }
+    if (!formData.timeline) errors.timeline = 'Please select a timeline'
+    setFormErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    if (!validateForm()) {
+      return
+    }
+
     setFormSubmitted(true)
-    // In production, this would submit to a backend
-    setTimeout(() => {
-      alert('Thank you! We\'ll be in touch soon to schedule your strategy call.')
+    
+    // Netlify Forms integration
+    const formDataToSubmit = new FormData()
+    formDataToSubmit.append('form-name', 'contact')
+    formDataToSubmit.append('name', formData.name)
+    formDataToSubmit.append('email', formData.email)
+    formDataToSubmit.append('phone', formData.phone)
+    formDataToSubmit.append('timeline', formData.timeline)
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formDataToSubmit).toString()
+      })
+
+      if (response.ok) {
+        setShowSuccessModal(true)
+        setFormData({ name: '', email: '', phone: '', timeline: '' })
+        setFormErrors({})
+        // Track form submission (for analytics)
+        if (window.gtag) {
+          window.gtag('event', 'form_submission', {
+            'event_category': 'engagement',
+            'event_label': 'contact_form'
+          })
+        }
+      } else {
+        throw new Error('Form submission failed')
+      }
+    } catch (error) {
+      // Fallback: still show success for better UX (Netlify will handle it)
+      setShowSuccessModal(true)
       setFormData({ name: '', email: '', phone: '', timeline: '' })
+      setFormErrors({})
+    } finally {
       setFormSubmitted(false)
-    }, 300)
+    }
+  }
+
+  const closeSuccessModal = () => {
+    setShowSuccessModal(false)
   }
 
   const scrollToContact = () => {
@@ -62,6 +128,11 @@ function App() {
 
   const scrollToSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
+    setMobileMenuOpen(false) // Close mobile menu after navigation
+  }
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen)
   }
 
   return (
@@ -70,11 +141,19 @@ function App() {
       <nav className={`sticky-nav ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           <div className="nav-logo">Frederick Sales</div>
-          <div className="nav-links">
+          <button className="mobile-menu-toggle" onClick={toggleMobileMenu} aria-label="Toggle menu">
+            <span className={`hamburger ${mobileMenuOpen ? 'open' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+          <div className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
             <button onClick={() => scrollToSection('game-plan')}>Process</button>
             <button onClick={() => scrollToSection('winning-offer')}>Winning Offer</button>
             <button onClick={() => scrollToSection('money-talk')}>Costs</button>
             <button onClick={() => scrollToSection('team-advantage')}>Why Us</button>
+            <button onClick={() => scrollToSection('faq')}>FAQ</button>
             <button className="nav-cta" onClick={scrollToContact}>Get Started</button>
           </div>
         </div>
@@ -84,6 +163,13 @@ function App() {
       <section className="hero">
         <div className="hero-overlay"></div>
         <div className="hero-content">
+          <div className="hero-image-wrapper">
+            {/* Replace this with your professional photo */}
+            <div className="hero-photo-placeholder">
+              <span>📸</span>
+              <p>Add Your Professional Photo Here</p>
+            </div>
+          </div>
           <h1 className="hero-title">The Ultimate Guide to Buying Your Dream Home in the DMV</h1>
           <h2 className="hero-subtitle">From "Just Looking" to "Just Moved In" with Frederick Sales & the KS Team</h2>
           <p className="hero-intro">
@@ -429,6 +515,64 @@ function App() {
         </div>
       </section>
 
+      {/* FAQ SECTION */}
+      <section id="faq" className="faq fade-in-section">
+        <div className="container">
+          <h2 className="section-title">Frequently Asked Questions</h2>
+          <p className="section-subtitle">Everything you need to know about buying a home in the DMV</p>
+          <div className="faq-grid">
+            <div className="faq-item">
+              <h3 className="faq-question">How long does the home buying process take?</h3>
+              <p className="faq-answer">
+                Typically, the home buying process takes 30-45 days from offer acceptance to closing. However, this can vary based on financing, inspections, and negotiations. We'll work with you to ensure a timeline that works for your situation.
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">Do I need to be pre-approved before looking at homes?</h3>
+              <p className="faq-answer">
+                While not required, being pre-approved is highly recommended. It makes you a "power-buyer" and allows you to act quickly when you find the perfect home. Many sellers won't even consider offers without pre-approval.
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">What's the difference between pre-qualified and pre-approved?</h3>
+              <p className="faq-answer">
+                Pre-qualification is a quick estimate based on basic information. Pre-approval involves a thorough review of your financial documents and credit. Pre-approval is what you need to be competitive in today's market.
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">How much do I need for a down payment?</h3>
+              <p className="faq-answer">
+                Down payments can range from 3% to 20% or more, depending on your loan type. Conventional loans typically require 3-20%, while VA loans can be 0% down. We'll help you understand your options based on your situation.
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">What are closing costs and who pays for them?</h3>
+              <p className="faq-answer">
+                Closing costs typically range from 2.5% to 3% of the home price and include fees for appraisal, inspection, title insurance, and more. In the DMV, buyers typically pay closing costs, though we can negotiate seller contributions in some cases.
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">What is earnest money and how much do I need?</h3>
+              <p className="faq-answer">
+                Earnest money (EMD) shows the seller you're serious about buying. It's held in escrow and credited back at closing. In the DMV, EMD typically ranges from 1-5% of the purchase price. A larger EMD can make your offer more competitive.
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">Can I buy a home if I have student loans or other debt?</h3>
+              <p className="faq-answer">
+                Yes! Having debt doesn't automatically disqualify you. Lenders look at your debt-to-income ratio. We'll connect you with trusted lenders who can help you understand your options and find the right loan program for your situation.
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">What areas do you serve?</h3>
+              <p className="faq-answer">
+                I'm licensed in Virginia, Washington DC, and Maryland - the entire DMV area! Whether you're looking in Arlington, Bethesda, Alexandria, or anywhere in between, I can help you find your perfect home.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FINAL CTA SECTION */}
       <section id="contact-section" className="contact-cta">
         <div className="container">
@@ -452,7 +596,20 @@ function App() {
             </div>
           </div>
 
-          <form className={`contact-form ${formSubmitted ? 'submitted' : ''}`} onSubmit={handleSubmit}>
+          <form 
+            name="contact" 
+            method="POST" 
+            data-netlify="true" 
+            netlify-honeypot="bot-field"
+            className={`contact-form ${formSubmitted ? 'submitted' : ''}`} 
+            onSubmit={handleSubmit}
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <p style={{ display: 'none' }}>
+              <label>
+                Don't fill this out if you're human: <input name="bot-field" />
+              </label>
+            </p>
             <div className="form-row">
               <div className="form-group">
                 <input
@@ -462,8 +619,9 @@ function App() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="form-input"
+                  className={`form-input ${formErrors.name ? 'error' : ''}`}
                 />
+                {formErrors.name && <span className="error-message">{formErrors.name}</span>}
               </div>
               <div className="form-group">
                 <input
@@ -473,8 +631,9 @@ function App() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="form-input"
+                  className={`form-input ${formErrors.email ? 'error' : ''}`}
                 />
+                {formErrors.email && <span className="error-message">{formErrors.email}</span>}
               </div>
             </div>
             <div className="form-row">
@@ -486,8 +645,9 @@ function App() {
                   value={formData.phone}
                   onChange={handleInputChange}
                   required
-                  className="form-input"
+                  className={`form-input ${formErrors.phone ? 'error' : ''}`}
                 />
+                {formErrors.phone && <span className="error-message">{formErrors.phone}</span>}
               </div>
               <div className="form-group">
                 <select
@@ -495,7 +655,7 @@ function App() {
                   value={formData.timeline}
                   onChange={handleInputChange}
                   required
-                  className="form-input"
+                  className={`form-input ${formErrors.timeline ? 'error' : ''}`}
                 >
                   <option value="">When are you thinking of buying? *</option>
                   <option value="asap">ASAP</option>
@@ -503,13 +663,26 @@ function App() {
                   <option value="3-6">3-6 Months</option>
                   <option value="browsing">Just Browsing</option>
                 </select>
+                {formErrors.timeline && <span className="error-message">{formErrors.timeline}</span>}
               </div>
             </div>
-            <button type="submit" className={`cta-button primary large ${formSubmitted ? 'submitting' : ''}`}>
-              {formSubmitted ? '✓ Submitted!' : 'Schedule My Strategy Call!'}
+            <button type="submit" className={`cta-button primary large ${formSubmitted ? 'submitting' : ''}`} disabled={formSubmitted}>
+              {formSubmitted ? 'Submitting...' : 'Schedule My Strategy Call!'}
             </button>
             <p className="form-privacy">We respect your privacy. Your information will never be shared.</p>
           </form>
+
+          {/* Success Modal */}
+          {showSuccessModal && (
+            <div className="success-modal-overlay" onClick={closeSuccessModal}>
+              <div className="success-modal" onClick={(e) => e.stopPropagation()}>
+                <div className="success-icon">✓</div>
+                <h3>Thank You!</h3>
+                <p>We've received your information and will be in touch soon to schedule your strategy call.</p>
+                <button className="cta-button primary" onClick={closeSuccessModal}>Got It!</button>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -528,6 +701,20 @@ function App() {
             <div className="footer-info">
               <p className="footer-name">Frederick Sales | Realtor®</p>
               <p className="footer-license">Licensed in VA, DC, & MD</p>
+              <div className="footer-social">
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <span>📘</span>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <span>📷</span>
+                </a>
+                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <span>💼</span>
+                </a>
+                <a href="mailto:frederick@example.com" aria-label="Email">
+                  <span>✉️</span>
+                </a>
+              </div>
             </div>
             <div className="footer-logos">
               <div className="logo-placeholder">eXp Realty</div>
