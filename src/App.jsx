@@ -15,7 +15,7 @@ function App() {
   const [formErrors, setFormErrors] = useState({})
   const [calculatorData, setCalculatorData] = useState({
     homePrice: 650000,
-    downPayment: 65000,
+    downPaymentPercent: 10,
     interestRate: 6.5,
     loanTerm: 30
   })
@@ -25,7 +25,8 @@ function App() {
 
   // Calculate mortgage payment
   useEffect(() => {
-    const principal = calculatorData.homePrice - calculatorData.downPayment
+    const downPaymentAmount = (calculatorData.homePrice * calculatorData.downPaymentPercent) / 100
+    const principal = calculatorData.homePrice - downPaymentAmount
     const monthlyRate = (calculatorData.interestRate / 100) / 12
     const numberOfPayments = calculatorData.loanTerm * 12
 
@@ -377,22 +378,23 @@ function App() {
               </div>
 
               <div className="calc-input-group">
-                <label htmlFor="downPayment">Down Payment</label>
+                <label htmlFor="downPaymentPercent">Down Payment (%)</label>
                 <div className="input-wrapper">
-                  <span className="input-prefix">$</span>
                   <input
                     type="number"
-                    id="downPayment"
-                    name="downPayment"
-                    value={calculatorData.downPayment}
+                    id="downPaymentPercent"
+                    name="downPaymentPercent"
+                    value={calculatorData.downPaymentPercent}
                     onChange={handleCalculatorChange}
                     min="0"
-                    step="1000"
+                    max="100"
+                    step="0.5"
                     className="calc-input"
                   />
+                  <span className="input-suffix">%</span>
                 </div>
-                <div className="down-payment-percent">
-                  {((calculatorData.downPayment / calculatorData.homePrice) * 100).toFixed(1)}% down
+                <div className="down-payment-amount">
+                  {formatCurrency((calculatorData.homePrice * calculatorData.downPaymentPercent) / 100)} down
                 </div>
               </div>
 
@@ -439,8 +441,12 @@ function App() {
 
               <div className="result-details">
                 <div className="result-row">
+                  <span className="result-label-small">Down Payment</span>
+                  <span className="result-value-small">{formatCurrency((calculatorData.homePrice * calculatorData.downPaymentPercent) / 100)}</span>
+                </div>
+                <div className="result-row">
                   <span className="result-label-small">Loan Amount</span>
-                  <span className="result-value-small">{formatCurrency(calculatorData.homePrice - calculatorData.downPayment)}</span>
+                  <span className="result-value-small">{formatCurrency(calculatorData.homePrice - ((calculatorData.homePrice * calculatorData.downPaymentPercent) / 100))}</span>
                 </div>
                 <div className="result-row">
                   <span className="result-label-small">Total Interest Paid</span>

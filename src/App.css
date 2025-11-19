@@ -920,7 +920,7 @@ section {
   box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
 }
 
-.down-payment-percent {
+.down-payment-amount {
   font-size: 0.9rem;
   color: #c9a961;
   font-weight: 600;
