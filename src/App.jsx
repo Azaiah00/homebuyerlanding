@@ -230,23 +230,10 @@ function App() {
           </div>
           <h1 className="hero-title">Your Keys to the DMV: A Step-by-Step Home Buying Plan</h1>
           <p className="hero-slogan">Work with a DMV Native who knows the neighborhoods, not just the listings—so you see homes before they hit Zillow.</p>
-          <div className="hero-intro">
-            <p className="hero-intro-main">
-              Hi, I'm Frederick Sales—a DMV native who's helped <strong>5,275+ families</strong> find their perfect home. I grew up in Alexandria, live in SW Waterfront, and know these neighborhoods like the back of my hand.
-            </p>
-            <p className="hero-intro-benefits">
-              Here's the truth: Buying a home in the DMV is competitive. The average home gets <strong>8 offers</strong>. But with my proven system and the KS Team's resources, you'll have an advantage most buyers don't:
-            </p>
-            <ul className="hero-benefits-list">
-              <li><strong>48-hour pre-approval</strong> with our trusted lenders</li>
-              <li><strong>Real-time MLS alerts</strong> (not 24-hour-delayed Zillow data)</li>
-              <li><strong>Exclusive off-market homes</strong> through Priority Access</li>
-              <li><strong>Winning offers</strong> crafted with 5,275+ contracts of experience</li>
-            </ul>
-            <p className="hero-intro-cta">
-              Ready to see how it works? Let's get started!
-            </p>
-          </div>
+          <p className="hero-intro">
+            Hi, I'm Frederick Sales! Finding your next home is a huge step, and I'm here to make it smarter, simpler, and way more fun. 
+            With 7+ years of experience in VA, DC, and MD, I've built a "Winning Game Plan" to get you the perfect home. Let's get started!
+          </p>
           <button className="cta-button primary" onClick={scrollToContact}>
             Schedule My Free Strategy Session
           </button>
