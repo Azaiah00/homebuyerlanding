@@ -13,6 +13,53 @@ function App() {
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [formErrors, setFormErrors] = useState({})
+  const [calculatorData, setCalculatorData] = useState({
+    homePrice: 650000,
+    downPayment: 65000,
+    interestRate: 6.5,
+    loanTerm: 30
+  })
+  const [monthlyPayment, setMonthlyPayment] = useState(0)
+  const [totalInterest, setTotalInterest] = useState(0)
+  const [totalPayment, setTotalPayment] = useState(0)
+
+  // Calculate mortgage payment
+  useEffect(() => {
+    const principal = calculatorData.homePrice - calculatorData.downPayment
+    const monthlyRate = (calculatorData.interestRate / 100) / 12
+    const numberOfPayments = calculatorData.loanTerm * 12
+
+    if (principal > 0 && monthlyRate > 0 && numberOfPayments > 0) {
+      const payment = principal * 
+        (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
+        (Math.pow(1 + monthlyRate, numberOfPayments) - 1)
+      
+      setMonthlyPayment(payment)
+      setTotalPayment(payment * numberOfPayments)
+      setTotalInterest((payment * numberOfPayments) - principal)
+    } else {
+      setMonthlyPayment(0)
+      setTotalPayment(0)
+      setTotalInterest(0)
+    }
+  }, [calculatorData])
+
+  const handleCalculatorChange = (e) => {
+    const { name, value } = e.target
+    setCalculatorData(prev => ({
+      ...prev,
+      [name]: parseFloat(value) || 0
+    }))
+  }
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(amount)
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -152,6 +199,7 @@ function App() {
             <button onClick={() => scrollToSection('game-plan')}>Process</button>
             <button onClick={() => scrollToSection('winning-offer')}>Winning Offer</button>
             <button onClick={() => scrollToSection('money-talk')}>Costs</button>
+            <button onClick={() => scrollToSection('mortgage-calculator')}>Calculator</button>
             <button onClick={() => scrollToSection('team-advantage')}>Why Us</button>
             <button onClick={() => scrollToSection('faq')}>FAQ</button>
             <button className="nav-cta" onClick={scrollToContact}>Get Started</button>
@@ -298,6 +346,118 @@ function App() {
                   </div>
                 </li>
               </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MORTGAGE CALCULATOR */}
+      <section id="mortgage-calculator" className="mortgage-calculator fade-in-section">
+        <div className="container">
+          <h2 className="section-title">Mortgage Payment Calculator</h2>
+          <p className="section-subtitle">Get an estimate of your monthly mortgage payment. Adjust the numbers to see how different scenarios affect your payment.</p>
+          
+          <div className="calculator-wrapper">
+            <div className="calculator-inputs">
+              <div className="calc-input-group">
+                <label htmlFor="homePrice">Home Price</label>
+                <div className="input-wrapper">
+                  <span className="input-prefix">$</span>
+                  <input
+                    type="number"
+                    id="homePrice"
+                    name="homePrice"
+                    value={calculatorData.homePrice}
+                    onChange={handleCalculatorChange}
+                    min="0"
+                    step="1000"
+                    className="calc-input"
+                  />
+                </div>
+              </div>
+
+              <div className="calc-input-group">
+                <label htmlFor="downPayment">Down Payment</label>
+                <div className="input-wrapper">
+                  <span className="input-prefix">$</span>
+                  <input
+                    type="number"
+                    id="downPayment"
+                    name="downPayment"
+                    value={calculatorData.downPayment}
+                    onChange={handleCalculatorChange}
+                    min="0"
+                    step="1000"
+                    className="calc-input"
+                  />
+                </div>
+                <div className="down-payment-percent">
+                  {((calculatorData.downPayment / calculatorData.homePrice) * 100).toFixed(1)}% down
+                </div>
+              </div>
+
+              <div className="calc-input-group">
+                <label htmlFor="interestRate">Interest Rate (%)</label>
+                <div className="input-wrapper">
+                  <input
+                    type="number"
+                    id="interestRate"
+                    name="interestRate"
+                    value={calculatorData.interestRate}
+                    onChange={handleCalculatorChange}
+                    min="0"
+                    max="20"
+                    step="0.1"
+                    className="calc-input"
+                  />
+                  <span className="input-suffix">%</span>
+                </div>
+              </div>
+
+              <div className="calc-input-group">
+                <label htmlFor="loanTerm">Loan Term</label>
+                <select
+                  id="loanTerm"
+                  name="loanTerm"
+                  value={calculatorData.loanTerm}
+                  onChange={handleCalculatorChange}
+                  className="calc-select"
+                >
+                  <option value="15">15 years</option>
+                  <option value="20">20 years</option>
+                  <option value="30">30 years</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="calculator-results">
+              <div className="result-card primary">
+                <div className="result-label">Monthly Payment</div>
+                <div className="result-value">{formatCurrency(monthlyPayment)}</div>
+                <div className="result-note">Principal & Interest</div>
+              </div>
+
+              <div className="result-details">
+                <div className="result-row">
+                  <span className="result-label-small">Loan Amount</span>
+                  <span className="result-value-small">{formatCurrency(calculatorData.homePrice - calculatorData.downPayment)}</span>
+                </div>
+                <div className="result-row">
+                  <span className="result-label-small">Total Interest Paid</span>
+                  <span className="result-value-small">{formatCurrency(totalInterest)}</span>
+                </div>
+                <div className="result-row">
+                  <span className="result-label-small">Total Payment</span>
+                  <span className="result-value-small">{formatCurrency(totalPayment)}</span>
+                </div>
+              </div>
+
+              <div className="calculator-cta">
+                <p>Ready to get pre-approved? Let's connect you with our trusted lenders.</p>
+                <button className="cta-button primary" onClick={scrollToContact}>
+                  Get Pre-Approved Today
+                </button>
+              </div>
             </div>
           </div>
         </div>

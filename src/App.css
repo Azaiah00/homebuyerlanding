@@ -810,6 +810,217 @@ section {
 }
 
 /* ============================================
+   MORTGAGE CALCULATOR SECTION
+   ============================================ */
+
+.mortgage-calculator {
+  background: #f7fafc;
+  padding: 6rem 0;
+}
+
+.calculator-wrapper {
+  max-width: 1000px;
+  margin: 3rem auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.calculator-inputs {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.calc-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.calc-input-group label {
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 1rem;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-prefix {
+  position: absolute;
+  left: 1rem;
+  color: #718096;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.input-suffix {
+  position: absolute;
+  right: 1rem;
+  color: #718096;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.calc-input {
+  width: 100%;
+  padding: 1rem;
+  padding-left: 2.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.calc-input:focus {
+  outline: none;
+  border-color: #c9a961;
+  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
+}
+
+.calc-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.calc-input[type="number"]::-webkit-outer-spin-button,
+.calc-input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.calc-select {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.calc-select:focus {
+  outline: none;
+  border-color: #c9a961;
+  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
+}
+
+.down-payment-percent {
+  font-size: 0.9rem;
+  color: #c9a961;
+  font-weight: 600;
+  text-align: right;
+}
+
+.calculator-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.result-card {
+  background: linear-gradient(135deg, #c9a961, #d4af37);
+  color: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(201, 169, 97, 0.3);
+}
+
+.result-card.primary {
+  background: linear-gradient(135deg, #c9a961, #d4af37);
+}
+
+.result-label {
+  font-size: 1rem;
+  opacity: 0.95;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.result-value {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.result-note {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.result-details {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.result-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.result-label-small {
+  color: #718096;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.result-value-small {
+  color: #2d3748;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.calculator-cta {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.calculator-cta p {
+  color: #718096;
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.calculator-cta .cta-button {
+  width: 100%;
+}
+
+/* ============================================
    PRIORITY ACCESS SECTION
    ============================================ */
 
@@ -1773,6 +1984,19 @@ section {
 
   .contact-form {
     padding: 2rem;
+  }
+
+  .calculator-wrapper {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .calculator-inputs {
+    padding: 2rem;
+  }
+
+  .result-value {
+    font-size: 2.2rem;
   }
 
   .priority-visual {
