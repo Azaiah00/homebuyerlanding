@@ -319,7 +319,7 @@ function App() {
       {/* SECTION 2: MONEY TALK */}
       <section id="money-talk" className="money-talk fade-in-section">
         <div className="container">
-          <h2 className="section-title">Money Talk (No Jargon, We Promise)</h2>
+          <h2 className="section-title">Money Talk</h2>
           <p className="section-subtitle">No surprises. Here's what to expect financially.</p>
           <div className="money-grid">
             <div className="money-card">
@@ -347,6 +347,13 @@ function App() {
                   </div>
                 </li>
                 <li>
+                  <span className="cost-icon">📝</span>
+                  <div>
+                    <strong>Closing Costs</strong>
+                    <span>~2.5% - 3%</span>
+                  </div>
+                </li>
+                <li>
                   <span className="cost-icon">💵</span>
                   <div>
                     <strong>Earnest Money Deposit (EMD)</strong>
@@ -368,17 +375,10 @@ function App() {
                   </div>
                 </li>
                 <li>
-                  <span className="cost-icon">📝</span>
-                  <div>
-                    <strong>Closing Costs</strong>
-                    <span>~2.5% - 3%</span>
-                  </div>
-                </li>
-                <li>
                   <span className="cost-icon">✅</span>
                   <div>
                     <strong>Buyer's Commission</strong>
-                    <span>Typically paid by the Seller</span>
+                    <span>3% (Typically paid by the Seller)</span>
                   </div>
                 </li>
               </ul>
@@ -471,7 +471,7 @@ function App() {
               <div className="result-card primary">
                 <div className="result-label">Monthly Payment</div>
                 <div className="result-value">{formatCurrency(monthlyPayment)}</div>
-                <div className="result-note">Principal & Interest</div>
+                <div className="result-note">Principal & Interest (does not include taxes and insurance)</div>
               </div>
 
               <div className="result-details">
@@ -571,7 +571,6 @@ function App() {
       <section id="winning-offer" className="winning-offer fade-in-section">
         <div className="container">
           <h2 className="section-title">Crafting a Winning Offer</h2>
-          <p className="section-subtitle">The average home in the DMV receives <strong>8 offers</strong>. Here's how we make yours the one that wins:</p>
           
           <div className="offer-components-grid">
             <div className="offer-component-card">
@@ -615,6 +614,23 @@ function App() {
             </div>
 
             <div className="offer-component-card">
+              <div className="component-icon">💵</div>
+              <h3 className="component-title">Down Payment</h3>
+              <p className="component-description">
+                The down payment is the initial cash amount you pay toward the purchase price of the home. It's your equity stake in the property from day one.
+              </p>
+              <p className="component-description">
+                <strong>Minimum down payment:</strong> Typically 3% for conventional loans (though some programs allow less), and can go up to 20% or more.
+              </p>
+              <p className="component-description">
+                <strong>Benefits of a larger down payment:</strong> Better loan terms, lower monthly payments, and may eliminate the need for private mortgage insurance (PMI).
+              </p>
+              <p className="component-description">
+                The amount you put down will depend on your financial situation, the type of loan you're using, and your long-term financial goals.
+              </p>
+            </div>
+
+            <div className="offer-component-card">
               <div className="component-icon">🏦</div>
               <h3 className="component-title">Lender/Title Company</h3>
               <p className="component-description">
@@ -648,23 +664,6 @@ function App() {
               </p>
               <p className="component-description">
                 <strong>Strategy:</strong> Both contingencies are crucial protections, but shorter contingency periods can make your offer more competitive in hot markets.
-              </p>
-            </div>
-
-            <div className="offer-component-card">
-              <div className="component-icon">💵</div>
-              <h3 className="component-title">Down Payment</h3>
-              <p className="component-description">
-                The down payment is the initial cash amount you pay toward the purchase price of the home. It's your equity stake in the property from day one.
-              </p>
-              <p className="component-description">
-                <strong>Minimum down payment:</strong> Typically 3% for conventional loans (though some programs allow less), and can go up to 20% or more.
-              </p>
-              <p className="component-description">
-                <strong>Benefits of a larger down payment:</strong> Better loan terms, lower monthly payments, and may eliminate the need for private mortgage insurance (PMI).
-              </p>
-              <p className="component-description">
-                The amount you put down will depend on your financial situation, the type of loan you're using, and your long-term financial goals.
               </p>
             </div>
 
@@ -821,6 +820,12 @@ function App() {
                 I'm licensed in Virginia, Washington DC, and Maryland - the entire DMV area! Whether you're looking in Arlington, Bethesda, Alexandria, or anywhere in between, I can help you find your perfect home.
               </p>
             </div>
+            <div className="faq-item">
+              <h3 className="faq-question">Are there any first time home buyer programs?</h3>
+              <p className="faq-answer">
+                Yes! There are several first-time home buyer programs available that can help with down payment assistance, lower interest rates, and reduced closing costs. These programs vary by state and locality, and can include options like FHA loans, VA loans (for eligible veterans), and state-specific programs. Your mortgage lender can provide more detailed information about first-time home buyer programs that you may qualify for based on your specific situation and location.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -841,10 +846,6 @@ function App() {
             <div className="trust-badge">
               <span className="badge-icon">✓</span>
               <span>7+ Years Experience</span>
-            </div>
-            <div className="trust-badge">
-              <span className="badge-icon">✓</span>
-              <span>5,275+ Families Helped</span>
             </div>
           </div>
 
