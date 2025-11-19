@@ -289,14 +289,14 @@ function App() {
                 This is the fun part! We'll set you up with <strong>real-time MLS alerts</strong> (not 24-hour-delayed Zillow data).
               </p>
               <p className="step-description">
-                Plus, you'll get access to our exclusive <strong>'Priority Access' list</strong> of off-market homes you can't find online. Last month alone, 3 of our clients found homes that never hit the market.
+                Plus, you'll get access to our exclusive <strong>'Priority Access' list</strong> of off-market homes you can't find online.
               </p>
             </div>
             <div className="step-card">
               <div className="step-number">3</div>
               <h3 className="step-title">Craft the Winning Offer</h3>
               <p className="step-description">
-                Found 'the one'? Now we put our experience to work. The KS Team has negotiated over <strong>5,275 contracts</strong>.
+                Found 'the one'? Now we put our experience to work.
               </p>
               <p className="step-description">
                 We'll analyze comparable sales, seller motivations, and market conditions to craft an offer that stands out—even when there are 10+ competing bids.
@@ -306,7 +306,7 @@ function App() {
               <div className="step-number">4</div>
               <h3 className="step-title">Close, Get Your Keys & Party!</h3>
               <p className="step-description">
-                We handle every detail from contract to closing. <strong>Our average closing time: 28 days.</strong>
+                We handle every detail from contract to closing. <strong>Our average closing time: 30 days.</strong>
               </p>
               <p className="step-description">
                 And yes, we really do throw housewarming parties for our clients! Welcome to the family.
