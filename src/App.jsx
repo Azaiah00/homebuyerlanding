@@ -279,7 +279,7 @@ function App() {
                 It all starts here. We'll connect you with our trusted local lenders to get you fully Pre-Approved (not just Pre-Qualified!).
               </p>
               <p className="step-description">
-                <strong>Average time: 48 hours.</strong> This makes you a 'power-buyer' and sets you up to win from day one.
+                This makes you a 'power-buyer' and sets you up to win from day one.
               </p>
             </div>
             <div className="step-card">
