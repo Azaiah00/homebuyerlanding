@@ -229,9 +229,9 @@ function App() {
             </div>
           </div>
           <h1 className="hero-title">Your Keys to the DMV: A Step-by-Step Home Buying Plan</h1>
-          <p className="hero-slogan">Work with a DMV Native who knows the neighborhoods, not just the listings—so you see homes before they hit Zillow.</p>
+          <p className="hero-slogan">Work with a DMV Native who knows the neighborhoods, not just the listings.</p>
           <p className="hero-intro">
-            Hi, I'm Frederick Sales! Finding your next home is a huge step, and I'm here to make it smarter, simpler, and way more fun. 
+            Hi, I'm Frederick Sales! I grew up in Alexandria, VA and I currently live in Washington DC in the SW Waterfront neighborhood. Finding your next home is a huge step, and I'm here to make it smarter, simpler, and way more fun. 
             With 7+ years of experience in VA, DC, and MD, I've built a "Winning Game Plan" to get you the perfect home. Let's get started!
           </p>
           <button className="cta-button primary" onClick={scrollToContact}>
