@@ -229,13 +229,14 @@ function App() {
             </div>
           </div>
           <h1 className="hero-title">The Ultimate Guide to Buying Your Dream Home in the DMV</h1>
-          <h2 className="hero-subtitle">From "Just Looking" to "Just Moved In" with Frederick Sales & the KS Team</h2>
+          <p className="hero-slogan">Work with a DMV Native who knows the neighborhoods, not just the listings.</p>
           <p className="hero-intro">
-            Hi, I'm Frederick Sales! Finding your next home is a huge step, and I'm here to make it smarter, simpler, and way more fun. 
+            Hi, I'm Frederick Sales! I grew up in Alexandria, VA and currently live in Washington DC's SW Waterfront Neighborhood. 
+            Finding your next home is a huge step, and I'm here to make it smarter, simpler, and way more fun. 
             With 7+ years of experience in VA, DC, and MD, I've built a "Winning Game Plan" to get you the perfect home. Let's get started!
           </p>
           <button className="cta-button primary" onClick={scrollToContact}>
-            Let's Find My Home!
+            Schedule My Free Strategy Session
           </button>
         </div>
       </section>
@@ -623,7 +624,7 @@ function App() {
           <div className="offer-cta-box">
             <p className="offer-cta-text">Ready to craft your winning offer? Let's discuss your strategy.</p>
             <button className="cta-button primary" onClick={scrollToContact}>
-              Schedule Strategy Call
+              Schedule My Free Strategy Session
             </button>
           </div>
         </div>
@@ -842,7 +843,7 @@ function App() {
               </div>
             </div>
             <button type="submit" className={`cta-button primary large ${formSubmitted ? 'submitting' : ''}`} disabled={formSubmitted}>
-              {formSubmitted ? 'Submitting...' : 'Schedule My Strategy Call!'}
+              {formSubmitted ? 'Submitting...' : 'Schedule My Free Strategy Session'}
             </button>
             <p className="form-privacy">We respect your privacy. Your information will never be shared.</p>
           </form>
