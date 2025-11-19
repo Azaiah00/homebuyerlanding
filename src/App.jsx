@@ -504,26 +504,7 @@ function App() {
         </div>
       </section>
 
-      {/* SECTION 3: PRIORITY ACCESS */}
-      <section className="priority-access fade-in-section">
-        <div className="container">
-          <h2 className="section-title">Your Secret Weapon: The Priority Access Program</h2>
-          <div className="priority-content">
-            <div className="priority-visual">
-              <div className="house-icon locked">🏠</div>
-              <div className="arrow">→</div>
-              <div className="house-icon unlocked">🏠</div>
-            </div>
-            <p className="priority-text">
-              Why limit your search to what's on Zillow? As a KS Team client, you get exclusive access to homes NOT listed 
-              anywhere online. We find these 'hidden gems' through our massive seller database, agent referral network, and 
-              targeted marketing. You get first dibs!
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 4: WEALTH BUILDING */}
+      {/* SECTION 3: WEALTH BUILDING */}
       <section className="wealth-building fade-in-section">
         <div className="container">
           <h2 className="section-title">This Isn't Just a Home. It's Your Biggest Wealth-Builder.</h2>
@@ -562,6 +543,25 @@ function App() {
             </div>
             <p className="wealth-takeaway">
               This is why more wealth is created in real estate than any other sector. You're not just paying a mortgage—you're paying yourself.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 4: PRIORITY ACCESS */}
+      <section className="priority-access fade-in-section">
+        <div className="container">
+          <h2 className="section-title">Your Secret Weapon: The Priority Access Program</h2>
+          <div className="priority-content">
+            <div className="priority-visual">
+              <div className="house-icon locked">🏠</div>
+              <div className="arrow">→</div>
+              <div className="house-icon unlocked">🏠</div>
+            </div>
+            <p className="priority-text">
+              Why limit your search to what's on Zillow? As a KS Team client, you get exclusive access to homes NOT listed 
+              anywhere online. We find these 'hidden gems' through our massive seller database, agent referral network, and 
+              targeted marketing. You get first dibs!
             </p>
           </div>
         </div>
