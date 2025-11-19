@@ -164,8 +164,17 @@ function App() {
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <div className="hero-image-wrapper">
-            {/* Replace this with your professional photo */}
-            <div className="hero-photo-placeholder">
+            <img 
+              src="/images/frederick-headshot.jpg" 
+              alt="Frederick Sales - Real Estate Agent"
+              className="hero-photo"
+              onError={(e) => {
+                // Fallback to placeholder if image doesn't exist
+                e.target.style.display = 'none';
+                e.target.nextElementSibling.style.display = 'flex';
+              }}
+            />
+            <div className="hero-photo-placeholder" style={{display: 'none'}}>
               <span>📸</span>
               <p>Add Your Professional Photo Here</p>
             </div>
