@@ -397,46 +397,6 @@ function App() {
         </div>
       </section>
 
-      {/* TESTIMONIALS SECTION */}
-      <section className="testimonials fade-in-section">
-        <div className="container">
-          <h2 className="section-title">What Our Clients Say</h2>
-          <p className="section-subtitle">Don't just take our word for it—hear from families we've helped find their dream homes.</p>
-          <div className="testimonials-grid">
-            <div className="testimonial-card">
-              <div className="testimonial-stars">★★★★★</div>
-              <p className="testimonial-text">
-                "Frederick made our homebuying journey so smooth! His Priority Access program helped us find our perfect home before it even hit the market. We couldn't be happier!"
-              </p>
-              <div className="testimonial-author">
-                <strong>Sarah & Mike Johnson</strong>
-                <span>Arlington, VA</span>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-stars">★★★★★</div>
-              <p className="testimonial-text">
-                "The KS Team's negotiation skills are incredible. They saved us thousands and got us the home we wanted in a competitive market. Highly recommend!"
-              </p>
-              <div className="testimonial-author">
-                <strong>David Chen</strong>
-                <span>Bethesda, MD</span>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-stars">★★★★★</div>
-              <p className="testimonial-text">
-                "From pre-approval to closing, Frederick and his team were with us every step. The housewarming party was the cherry on top! We're part of the family now."
-              </p>
-              <div className="testimonial-author">
-                <strong>Jennifer Martinez</strong>
-                <span>Washington, DC</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* SECTION 6: WELCOME TO THE FAMILY */}
       <section className="family fade-in-section">
         <div className="container">
