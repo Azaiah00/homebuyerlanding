@@ -228,7 +228,7 @@ function App() {
               <p>Add Your Professional Photo Here</p>
             </div>
           </div>
-          <h1 className="hero-title">The Ultimate Guide to Buying Your Dream Home in the DMV</h1>
+          <h1 className="hero-title">Your Keys to the DMV: A Step-by-Step Home Buying Plan</h1>
           <p className="hero-slogan">Work with a DMV Native who knows the neighborhoods, not just the listings.</p>
           <p className="hero-intro">
             Hi, I'm Frederick Sales! I grew up in Alexandria, VA and currently live in Washington DC's SW Waterfront Neighborhood. 
