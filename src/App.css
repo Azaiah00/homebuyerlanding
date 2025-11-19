@@ -1587,32 +1587,29 @@ section {
   margin-bottom: 1.5rem;
 }
 
-.footer-social {
+.footer-contact {
   display: flex;
-  justify-content: center;
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: 0.8rem;
   margin-bottom: 2rem;
-}
-
-.footer-social a {
-  width: 45px;
-  height: 45px;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  font-size: 1.5rem;
-  text-decoration: none;
-  border: 2px solid transparent;
 }
 
-.footer-social a:hover {
-  background: rgba(201, 169, 97, 0.2);
-  border-color: rgba(201, 169, 97, 0.5);
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(201, 169, 97, 0.3);
+.footer-email,
+.footer-phone {
+  color: #c9a961;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.footer-email:hover,
+.footer-phone:hover {
+  color: #d4af37;
+  transform: translateY(-2px);
+  text-decoration: underline;
 }
 
 .footer-logos {

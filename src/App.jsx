@@ -701,19 +701,9 @@ function App() {
             <div className="footer-info">
               <p className="footer-name">Frederick Sales | Realtor®</p>
               <p className="footer-license">Licensed in VA, DC, & MD</p>
-              <div className="footer-social">
-                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                  <span>📘</span>
-                </a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  <span>📷</span>
-                </a>
-                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                  <span>💼</span>
-                </a>
-                <a href="mailto:frederick@example.com" aria-label="Email">
-                  <span>✉️</span>
-                </a>
+              <div className="footer-contact">
+                <a href="mailto:fred@kerishullteam.com" className="footer-email">fred@kerishullteam.com</a>
+                <a href="tel:7033994394" className="footer-phone">(703) 399-4394</a>
               </div>
             </div>
             <div className="footer-logos">
