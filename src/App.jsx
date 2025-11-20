@@ -511,12 +511,14 @@ function App() {
                 <div className="roi-label">Total Net Gain</div>
                 <div className="roi-percentage">ROI: 185%</div>
               </div>
+              <div className="roi-arrow">→</div>
               <div className="roi-card">
                 <div className="roi-period">IN 10 YEARS</div>
                 <div className="roi-amount">$261,300</div>
                 <div className="roi-label">Total Net Gain</div>
                 <div className="roi-percentage">ROI: 402%</div>
               </div>
+              <div className="roi-arrow">→</div>
               <div className="roi-card">
                 <div className="roi-period">IN 20 YEARS</div>
                 <div className="roi-amount">$620,100</div>

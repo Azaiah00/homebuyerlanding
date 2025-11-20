@@ -1306,10 +1306,34 @@ section {
 }
 
 .roi-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.roi-arrow {
+  font-size: 3rem;
+  color: #dc2626;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
 }
 
 .roi-card {
@@ -2268,7 +2292,13 @@ section {
   }
 
   .roi-cards {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .roi-arrow {
+    font-size: 2.5rem;
+    transform: rotate(90deg);
   }
 
   .stats-grid {
