@@ -1838,30 +1838,51 @@ section {
    ============================================ */
 
 .testimonials {
-  background: #ffffff;
+  background: linear-gradient(to bottom, #f7fafc 0%, #ffffff 100%);
   padding: 6rem 0;
+  position: relative;
+}
+
+.testimonials::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201, 169, 97, 0.3), transparent);
 }
 
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2.5rem;
   margin-top: 3rem;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .testimonial-item {
   position: relative;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   background: white;
   cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0.5rem;
 }
 
 .testimonial-item:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-10px);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(201, 169, 97, 0.2);
+  border-color: rgba(201, 169, 97, 0.3);
 }
 
 .testimonial-image {
@@ -1869,28 +1890,59 @@ section {
   height: auto;
   display: block;
   border-radius: 12px;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  object-fit: contain;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .testimonial-item:hover .testimonial-image {
-  transform: scale(1.02);
+  transform: scale(1.01);
+}
+
+/* Ensure images maintain aspect ratio and are readable */
+.testimonial-item img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Responsive adjustments for testimonials */
+@media (max-width: 1024px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .testimonials-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
+    max-width: 600px;
   }
 
   .testimonials {
     padding: 4rem 0;
   }
+
+  .testimonial-item {
+    padding: 0.4rem;
+  }
 }
 
 @media (max-width: 480px) {
   .testimonials-grid {
-    gap: 1rem;
+    gap: 1.5rem;
+  }
+
+  .testimonial-item {
+    border-radius: 12px;
+    padding: 0.3rem;
+  }
+
+  .testimonial-image {
+    border-radius: 10px;
   }
 }
 

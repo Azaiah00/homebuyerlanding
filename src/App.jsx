@@ -715,6 +715,8 @@ function App() {
       </section>
 
       {/* SECTION 5: KS TEAM ADVANTAGE */}
+      {/* SECTION 5: KS TEAM ADVANTAGE */}
+      {/* SECTION 5: KS TEAM ADVANTAGE */}
       <section id="team-advantage" className="team-advantage fade-in-section">
         <div className="container">
           <h2 className="section-title">Why Work With Me & The KS Team?</h2>
@@ -786,7 +788,7 @@ function App() {
             {/* You can add or remove testimonial items as needed */}
             <div className="testimonial-item">
               <img 
-                src="/images/review-1.jpg" 
+                src="/images/review-1.png" 
                 alt="Client Review 1"
                 className="testimonial-image"
                 loading="lazy"
@@ -797,7 +799,7 @@ function App() {
             </div>
             <div className="testimonial-item">
               <img 
-                src="/images/review-2.jpg" 
+                src="/images/review-2.png" 
                 alt="Client Review 2"
                 className="testimonial-image"
                 loading="lazy"
@@ -808,7 +810,7 @@ function App() {
             </div>
             <div className="testimonial-item">
               <img 
-                src="/images/review-3.jpg" 
+                src="/images/review-3.png" 
                 alt="Client Review 3"
                 className="testimonial-image"
                 loading="lazy"
@@ -819,30 +821,8 @@ function App() {
             </div>
             <div className="testimonial-item">
               <img 
-                src="/images/review-4.jpg" 
+                src="/images/review-4.png" 
                 alt="Client Review 4"
-                className="testimonial-image"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
-            </div>
-            <div className="testimonial-item">
-              <img 
-                src="/images/review-5.jpg" 
-                alt="Client Review 5"
-                className="testimonial-image"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
-            </div>
-            <div className="testimonial-item">
-              <img 
-                src="/images/review-6.jpg" 
-                alt="Client Review 6"
                 className="testimonial-image"
                 loading="lazy"
                 onError={(e) => {
