@@ -697,6 +697,26 @@ function App() {
                 <strong>Note:</strong> Oftentimes, larger banks need more time to work through loan approval, as they work with several 3rd party vendors throughout the lending process. This can be detrimental in the offer process since the seller is looking for the most concrete offer and extended contingencies can make them very nervous. Additionally, the lack of speed can be extremely stressful for the purchaser as we work through the waiting game of approval. This is why we recommend using our preferred lenders. If you do not have a financing contingency and cannot qualify for the loan, your deposit is at risk, so make sure you discuss your options with your lender and your agent as you navigate this decision.
               </div>
             </div>
+
+            <div className="offer-component-card">
+              <div className="component-icon">🏘️</div>
+              <h3 className="component-title">HOA/Condo Association</h3>
+              <p className="component-description">
+                If you're buying a condominium or a home in a community with a Homeowners Association (HOA), understanding the association and its fees is crucial to your home buying decision.
+              </p>
+              <p className="component-description">
+                <strong>HOA/Condo Fees:</strong> These monthly or annual fees cover shared expenses like maintenance of common areas, amenities (pools, gyms, landscaping), insurance for common areas, and reserve funds for future repairs. Fees can range from a few hundred to over a thousand dollars per month, depending on the community and amenities offered.
+              </p>
+              <p className="component-description">
+                <strong>Why It Matters:</strong> HOA fees directly impact your monthly housing costs and affordability. They also govern what you can and cannot do with your property through rules, regulations, and covenants. Understanding these fees and rules upfront helps you make an informed decision and avoid surprises after closing.
+              </p>
+              <p className="component-description">
+                <strong>Document Review Period/Contingency:</strong> When you're under contract, you have a specific period to review all HOA/Condo association documents, including bylaws, rules, financial statements, and meeting minutes. This review period is a critical contingency that allows you to understand the association's financial health, rules, and any pending special assessments.
+              </p>
+              <p className="component-description">
+                <strong>Review Periods by State:</strong> In DC and MD, you have <strong>3 business days</strong> to review HOA/Condo documents. In Virginia, you have <strong>3 days</strong> (calendar days) for both HOA and Condo document review periods when under contract. During this time, you can review the documents and decide if you want to proceed with the purchase or withdraw from the contract.
+              </p>
+            </div>
           </div>
 
           <div className="offer-cta-box">
