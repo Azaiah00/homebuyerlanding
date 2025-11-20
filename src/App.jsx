@@ -15,9 +15,9 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [formErrors, setFormErrors] = useState({})
   const [calculatorData, setCalculatorData] = useState({
-    homePrice: 650000,
-    downPaymentPercent: 10,
-    interestRate: 6.5,
+    homePrice: '',
+    downPaymentPercent: '',
+    interestRate: '',
     loanTerm: 30
   })
   const [monthlyPayment, setMonthlyPayment] = useState(0)
@@ -26,9 +26,13 @@ function App() {
 
   // Calculate mortgage payment
   useEffect(() => {
-    const downPaymentAmount = (calculatorData.homePrice * calculatorData.downPaymentPercent) / 100
-    const principal = calculatorData.homePrice - downPaymentAmount
-    const monthlyRate = (calculatorData.interestRate / 100) / 12
+    const homePrice = parseFloat(calculatorData.homePrice) || 0
+    const downPaymentPercent = parseFloat(calculatorData.downPaymentPercent) || 0
+    const interestRate = parseFloat(calculatorData.interestRate) || 0
+    
+    const downPaymentAmount = (homePrice * downPaymentPercent) / 100
+    const principal = homePrice - downPaymentAmount
+    const monthlyRate = (interestRate / 100) / 12
     const numberOfPayments = calculatorData.loanTerm * 12
 
     if (principal > 0 && monthlyRate > 0 && numberOfPayments > 0) {
@@ -245,7 +249,7 @@ function App() {
             With 7+ years of experience in VA, DC, and MD, I've built a "Winning Game Plan" to get you the perfect home. Let's get started!
           </p>
           <button className="cta-button primary" onClick={scrollToContact}>
-            Schedule My Free Strategy Session
+            Schedule My Free Buyer Consultation
           </button>
         </div>
       </section>
@@ -306,7 +310,7 @@ function App() {
           <p className="section-subtitle">No surprises. Here's what to expect financially.</p>
           <div className="money-grid">
             <div className="money-card">
-              <h3 className="money-card-title">Pre-Qualified vs. Pre-Approved</h3>
+              <h3 className="money-card-title"><span className="tooltip-trigger" data-tooltip="Pre-Qualified: A quick estimate based on basic information you provide. Not verified. Pre-Approved: A thorough review with document verification that makes you a serious, competitive buyer.">Pre-Qualified</span> vs. <span className="tooltip-trigger" data-tooltip="Pre-Approved: A thorough qualification with document verification. This makes you a serious buyer and lets you act fast. Required to be competitive in today's market.">Pre-Approved</span></h3>
               <div className="comparison-item">
                 <div className="comparison-badge">7 Mins</div>
                 <h4>Pre-Qualified</h4>
@@ -332,7 +336,7 @@ function App() {
                 <li>
                   <span className="cost-icon">📝</span>
                   <div>
-                    <strong>Closing Costs</strong>
+                    <strong><span className="tooltip-trigger" data-tooltip="Closing Costs: Fees paid at settlement including appraisal, inspection, title insurance, loan origination, and recording fees. Typically 2.5-3% of home price in the DMV.">Closing Costs</span></strong>
                     <span>~2.5% - 3%</span>
                   </div>
                 </li>
@@ -346,14 +350,14 @@ function App() {
                 <li>
                   <span className="cost-icon">🔍</span>
                   <div>
-                    <strong>Home Inspection</strong>
+                    <strong><span className="tooltip-trigger" data-tooltip="Home Inspection: A professional evaluation of the property's condition, including structural elements, systems (HVAC, plumbing, electrical), and safety concerns. Allows you to negotiate repairs or withdraw if major issues are found.">Home Inspection</span></strong>
                     <span>~$350 - $750</span>
                   </div>
                 </li>
                 <li>
                   <span className="cost-icon">📊</span>
                   <div>
-                    <strong>Appraisal</strong>
+                    <strong><span className="tooltip-trigger" data-tooltip="Appraisal: A professional assessment of the home's value by a licensed appraiser. Required by lenders to ensure the property is worth the loan amount. If the appraisal comes in lower than your offer, you can renegotiate or walk away.">Appraisal</span></strong>
                     <span>~$400 - $600+</span>
                   </div>
                 </li>
@@ -412,7 +416,9 @@ function App() {
                   <span className="input-suffix">%</span>
                 </div>
                 <div className="down-payment-amount">
-                  {formatCurrency((calculatorData.homePrice * calculatorData.downPaymentPercent) / 100)} down
+                  {calculatorData.homePrice && calculatorData.downPaymentPercent 
+                    ? formatCurrency((parseFloat(calculatorData.homePrice) * parseFloat(calculatorData.downPaymentPercent)) / 100) + ' down'
+                    : '$0 down'}
                 </div>
               </div>
 
@@ -460,11 +466,19 @@ function App() {
               <div className="result-details">
                 <div className="result-row">
                   <span className="result-label-small">Down Payment</span>
-                  <span className="result-value-small">{formatCurrency((calculatorData.homePrice * calculatorData.downPaymentPercent) / 100)}</span>
+                  <span className="result-value-small">
+                    {calculatorData.homePrice && calculatorData.downPaymentPercent 
+                      ? formatCurrency((parseFloat(calculatorData.homePrice) * parseFloat(calculatorData.downPaymentPercent)) / 100)
+                      : '$0'}
+                  </span>
                 </div>
                 <div className="result-row">
                   <span className="result-label-small">Loan Amount</span>
-                  <span className="result-value-small">{formatCurrency(calculatorData.homePrice - ((calculatorData.homePrice * calculatorData.downPaymentPercent) / 100))}</span>
+                  <span className="result-value-small">
+                    {calculatorData.homePrice && calculatorData.downPaymentPercent 
+                      ? formatCurrency(parseFloat(calculatorData.homePrice) - ((parseFloat(calculatorData.homePrice) * parseFloat(calculatorData.downPaymentPercent)) / 100))
+                      : '$0'}
+                  </span>
                 </div>
                 <div className="result-row mobile-hide">
                   <span className="result-label-small">Total Interest Paid</span>
@@ -632,7 +646,7 @@ function App() {
 
             <div className="offer-component-card">
               <div className="component-icon">🔍</div>
-              <h3 className="component-title">Home Inspection Contingency & Appraisal Contingency</h3>
+              <h3 className="component-title">Home Inspection <span className="tooltip-trigger" data-tooltip="Contingency: A condition in your offer that must be met for the sale to proceed. If not met, you can withdraw without penalty.">Contingency</span> & Appraisal <span className="tooltip-trigger" data-tooltip="Contingency: A condition in your offer that must be met for the sale to proceed. If not met, you can withdraw without penalty.">Contingency</span></h3>
               <p className="component-description">
                 <strong>Home Inspection Contingency:</strong> This gives you the right to have the property professionally inspected and to negotiate repairs or withdraw from the contract if major issues are found.
               </p>
@@ -705,7 +719,7 @@ function App() {
           <div className="offer-cta-box">
             <p className="offer-cta-text">Ready to craft your winning offer? Let's discuss your strategy.</p>
             <button className="cta-button primary" onClick={scrollToContact}>
-              Schedule My Free Strategy Session
+              Schedule My Free Buyer Consultation
             </button>
           </div>
         </div>
@@ -900,52 +914,46 @@ function App() {
         <div className="container">
           <h2 className="section-title">Ready to Start Your Home Search?</h2>
           <p className="cta-quote">"All we ask from you is your loyalty. In return, you get our 100% commitment and expertise."</p>
-          <p className="section-subtitle">Let's set up a 15-minute, no-obligation buyer strategy call. No pressure, just a great conversation about your goals.</p>
+          <p className="section-subtitle">Let's set up a 30-minute, no-obligation buyer consultation. No pressure, just a great conversation about your goals.</p>
           
           {/* What's Included Section */}
           <div className="consultation-includes">
-            <h3 className="includes-title">What's Included in Your Free Strategy Consultation:</h3>
-            <ul className="includes-list">
-              <li className="includes-item">
-                <span className="includes-icon">✓</span>
-                <span><strong>Personalized Home Buying Roadmap</strong> - A customized plan tailored to your timeline, budget, and goals</span>
-              </li>
-              <li className="includes-item">
-                <span className="includes-icon">✓</span>
-                <span><strong>Pre-Approval Strategy</strong> - Connect with trusted lenders for 48-hour pre-approval to become a "power buyer"</span>
-              </li>
-              <li className="includes-item">
-                <span className="includes-icon">✓</span>
-                <span><strong>Priority Access Preview</strong> - Learn how to access off-market homes before they hit Zillow</span>
-              </li>
-              <li className="includes-item">
-                <span className="includes-icon">✓</span>
-                <span><strong>Winning Offer Strategy</strong> - Discover proven tactics to craft offers that stand out in competitive markets</span>
-              </li>
-              <li className="includes-item">
-                <span className="includes-icon">✓</span>
-                <span><strong>DMV Market Insights</strong> - Get expert analysis of current market conditions in your target neighborhoods</span>
-              </li>
-              <li className="includes-item">
-                <span className="includes-icon">✓</span>
-                <span><strong>Budget & Timeline Planning</strong> - Understand all costs involved and create a realistic timeline for your home purchase</span>
-              </li>
-              <li className="includes-item">
-                <span className="includes-icon">✓</span>
-                <span><strong>KS Team Resources</strong> - Access to our network of trusted lenders, inspectors, and vendors</span>
-              </li>
-            </ul>
-          </div>
-          
-          {/* Trust Badges */}
-          <div className="trust-badges">
-            <div className="trust-badge">
-              <span className="badge-icon">✓</span>
-              <span>Licensed in VA, DC & MD</span>
-            </div>
-            <div className="trust-badge">
-              <span className="badge-icon">✓</span>
-              <span>7+ Years Experience</span>
+            <h3 className="includes-title">What's Included in Your Free Buyer Consultation:</h3>
+            <div className="includes-content">
+              <ul className="includes-list">
+                <li className="includes-item">
+                  <span className="includes-icon">✓</span>
+                  <span><strong>Personalized Home Buying Roadmap</strong> - A customized plan tailored to your timeline, budget, and goals</span>
+                </li>
+                <li className="includes-item">
+                  <span className="includes-icon">✓</span>
+                  <span><strong>Pre-Approval Strategy</strong> - Connect with trusted lenders for 48-hour pre-approval to become a "power buyer"</span>
+                </li>
+                <li className="includes-item">
+                  <span className="includes-icon">✓</span>
+                  <span><strong>Priority Access Preview</strong> - Learn how to access off-market homes before they hit Zillow</span>
+                </li>
+                <li className="includes-item">
+                  <span className="includes-icon">✓</span>
+                  <span><strong>Winning Offer Strategy</strong> - Discover proven tactics to craft offers that stand out in competitive markets</span>
+                </li>
+                <li className="includes-item">
+                  <span className="includes-icon">✓</span>
+                  <span><strong>DMV Market Insights</strong> - Get expert analysis of current market conditions in your target neighborhoods</span>
+                </li>
+                <li className="includes-item">
+                  <span className="includes-icon">✓</span>
+                  <span><strong>Budget & Timeline Planning</strong> - Understand all costs involved and create a realistic timeline for your home purchase</span>
+                </li>
+                <li className="includes-item">
+                  <span className="includes-icon">✓</span>
+                  <span><strong>KS Team Resources</strong> - Access to our network of trusted lenders, inspectors, and vendors</span>
+                </li>
+                <li className="includes-item highlight-item">
+                  <span className="includes-icon">💬</span>
+                  <span><strong>All Your Real Estate Questions Answered</strong> - Get expert answers to any questions you have about buying a home, the DMV market, neighborhoods, financing, or the home buying process</span>
+                </li>
+              </ul>
             </div>
           </div>
 
@@ -1020,7 +1028,7 @@ function App() {
               </div>
             </div>
             <button type="submit" className={`cta-button primary large ${formSubmitted ? 'submitting' : ''}`} disabled={formSubmitted}>
-              {formSubmitted ? 'Submitting...' : 'Schedule My Free Strategy Session'}
+              {formSubmitted ? 'Submitting...' : 'Schedule My Free Buyer Consultation'}
             </button>
             <p className="form-privacy">We respect your privacy. Your information will never be shared.</p>
           </form>
@@ -1031,7 +1039,7 @@ function App() {
               <div className="success-modal" onClick={(e) => e.stopPropagation()}>
                 <div className="success-icon">✓</div>
                 <h3>Thank You!</h3>
-                <p>We've received your information and will be in touch soon to schedule your strategy call.</p>
+                <p>We've received your information and will be in touch soon to schedule your buyer consultation.</p>
                 <button className="cta-button primary" onClick={closeSuccessModal}>Got It!</button>
               </div>
             </div>
