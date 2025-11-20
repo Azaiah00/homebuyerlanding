@@ -606,7 +606,7 @@ function App() {
                 The EMD (earnest money deposit) goes into an escrow account at the title company until settlement. At closing, it's credited back to you and can be used toward your down payment or refunded.
               </p>
               <p className="component-description">
-                <strong>Market average in DMV:</strong> 1-5% of purchase price. The larger the EMD, the more security the seller has that you'll move forward to settlement.
+                <strong>Market average in DMV:</strong> 1-5% of purchase price. 3% EMD is the standard. The larger the EMD, the more security the seller has that you'll move forward to settlement.
               </p>
               <p className="component-description">
                 <strong>Our strategy:</strong> If you have liquidity, a larger EMD is an easy way to make your offer stand out—at no extra cost to you.
