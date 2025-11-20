@@ -1855,10 +1855,10 @@ section {
 
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-columns: 1fr;
   gap: 3rem;
   margin-top: 3rem;
-  max-width: 1600px;
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1874,7 +1874,8 @@ section {
   background: white;
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 0.5rem;
+  padding: 0.75rem;
+  width: 100%;
 }
 
 .testimonial-item:hover {
@@ -1894,6 +1895,8 @@ section {
   object-fit: contain;
   background: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  min-height: 400px;
+  object-position: top;
 }
 
 .testimonial-item:hover .testimonial-image {
@@ -1912,7 +1915,7 @@ section {
   .testimonials-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
-    max-width: 800px;
+    max-width: 900px;
   }
 }
 
