@@ -210,6 +210,7 @@ function App() {
             <button onClick={() => scrollToSection('priority-access')}>Priority Access</button>
             <button onClick={() => scrollToSection('winning-offer')}>Winning Offer</button>
             <button onClick={() => scrollToSection('team-advantage')}>Why Us</button>
+            <button onClick={() => scrollToSection('testimonials')}>Reviews</button>
             <button onClick={() => scrollToSection('faq')}>FAQ</button>
             <button className="nav-cta" onClick={scrollToContact}>Get Started</button>
           </div>
@@ -769,6 +770,85 @@ function App() {
                 We love the DMV. For every referral we receive, we donate $250 to charities like Habitat for Humanity, 
                 St. Jude's, and Meals on Wheels.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS SECTION */}
+      <section id="testimonials" className="testimonials fade-in-section">
+        <div className="container">
+          <h2 className="section-title">What Our Clients Say</h2>
+          <p className="section-subtitle">Real reviews from real clients who found their dream homes with us</p>
+          <div className="testimonials-grid">
+            {/* Add your review screenshots to /public/images/ folder */}
+            {/* Name them: review-1.jpg, review-2.jpg, review-3.jpg, etc. */}
+            {/* You can add or remove testimonial items as needed */}
+            <div className="testimonial-item">
+              <img 
+                src="/images/review-1.jpg" 
+                alt="Client Review 1"
+                className="testimonial-image"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            </div>
+            <div className="testimonial-item">
+              <img 
+                src="/images/review-2.jpg" 
+                alt="Client Review 2"
+                className="testimonial-image"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            </div>
+            <div className="testimonial-item">
+              <img 
+                src="/images/review-3.jpg" 
+                alt="Client Review 3"
+                className="testimonial-image"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            </div>
+            <div className="testimonial-item">
+              <img 
+                src="/images/review-4.jpg" 
+                alt="Client Review 4"
+                className="testimonial-image"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            </div>
+            <div className="testimonial-item">
+              <img 
+                src="/images/review-5.jpg" 
+                alt="Client Review 5"
+                className="testimonial-image"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            </div>
+            <div className="testimonial-item">
+              <img 
+                src="/images/review-6.jpg" 
+                alt="Client Review 6"
+                className="testimonial-image"
+                loading="lazy"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
             </div>
           </div>
         </div>

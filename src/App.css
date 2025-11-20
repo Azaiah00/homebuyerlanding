@@ -208,6 +208,7 @@
 .priority-access,
 .winning-offer,
 .team-advantage,
+.testimonials,
 .faq {
   padding: 5rem 0;
 }
@@ -1829,6 +1830,67 @@ section {
   }
   to {
     transform: scale(1);
+  }
+}
+
+/* ============================================
+   TESTIMONIALS SECTION
+   ============================================ */
+
+.testimonials {
+  background: #ffffff;
+  padding: 6rem 0;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.testimonial-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  background: white;
+  cursor: pointer;
+}
+
+.testimonial-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.testimonial-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-item:hover .testimonial-image {
+  transform: scale(1.02);
+}
+
+/* Responsive adjustments for testimonials */
+@media (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .testimonials {
+    padding: 4rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonials-grid {
+    gap: 1rem;
   }
 }
 
