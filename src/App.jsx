@@ -240,33 +240,6 @@ function App() {
         </div>
       </section>
 
-      {/* TRUST BAR */}
-      <section className="trust-bar">
-        <div className="container">
-          <div className="trust-bar-content">
-            <div className="trust-stat">
-              <div className="trust-number">5,275+</div>
-              <div className="trust-label">Families Helped</div>
-            </div>
-            <div className="trust-divider"></div>
-            <div className="trust-stat">
-              <div className="trust-number">$5B+</div>
-              <div className="trust-label">In Team Sales</div>
-            </div>
-            <div className="trust-divider"></div>
-            <div className="trust-stat">
-              <div className="trust-number">7+</div>
-              <div className="trust-label">Years Experience</div>
-            </div>
-            <div className="trust-divider"></div>
-            <div className="trust-stat">
-              <div className="trust-number">TOP TEAM</div>
-              <div className="trust-label">In DMV Since 2008</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* SECTION 1: WINNING GAME PLAN */}
       <section id="game-plan" className="game-plan fade-in-section">
         <div className="container">
