@@ -480,14 +480,6 @@ function App() {
                       : '$0'}
                   </span>
                 </div>
-                <div className="result-row mobile-hide">
-                  <span className="result-label-small">Total Interest Paid</span>
-                  <span className="result-value-small">{formatCurrency(totalInterest)}</span>
-                </div>
-                <div className="result-row mobile-hide">
-                  <span className="result-label-small">Total Payment</span>
-                  <span className="result-value-small">{formatCurrency(totalPayment)}</span>
-                </div>
               </div>
 
               <div className="calculator-cta">
