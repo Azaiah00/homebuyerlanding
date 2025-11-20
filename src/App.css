@@ -736,7 +736,7 @@ section {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
@@ -3417,7 +3417,7 @@ section {
 .tooltip-trigger::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: calc(100% + 12px);
+  top: calc(100% + 12px);
   left: 50%;
   transform: translateX(-50%);
   background: #1a202c;
@@ -3429,7 +3429,7 @@ section {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  z-index: 1000;
+  z-index: 10000;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
   width: 320px;
   max-width: 90vw;
@@ -3443,15 +3443,15 @@ section {
 .tooltip-trigger::before {
   content: '';
   position: absolute;
-  bottom: calc(100% + 6px);
+  top: calc(100% + 4px);
   left: 50%;
   transform: translateX(-50%);
   border: 8px solid transparent;
-  border-top-color: #1a202c;
+  border-bottom-color: #1a202c;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 1001;
+  z-index: 10001;
   visibility: hidden;
 }
 
@@ -3459,11 +3459,11 @@ section {
 .tooltip-trigger:hover::before {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(-4px);
+  transform: translateX(-50%) translateY(4px);
 }
 
 .tooltip-trigger:hover::before {
-  transform: translateX(-50%) translateY(-4px);
+  transform: translateX(-50%) translateY(4px);
 }
 
 /* Alternative positioning for tooltips that might overflow */
