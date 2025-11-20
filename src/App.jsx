@@ -9,6 +9,7 @@ function App() {
     timeline: ''
   })
   const [isScrolled, setIsScrolled] = useState(false)
+  const [showBackToTop, setShowBackToTop] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -65,6 +66,7 @@ function App() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100)
+      setShowBackToTop(window.scrollY > 500)
     }
 
     // Intersection Observer for scroll animations
@@ -183,6 +185,10 @@ function App() {
     setMobileMenuOpen(!mobileMenuOpen)
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
     <div className="landing-page">
       {/* STICKY NAVIGATION */}
@@ -198,9 +204,11 @@ function App() {
           </button>
           <div className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
             <button onClick={() => scrollToSection('game-plan')}>Process</button>
-            <button onClick={() => scrollToSection('winning-offer')}>Winning Offer</button>
             <button onClick={() => scrollToSection('money-talk')}>Costs</button>
             <button onClick={() => scrollToSection('mortgage-calculator')}>Calculator</button>
+            <button onClick={() => scrollToSection('wealth-building')}>Wealth</button>
+            <button onClick={() => scrollToSection('priority-access')}>Priority Access</button>
+            <button onClick={() => scrollToSection('winning-offer')}>Winning Offer</button>
             <button onClick={() => scrollToSection('team-advantage')}>Why Us</button>
             <button onClick={() => scrollToSection('faq')}>FAQ</button>
             <button className="nav-cta" onClick={scrollToContact}>Get Started</button>
@@ -227,6 +235,10 @@ function App() {
               <span>📸</span>
               <p>Add Your Professional Photo Here</p>
             </div>
+          </div>
+          <div className="hero-trust-badge">
+            <span className="trust-badge-icon">✓</span>
+            <span>Licensed in VA, DC & MD • 7+ Years Experience</span>
           </div>
           <h1 className="hero-title">Your Keys to the DMV:<br />Your Home Buying Strategy</h1>
           <p className="hero-slogan">Work with a DMV Native who knows the neighborhoods, not just the listings.</p>
@@ -329,7 +341,7 @@ function App() {
                 <li>
                   <span className="cost-icon">💵</span>
                   <div>
-                    <strong>Earnest Money Deposit (EMD)</strong>
+                    <strong>Earnest Money Deposit (<span className="tooltip-trigger" data-tooltip="Earnest Money Deposit: A good-faith deposit showing you're serious about buying. Held in escrow and credited back at closing.">EMD</span>)</strong>
                     <span>3%+</span>
                   </div>
                 </li>
@@ -478,7 +490,7 @@ function App() {
       </section>
 
       {/* SECTION 3: WEALTH BUILDING */}
-      <section className="wealth-building fade-in-section">
+      <section id="wealth-building" className="wealth-building fade-in-section">
         <div className="container">
           <h2 className="section-title">This Isn't Just a Home. It's Your Biggest Wealth-Builder.</h2>
           <p className="section-subtitle">See how you earn appreciation on the total value of your home, not just your down payment.</p>
@@ -522,7 +534,7 @@ function App() {
       </section>
 
       {/* SECTION 4: PRIORITY ACCESS */}
-      <section className="priority-access fade-in-section">
+      <section id="priority-access" className="priority-access fade-in-section">
         <div className="container">
           <h2 className="section-title">Your Secret Weapon: The Priority Access Program</h2>
           <div className="priority-content">
@@ -574,7 +586,7 @@ function App() {
 
             <div className="offer-component-card">
               <div className="component-icon">💰</div>
-              <h3 className="component-title">EMD (Earnest Money Deposit)</h3>
+              <h3 className="component-title">EMD (<span className="tooltip-trigger" data-tooltip="Earnest Money Deposit: A good-faith deposit showing you're serious about buying. Held in escrow and credited back at closing.">Earnest Money Deposit</span>)</h3>
               <p className="component-description">
                 The EMD (earnest money deposit) goes into an escrow account at the title company until settlement. At closing, it's credited back to you and can be used toward your down payment or refunded.
               </p>
@@ -596,7 +608,7 @@ function App() {
                 <strong>Minimum down payment:</strong> Typically 3% for conventional loans (though some programs allow less), and can go up to 20% or more.
               </p>
               <p className="component-description">
-                <strong>Benefits of a larger down payment:</strong> Better loan terms, lower monthly payments, and may eliminate the need for private mortgage insurance (PMI).
+                <strong>Benefits of a larger down payment:</strong> Better loan terms, lower monthly payments, and may eliminate the need for private mortgage insurance (<span className="tooltip-trigger" data-tooltip="Private Mortgage Insurance: Insurance that protects the lender if you default. Typically required when your down payment is less than 20%.">PMI</span>).
               </p>
               <p className="component-description">
                 The amount you put down will depend on your financial situation, the type of loan you're using, and your long-term financial goals.
@@ -963,6 +975,17 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* BACK TO TOP BUTTON */}
+      {showBackToTop && (
+        <button 
+          className="back-to-top" 
+          onClick={scrollToTop}
+          aria-label="Back to top"
+        >
+          ↑
+        </button>
+      )}
     </div>
   )
 }

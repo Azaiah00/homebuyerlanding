@@ -192,11 +192,24 @@
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  margin-bottom: 6rem;
 }
 
 .fade-in-section.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Add extra spacing for major sections */
+.game-plan,
+.money-talk,
+.mortgage-calculator,
+.wealth-building,
+.priority-access,
+.winning-offer,
+.team-advantage,
+.faq {
+  padding: 5rem 0;
 }
 
 .container {
@@ -313,6 +326,27 @@
   line-height: 1.15;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   letter-spacing: -1px;
+}
+
+.hero-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(201, 169, 97, 0.15);
+  border: 1px solid rgba(201, 169, 97, 0.3);
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #c9a961;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.trust-badge-icon {
+  font-size: 1rem;
+  color: #c9a961;
 }
 
 .hero-slogan {
@@ -2228,5 +2262,121 @@ section {
   .trust-badge {
     font-size: 0.85rem;
     padding: 0.6rem 1.2rem;
+  }
+}
+
+/* ============================================
+   BACK TO TOP BUTTON
+   ============================================ */
+
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a961, #d4af37);
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(201, 169, 97, 0.4);
+  z-index: 999;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInUp 0.5s ease;
+}
+
+.back-to-top:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 25px rgba(201, 169, 97, 0.5);
+  background: linear-gradient(135deg, #b8964a, #c9a961);
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+}
+
+/* ============================================
+   TOOLTIPS
+   ============================================ */
+
+.tooltip-trigger {
+  position: relative;
+  cursor: help;
+  color: #c9a961;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.tooltip-trigger:hover {
+  color: #b8964a;
+}
+
+.tooltip-trigger::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: #1a202c;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 280px;
+  white-space: normal;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.tooltip-trigger::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-2px);
+  border: 6px solid transparent;
+  border-top-color: #1a202c;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1001;
+}
+
+.tooltip-trigger:hover::after,
+.tooltip-trigger:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-12px);
+}
+
+.tooltip-trigger:hover::before {
+  transform: translateX(-50%) translateY(-8px);
+}
+
+@media (max-width: 768px) {
+  .tooltip-trigger::after {
+    max-width: 200px;
+    font-size: 0.75rem;
+    padding: 0.6rem 0.8rem;
   }
 }
