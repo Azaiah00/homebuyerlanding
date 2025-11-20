@@ -1855,10 +1855,10 @@ section {
 
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 3rem;
   margin-top: 3rem;
-  max-width: 1400px;
+  max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1908,10 +1908,11 @@ section {
 }
 
 /* Responsive adjustments for testimonials */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .testimonials-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    max-width: 800px;
   }
 }
 

@@ -205,9 +205,6 @@ function App() {
           <div className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
             <button onClick={() => scrollToSection('game-plan')}>Process</button>
             <button onClick={() => scrollToSection('money-talk')}>Costs</button>
-            <button onClick={() => scrollToSection('mortgage-calculator')}>Calculator</button>
-            <button onClick={() => scrollToSection('wealth-building')}>Wealth</button>
-            <button onClick={() => scrollToSection('priority-access')}>Priority Access</button>
             <button onClick={() => scrollToSection('winning-offer')}>Winning Offer</button>
             <button onClick={() => scrollToSection('team-advantage')}>Why Us</button>
             <button onClick={() => scrollToSection('testimonials')}>Reviews</button>
