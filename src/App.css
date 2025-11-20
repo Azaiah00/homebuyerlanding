@@ -1504,143 +1504,73 @@ section {
   line-height: 1.5;
 }
 
-/* Mortgage Paydown Visualization */
-.mortgage-paydown {
-  margin: 4rem 0;
-  padding: 3rem;
-  background: white;
-  border-radius: 24px;
+/* Rent Calculation Note */
+.rent-calculation-note {
+  margin-top: 2.5rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
   border: 2px solid rgba(201, 169, 97, 0.2);
 }
 
-.paydown-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  text-align: center;
-  color: #2d3748;
-  margin-bottom: 0.5rem;
-}
-
-.paydown-subtitle {
-  text-align: center;
-  color: #718096;
+.calculation-title {
   font-size: 1.1rem;
-  margin-bottom: 2.5rem;
-}
-
-.paydown-timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.paydown-milestone {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.milestone-year {
-  font-size: 1.2rem;
   font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.75rem;
+}
+
+.calculation-detail {
+  font-size: 1rem;
+  color: #4a5568;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.calculation-detail strong {
   color: #c9a961;
-  margin-bottom: 0.5rem;
-}
-
-.milestone-bars {
-  display: flex;
-  gap: 0.5rem;
-  height: 60px;
-  position: relative;
-  background: #f7fafc;
-  border-radius: 8px;
-  padding: 0.5rem;
-  align-items: center;
-}
-
-.equity-bar {
-  background: linear-gradient(135deg, #4299e1, #3182ce);
-  height: 100%;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: all 0.3s ease;
-  min-width: 120px;
-}
-
-.equity-bar:hover {
-  transform: scaleY(1.1);
-  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.4);
-}
-
-.appreciation-bar {
-  background: linear-gradient(135deg, #48bb78, #38a169);
-  height: 100%;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: all 0.3s ease;
-  min-width: 120px;
-}
-
-.appreciation-bar:hover {
-  transform: scaleY(1.1);
-  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
-}
-
-.bar-label {
-  color: white;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  white-space: nowrap;
-  padding: 0 0.5rem;
-}
-
-.milestone-total {
-  font-size: 1.1rem;
   font-weight: 700;
-  color: #2d3748;
-  text-align: center;
-  padding: 0.75rem;
-  background: #f7fafc;
-  border-radius: 8px;
 }
 
-.paydown-legend {
+.calculation-breakdown {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.calculation-breakdown li {
   font-size: 0.95rem;
   color: #4a5568;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.6;
 }
 
-.legend-color {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
+.calculation-breakdown li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #c9a961;
+  font-weight: 700;
+  font-size: 1.2rem;
 }
 
-.legend-color.equity {
-  background: linear-gradient(135deg, #4299e1, #3182ce);
+.calculation-breakdown li strong {
+  color: #2d3748;
+  font-weight: 600;
 }
 
-.legend-color.appreciation {
-  background: linear-gradient(135deg, #48bb78, #38a169);
+.calculation-disclaimer {
+  font-size: 0.85rem;
+  color: #718096;
+  font-style: italic;
+  line-height: 1.5;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(201, 169, 97, 0.2);
 }
 
 /* Tax Benefits Callout */
@@ -1805,65 +1735,29 @@ section {
     line-height: 1.4;
   }
 
-  .mortgage-paydown {
-    padding: 2rem 1.25rem;
-    margin: 2.5rem 0;
+  .rent-calculation-note {
+    padding: 1.5rem;
+    margin-top: 2rem;
   }
 
-  .paydown-title {
-    font-size: 1.4rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .paydown-subtitle {
+  .calculation-title {
     font-size: 1rem;
-    margin-bottom: 2rem;
   }
 
-  .paydown-timeline {
-    gap: 2rem;
+  .calculation-detail {
+    font-size: 0.95rem;
   }
 
-  .milestone-year {
-    font-size: 1.1rem;
+  .calculation-breakdown {
+    gap: 0.4rem;
   }
 
-  .milestone-bars {
-    flex-direction: column;
-    height: auto;
-    gap: 0.75rem;
-    padding: 0.75rem;
-  }
-
-  .equity-bar,
-  .appreciation-bar {
-    width: 100% !important;
-    min-height: 55px;
-    height: 55px;
-  }
-
-  .bar-label {
-    font-size: 0.8rem;
-    white-space: normal;
-    text-align: center;
-    padding: 0.25rem 0.5rem;
-    line-height: 1.3;
-  }
-
-  .milestone-total {
-    font-size: 1rem;
-    padding: 0.625rem;
-  }
-
-  .paydown-legend {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  .legend-item {
+  .calculation-breakdown li {
     font-size: 0.9rem;
+  }
+
+  .calculation-disclaimer {
+    font-size: 0.8rem;
   }
 
   .tax-benefits-callout {
@@ -2004,64 +1898,32 @@ section {
     line-height: 1.3;
   }
 
-  .mortgage-paydown {
-    padding: 1.75rem 1rem;
-    margin: 2rem 0;
-    border-radius: 20px;
+  .rent-calculation-note {
+    padding: 1.25rem;
+    margin-top: 1.75rem;
   }
 
-  .paydown-title {
-    font-size: 1.25rem;
-  }
-
-  .paydown-subtitle {
+  .calculation-title {
     font-size: 0.95rem;
-    margin-bottom: 1.75rem;
   }
 
-  .paydown-timeline {
-    gap: 1.75rem;
+  .calculation-detail {
+    font-size: 0.9rem;
   }
 
-  .milestone-year {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+  .calculation-breakdown {
+    gap: 0.35rem;
   }
 
-  .milestone-bars {
-    padding: 0.625rem;
-    gap: 0.625rem;
-  }
-
-  .equity-bar,
-  .appreciation-bar {
-    min-height: 50px;
-    height: 50px;
-  }
-
-  .bar-label {
-    font-size: 0.75rem;
-    padding: 0.25rem;
-  }
-
-  .milestone-total {
-    font-size: 0.95rem;
-    padding: 0.5rem;
-  }
-
-  .paydown-legend {
-    gap: 0.875rem;
-    margin-top: 1.25rem;
-  }
-
-  .legend-item {
+  .calculation-breakdown li {
     font-size: 0.85rem;
-    gap: 0.625rem;
+    padding-left: 1.25rem;
   }
 
-  .legend-color {
-    width: 20px;
-    height: 20px;
+  .calculation-disclaimer {
+    font-size: 0.75rem;
+    margin-top: 0.625rem;
+    padding-top: 0.625rem;
   }
 
   .tax-benefits-callout {

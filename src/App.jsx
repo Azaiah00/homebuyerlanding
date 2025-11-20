@@ -587,59 +587,15 @@ function App() {
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Mortgage Paydown Visualization */}
-            <div className="mortgage-paydown">
-              <h3 className="paydown-title">How Your Mortgage Builds Wealth Over Time</h3>
-              <p className="paydown-subtitle">Every payment builds equity while your home appreciates in value</p>
-              <div className="paydown-timeline">
-                <div className="paydown-milestone">
-                  <div className="milestone-year">Year 5</div>
-                  <div className="milestone-bars">
-                    <div className="equity-bar" style={{width: '15%'}}>
-                      <span className="bar-label">Equity Built: $97,500</span>
-                    </div>
-                    <div className="appreciation-bar" style={{width: '22%'}}>
-                      <span className="bar-label">Appreciation: $142,750</span>
-                    </div>
-                  </div>
-                  <div className="milestone-total">Total Equity: $240,250</div>
-                </div>
-                <div className="paydown-milestone">
-                  <div className="milestone-year">Year 10</div>
-                  <div className="milestone-bars">
-                    <div className="equity-bar" style={{width: '28%'}}>
-                      <span className="bar-label">Equity Built: $182,000</span>
-                    </div>
-                    <div className="appreciation-bar" style={{width: '48%'}}>
-                      <span className="bar-label">Appreciation: $312,500</span>
-                    </div>
-                  </div>
-                  <div className="milestone-total">Total Equity: $494,500</div>
-                </div>
-                <div className="paydown-milestone">
-                  <div className="milestone-year">Year 20</div>
-                  <div className="milestone-bars">
-                    <div className="equity-bar" style={{width: '48%'}}>
-                      <span className="bar-label">Equity Built: $312,000</span>
-                    </div>
-                    <div className="appreciation-bar" style={{width: '100%'}}>
-                      <span className="bar-label">Appreciation: $650,000</span>
-                    </div>
-                  </div>
-                  <div className="milestone-total">Total Equity: $962,000</div>
-                </div>
-              </div>
-              <div className="paydown-legend">
-                <div className="legend-item">
-                  <div className="legend-color equity"></div>
-                  <span>Equity from Mortgage Paydown</span>
-                </div>
-                <div className="legend-item">
-                  <div className="legend-color appreciation"></div>
-                  <span>Home Appreciation (5% annually)</span>
-                </div>
+              <div className="rent-calculation-note">
+                <p className="calculation-title">How We Calculated Rent:</p>
+                <p className="calculation-detail">Based on a monthly rent of <strong>$1,500/month</strong> for a comparable property:</p>
+                <ul className="calculation-breakdown">
+                  <li><strong>5 Years:</strong> $1,500 × 60 months = $90,000</li>
+                  <li><strong>10 Years:</strong> $1,500 × 120 months = $180,000</li>
+                  <li><strong>20 Years:</strong> $1,500 × 240 months = $360,000</li>
+                </ul>
+                <p className="calculation-disclaimer"><em>Note: Rent typically increases 2-3% annually. These figures represent base rent without increases for simplicity.</em></p>
               </div>
             </div>
 
