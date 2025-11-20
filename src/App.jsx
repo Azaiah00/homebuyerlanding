@@ -1010,6 +1010,10 @@ function App() {
                   <span><strong>Pre-Approval Strategy</strong> - Connect with trusted lenders for 48-hour pre-approval to become a "power buyer"</span>
                 </li>
                 <li className="includes-item">
+                  <span className="includes-icon">📊</span>
+                  <span><strong>DMV Market Insights</strong> - Get expert analysis of current market conditions in your target neighborhoods</span>
+                </li>
+                <li className="includes-item">
                   <span className="includes-icon">🔑</span>
                   <span><strong>Priority Access Preview</strong> - Learn how to access off-market homes before they hit Zillow</span>
                 </li>
@@ -1018,14 +1022,10 @@ function App() {
                   <span><strong>Winning Offer Strategy</strong> - Discover proven tactics to craft offers that stand out in competitive markets</span>
                 </li>
                 <li className="includes-item">
-                  <span className="includes-icon">📊</span>
-                  <span><strong>DMV Market Insights</strong> - Get expert analysis of current market conditions in your target neighborhoods</span>
-                </li>
-                <li className="includes-item">
                   <span className="includes-icon">🤝</span>
                   <span><strong>KS Team Resources</strong> - Access to our network of trusted lenders, inspectors, and vendors</span>
                 </li>
-                <li className="includes-item highlight-item">
+                <li className="includes-item">
                   <span className="includes-icon">💬</span>
                   <span><strong>All Your Real Estate Questions Answered</strong> - Get expert answers to any questions you have about buying a home, the DMV market, neighborhoods, financing, or the home buying process</span>
                 </li>
