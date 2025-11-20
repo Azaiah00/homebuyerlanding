@@ -61,12 +61,26 @@ img, video, iframe {
   font-size: 1.5rem;
   font-weight: 700;
   color: #1a202c;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.2s ease;
   letter-spacing: -0.5px;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
+  color: #c9a961;
 }
 
 .sticky-nav:not(.scrolled) .nav-logo {
   color: white;
+}
+
+.sticky-nav:not(.scrolled) .nav-logo:hover {
+  color: #c9a961;
 }
 
 .nav-links {
@@ -2864,21 +2878,18 @@ section {
   box-shadow: 0 8px 32px rgba(201, 169, 97, 0.4), 0 4px 16px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  justify-content: center;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   animation: float 3s ease-in-out infinite;
   letter-spacing: 0.3px;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .floating-cta:hover {
   transform: translateY(-6px) scale(1.05);
   box-shadow: 0 16px 48px rgba(201, 169, 97, 0.5), 0 8px 24px rgba(0, 0, 0, 0.3);
   background: linear-gradient(135deg, #b8964a, #c9a961);
-}
-
-.floating-arrow {
-  font-size: 1.2rem;
-  animation: bounce 2s infinite;
 }
 
 @keyframes float {
@@ -3225,16 +3236,11 @@ section {
   .floating-cta {
     bottom: 1rem;
     right: 1rem;
-    padding: 0.8rem 1.5rem;
+    padding: 1rem 1.5rem;
     font-size: 0.9rem;
-  }
-
-  .floating-cta span:first-child {
-    display: none;
-  }
-
-  .floating-arrow {
-    font-size: 1.5rem;
+    white-space: normal;
+    max-width: 200px;
+    text-align: center;
   }
 
   .faq-grid {

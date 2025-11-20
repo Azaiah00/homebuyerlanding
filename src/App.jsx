@@ -216,7 +216,14 @@ function App() {
       {/* STICKY NAVIGATION */}
       <nav className={`sticky-nav ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
-          <div className="nav-logo">Frederick Sales</div>
+          <button 
+            className="nav-logo" 
+            onClick={scrollToTop}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit' }}
+            aria-label="Return to top"
+          >
+            Frederick Sales
+          </button>
           <button className="mobile-menu-toggle" onClick={toggleMobileMenu} aria-label="Toggle menu">
             <span className={`hamburger ${mobileMenuOpen ? 'open' : ''}`}>
               <span></span>
@@ -387,6 +394,30 @@ function App() {
                     <span>3% (Typically paid by the Seller)</span>
                   </div>
                 </li>
+                <li 
+                  onClick={() => setShowAdminFeePopup(true)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <span className="cost-icon">📋</span>
+                  <div>
+                    <strong>
+                      Admin Fee
+                      <button 
+                        type="button"
+                        className="info-icon"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowAdminFeePopup(true);
+                        }}
+                        aria-label="What is an admin fee?"
+                        style={{ marginLeft: '0.5rem', fontSize: '0.9rem' }}
+                      >
+                        ℹ️
+                      </button>
+                    </strong>
+                    <span>${ADMIN_FEE}</span>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -500,20 +531,6 @@ function App() {
                       ? formatCurrency(parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) - ((parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) * parseFloat(calculatorData.downPaymentPercent)) / 100))
                       : '$0'}
                   </span>
-                </div>
-                <div className="result-row">
-                  <span className="result-label-small">
-                    Admin Fee
-                    <button 
-                      type="button"
-                      className="info-icon"
-                      onClick={() => setShowAdminFeePopup(true)}
-                      aria-label="What is an admin fee?"
-                    >
-                      ℹ️
-                    </button>
-                  </span>
-                  <span className="result-value-small">{formatCurrency(ADMIN_FEE)}</span>
                 </div>
               </div>
 
@@ -1179,8 +1196,7 @@ function App() {
       {/* FLOATING CTA BUTTON */}
       {isScrolled && (
         <button className="floating-cta" onClick={scrollToContact} aria-label="Get Started">
-          <span>Get Started</span>
-          <span className="floating-arrow">↑</span>
+          <span>Get Your Free Consultation</span>
         </button>
       )}
 
