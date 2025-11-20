@@ -665,6 +665,9 @@ function App() {
               <p className="component-description">
                 <strong>Strategy:</strong> Both contingencies are crucial protections, but shorter contingency periods can make your offer more competitive in hot markets.
               </p>
+              <p className="component-note">
+                <strong>Bonus: Home Warranty</strong> - A home warranty provides extra protection for your investment and can save you money in case of future emergencies. It typically covers major systems and appliances, giving you peace of mind after closing.
+              </p>
             </div>
 
             <div className="offer-component-card">
