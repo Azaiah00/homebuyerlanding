@@ -1732,9 +1732,46 @@ section {
 
 /* Responsive adjustments for wealth section */
 @media (max-width: 768px) {
-  .rent-vs-buy-comparison {
+  .wealth-example {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .wealth-example-title {
+    font-size: 1.5rem;
+  }
+
+  .wealth-scenario {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .scenario-value {
+    font-size: 1.75rem;
+  }
+
+  .roi-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .roi-card {
     padding: 2rem 1.5rem;
-    margin: 3rem 0;
+  }
+
+  .rent-vs-buy-comparison {
+    padding: 2rem 1.25rem;
+    margin: 2.5rem 0;
+  }
+
+  .comparison-title {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .comparison-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
   }
 
   .comparison-grid {
@@ -1742,49 +1779,98 @@ section {
     gap: 1.5rem;
   }
 
-  .comparison-title {
-    font-size: 1.5rem;
+  .comparison-header {
+    font-size: 1.1rem;
+    padding: 0.875rem;
+  }
+
+  .comparison-item {
+    padding: 1.25rem;
+  }
+
+  .comparison-period {
+    font-size: 1rem;
   }
 
   .comparison-amount {
     font-size: 1.75rem;
   }
 
+  .comparison-detail {
+    font-size: 0.9rem;
+  }
+
+  .comparison-note {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
   .mortgage-paydown {
-    padding: 2rem 1.5rem;
-    margin: 3rem 0;
+    padding: 2rem 1.25rem;
+    margin: 2.5rem 0;
   }
 
   .paydown-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .paydown-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .paydown-timeline {
+    gap: 2rem;
+  }
+
+  .milestone-year {
+    font-size: 1.1rem;
   }
 
   .milestone-bars {
     flex-direction: column;
     height: auto;
     gap: 0.75rem;
+    padding: 0.75rem;
   }
 
   .equity-bar,
   .appreciation-bar {
     width: 100% !important;
-    min-height: 50px;
+    min-height: 55px;
+    height: 55px;
   }
 
   .bar-label {
     font-size: 0.8rem;
+    white-space: normal;
+    text-align: center;
+    padding: 0.25rem 0.5rem;
+    line-height: 1.3;
+  }
+
+  .milestone-total {
+    font-size: 1rem;
+    padding: 0.625rem;
   }
 
   .paydown-legend {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .legend-item {
+    font-size: 0.9rem;
   }
 
   .tax-benefits-callout {
     flex-direction: column;
-    padding: 2rem 1.5rem;
-    margin: 3rem 0;
+    padding: 2rem 1.25rem;
+    margin: 2.5rem 0;
+    gap: 1.5rem;
   }
 
   .tax-icon {
@@ -1795,6 +1881,235 @@ section {
   .tax-title {
     font-size: 1.3rem;
     text-align: center;
+    margin-bottom: 0.875rem;
+  }
+
+  .tax-description {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .tax-list {
+    gap: 0.625rem;
+    margin-bottom: 1rem;
+  }
+
+  .tax-list li {
+    font-size: 0.95rem;
+    padding-left: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .tax-note {
+    font-size: 0.85rem;
+    margin-top: 0.875rem;
+    padding-top: 0.875rem;
+  }
+
+  .wealth-takeaway {
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wealth-example {
+    padding: 2rem 1rem;
+    border-radius: 20px;
+  }
+
+  .wealth-example-title {
+    font-size: 1.3rem;
+  }
+
+  .wealth-scenario {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .scenario-label {
+    font-size: 0.9rem;
+  }
+
+  .scenario-value {
+    font-size: 1.5rem;
+  }
+
+  .roi-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .roi-period {
+    font-size: 0.85rem;
+  }
+
+  .roi-amount {
+    font-size: 1.75rem;
+  }
+
+  .roi-label {
+    font-size: 0.85rem;
+  }
+
+  .roi-percentage {
+    font-size: 0.9rem;
+  }
+
+  .rent-vs-buy-comparison {
+    padding: 1.75rem 1rem;
+    margin: 2rem 0;
+    border-radius: 20px;
+  }
+
+  .comparison-title {
+    font-size: 1.25rem;
+  }
+
+  .comparison-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .comparison-grid {
+    gap: 1.25rem;
+  }
+
+  .comparison-header {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .comparison-item {
+    padding: 1rem;
+  }
+
+  .comparison-period {
+    font-size: 0.95rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .comparison-amount {
+    font-size: 1.5rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .comparison-detail {
+    font-size: 0.85rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .comparison-note {
+    font-size: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .mortgage-paydown {
+    padding: 1.75rem 1rem;
+    margin: 2rem 0;
+    border-radius: 20px;
+  }
+
+  .paydown-title {
+    font-size: 1.25rem;
+  }
+
+  .paydown-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .paydown-timeline {
+    gap: 1.75rem;
+  }
+
+  .milestone-year {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .milestone-bars {
+    padding: 0.625rem;
+    gap: 0.625rem;
+  }
+
+  .equity-bar,
+  .appreciation-bar {
+    min-height: 50px;
+    height: 50px;
+  }
+
+  .bar-label {
+    font-size: 0.75rem;
+    padding: 0.25rem;
+  }
+
+  .milestone-total {
+    font-size: 0.95rem;
+    padding: 0.5rem;
+  }
+
+  .paydown-legend {
+    gap: 0.875rem;
+    margin-top: 1.25rem;
+  }
+
+  .legend-item {
+    font-size: 0.85rem;
+    gap: 0.625rem;
+  }
+
+  .legend-color {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tax-benefits-callout {
+    padding: 1.75rem 1rem;
+    margin: 2rem 0;
+    border-radius: 20px;
+    gap: 1.25rem;
+  }
+
+  .tax-icon {
+    font-size: 2.25rem;
+  }
+
+  .tax-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tax-description {
+    font-size: 0.95rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .tax-list {
+    gap: 0.5rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .tax-list li {
+    font-size: 0.9rem;
+    padding-left: 1rem;
+    line-height: 1.4;
+  }
+
+  .tax-list li::before {
+    font-size: 1.1rem;
+  }
+
+  .tax-note {
+    font-size: 0.8rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+  }
+
+  .wealth-takeaway {
+    font-size: 1rem;
+    margin-top: 1.25rem;
+    padding: 0 0.75rem;
   }
 }
 
