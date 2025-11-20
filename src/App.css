@@ -116,6 +116,18 @@ img, video, iframe {
   cursor: pointer;
   padding: 0.5rem;
   z-index: 1001;
+  position: relative;
+}
+
+.close-text {
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+}
+
+.sticky-nav:not(.scrolled) .close-text {
+  color: white;
 }
 
 .hamburger {
@@ -154,7 +166,19 @@ img, video, iframe {
 /* Mobile Navigation */
 @media (max-width: 768px) {
   .mobile-menu-toggle {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    min-width: 80px;
+    justify-content: flex-end;
+  }
+
+  .close-text {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .nav-links {
@@ -710,6 +734,8 @@ section {
 .winning-offer {
   background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);
   position: relative;
+  overflow: visible;
+  min-height: auto;
 }
 
 .winning-offer::before {
@@ -724,7 +750,7 @@ section {
 
 .offer-components-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   margin-top: 3rem;
 }
@@ -1092,6 +1118,34 @@ section {
   color: #c9a961;
   font-weight: 600;
   text-align: right;
+}
+
+.rate-note {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #718096;
+  font-style: italic;
+}
+
+.info-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  padding: 0.25rem;
+  vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+
+.info-icon:hover {
+  transform: scale(1.2);
+}
+
+.result-label-small {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .calculator-results {
@@ -3125,6 +3179,11 @@ section {
     grid-template-columns: 1fr;
   }
 
+  .offer-components-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
   .roi-cards {
     grid-template-columns: 1fr;
   }
@@ -3180,6 +3239,30 @@ section {
 
   .faq-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Ensure winning offer section displays properly on mobile */
+  .winning-offer {
+    overflow: visible;
+    padding: 4rem 0;
+  }
+
+  /* Ensure fade-in sections are visible on mobile even if intersection observer doesn't fire */
+  .winning-offer.fade-in-section {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .offer-components-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .offer-component-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .hero-photo-placeholder {
@@ -3287,6 +3370,18 @@ section {
   .money-card,
   .offer-component-card {
     padding: 2rem 1.5rem;
+  }
+
+  /* Ensure offer components grid is single column on small devices */
+  .offer-components-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  /* Ensure winning offer section is visible on very small devices */
+  .winning-offer.fade-in-section {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* Improve navigation */

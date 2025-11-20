@@ -17,16 +17,22 @@ function App() {
   const [calculatorData, setCalculatorData] = useState({
     homePrice: '',
     downPaymentPercent: '',
-    interestRate: '',
+    interestRate: 6.75, // Default current market rate
     loanTerm: 30
   })
   const [monthlyPayment, setMonthlyPayment] = useState(0)
   const [totalInterest, setTotalInterest] = useState(0)
   const [totalPayment, setTotalPayment] = useState(0)
+  const [showAdminFeePopup, setShowAdminFeePopup] = useState(false)
+  const ADMIN_FEE = 495
+
+  // Note: Interest rate is pre-filled with current market rate (6.75%)
+  // In production, you could fetch from an API like Freddie Mac Primary Mortgage Market Survey
+  // Users can adjust the rate as needed
 
   // Calculate mortgage payment
   useEffect(() => {
-    const homePrice = parseFloat(calculatorData.homePrice) || 0
+    const homePrice = parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) || 0
     const downPaymentPercent = parseFloat(calculatorData.downPaymentPercent) || 0
     const interestRate = parseFloat(calculatorData.interestRate) || 0
     
@@ -52,10 +58,22 @@ function App() {
 
   const handleCalculatorChange = (e) => {
     const { name, value } = e.target
-    setCalculatorData(prev => ({
-      ...prev,
-      [name]: parseFloat(value) || 0
-    }))
+    if (name === 'homePrice') {
+      // Remove commas and format with commas
+      const numericValue = value.replace(/,/g, '')
+      if (numericValue === '' || /^\d+$/.test(numericValue)) {
+        const formattedValue = numericValue === '' ? '' : parseInt(numericValue).toLocaleString('en-US')
+        setCalculatorData(prev => ({
+          ...prev,
+          [name]: formattedValue
+        }))
+      }
+    } else {
+      setCalculatorData(prev => ({
+        ...prev,
+        [name]: parseFloat(value) || (value === '' ? '' : 0)
+      }))
+    }
   }
 
   const formatCurrency = (amount) => {
@@ -205,6 +223,7 @@ function App() {
               <span></span>
               <span></span>
             </span>
+            {mobileMenuOpen && <span className="close-text">Close</span>}
           </button>
           <div className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
             <button onClick={() => scrollToSection('game-plan')}>Process</button>
@@ -245,8 +264,8 @@ function App() {
           <h1 className="hero-title">Your Keys to the DMV:<br />Your Home Buying Strategy</h1>
           <p className="hero-slogan">Work with a DMV Native who knows the neighborhoods, not just the listings.</p>
           <p className="hero-intro">
-            Hi, I'm Frederick Sales! I grew up in Alexandria, VA and I currently live in Washington DC in the SW Waterfront neighborhood. Finding your next home is a huge step, and I'm here to make it smarter, simpler, and way more fun. 
-            With 7+ years of experience in VA, DC, and MD, I've built a "Winning Game Plan" to get you the perfect home. Let's get started!
+            Hi, I'm Frederick Sales! I grew up in Alexandria, VA and I currently live in Washington DC in the SW Waterfront neighborhood. Finding your next home is a huge step, and as your realtor, I'm here to make it smarter, simpler, and way more fun. 
+            With 7+ years of experience in VA, DC, and MD, I've built a "Winning Game Plan" to get you the perfect home. Let's work together to find your dream home!
           </p>
           <button className="cta-button primary" onClick={scrollToContact}>
             Schedule My Free Buyer Consultation
@@ -263,40 +282,40 @@ function App() {
               <div className="step-number">1</div>
               <h3 className="step-title">Get "Power-Buyer" Ready</h3>
               <p className="step-description">
-                It all starts here. We'll connect you with our trusted local lenders to get you fully Pre-Approved (not just Pre-Qualified!).
+                It all starts here. As your realtor, I'll connect you with our trusted local lenders to get you fully Pre-Approved (not just Pre-Qualified!).
               </p>
               <p className="step-description">
-                This makes you a 'power-buyer' and sets you up to win from day one.
+                This makes you a 'power-buyer' and sets you up to win from day one. <strong>Ask me more about how pre-approval gives you a competitive edge.</strong>
               </p>
             </div>
             <div className="step-card">
               <div className="step-number">2</div>
               <h3 className="step-title">The "Priority Access" Hunt</h3>
               <p className="step-description">
-                This is the fun part! We'll set you up with <strong>real-time MLS alerts</strong> (not 24-hour-delayed Zillow data).
+                This is the fun part! As your realtor, I'll set you up with <strong>real-time MLS alerts</strong> (not 24-hour-delayed Zillow data).
               </p>
               <p className="step-description">
-                Plus, you'll get access to our exclusive <strong>'Priority Access' list</strong> of off-market homes you can't find online.
+                Plus, you'll get access to our exclusive <strong>'Priority Access' list</strong> of off-market homes you can't find online. <strong>Work with me to see homes before they hit the market!</strong>
               </p>
             </div>
             <div className="step-card">
               <div className="step-number">3</div>
               <h3 className="step-title">Craft the Winning Offer</h3>
               <p className="step-description">
-                Found 'the one'? Now we put our experience to work.
+                Found 'the one'? Now, as your realtor, I put our experience to work for you.
               </p>
               <p className="step-description">
-                We'll analyze comparable sales, seller motivations, and market conditions to craft an offer that stands out—even when there are 10+ competing bids.
+                We'll analyze comparable sales, seller motivations, and market conditions to craft an offer that stands out—even when there are 10+ competing bids. <strong>Ask me more about our winning offer strategies.</strong>
               </p>
             </div>
             <div className="step-card">
               <div className="step-number">4</div>
               <h3 className="step-title">Close, Get Your Keys & Party!</h3>
               <p className="step-description">
-                We handle every detail from contract to closing. <strong>Our average closing time: 30 days.</strong>
+                As your realtor, I handle every detail from contract to closing. <strong>Our average closing time: 30 days.</strong>
               </p>
               <p className="step-description">
-                And yes, we really do throw housewarming parties for our clients! Welcome to the family.
+                And yes, we really do throw housewarming parties for our clients! When you work with me, you become part of the family.
               </p>
             </div>
           </div>
@@ -387,13 +406,12 @@ function App() {
                 <div className="input-wrapper">
                   <span className="input-prefix">$</span>
                   <input
-                    type="number"
+                    type="text"
                     id="homePrice"
                     name="homePrice"
                     value={calculatorData.homePrice}
                     onChange={handleCalculatorChange}
-                    min="0"
-                    step="1000"
+                    placeholder="500,000"
                     className="calc-input"
                   />
                 </div>
@@ -417,7 +435,7 @@ function App() {
                 </div>
                 <div className="down-payment-amount">
                   {calculatorData.homePrice && calculatorData.downPaymentPercent 
-                    ? formatCurrency((parseFloat(calculatorData.homePrice) * parseFloat(calculatorData.downPaymentPercent)) / 100) + ' down'
+                    ? formatCurrency((parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) * parseFloat(calculatorData.downPaymentPercent)) / 100) + ' down'
                     : '$0 down'}
                 </div>
               </div>
@@ -437,6 +455,9 @@ function App() {
                     className="calc-input"
                   />
                   <span className="input-suffix">%</span>
+                </div>
+                <div className="rate-note">
+                  <small>Current market rate pre-filled. You can adjust this.</small>
                 </div>
               </div>
 
@@ -468,7 +489,7 @@ function App() {
                   <span className="result-label-small">Down Payment</span>
                   <span className="result-value-small">
                     {calculatorData.homePrice && calculatorData.downPaymentPercent 
-                      ? formatCurrency((parseFloat(calculatorData.homePrice) * parseFloat(calculatorData.downPaymentPercent)) / 100)
+                      ? formatCurrency((parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) * parseFloat(calculatorData.downPaymentPercent)) / 100)
                       : '$0'}
                   </span>
                 </div>
@@ -476,14 +497,28 @@ function App() {
                   <span className="result-label-small">Loan Amount</span>
                   <span className="result-value-small">
                     {calculatorData.homePrice && calculatorData.downPaymentPercent 
-                      ? formatCurrency(parseFloat(calculatorData.homePrice) - ((parseFloat(calculatorData.homePrice) * parseFloat(calculatorData.downPaymentPercent)) / 100))
+                      ? formatCurrency(parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) - ((parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) * parseFloat(calculatorData.downPaymentPercent)) / 100))
                       : '$0'}
                   </span>
+                </div>
+                <div className="result-row">
+                  <span className="result-label-small">
+                    Admin Fee
+                    <button 
+                      type="button"
+                      className="info-icon"
+                      onClick={() => setShowAdminFeePopup(true)}
+                      aria-label="What is an admin fee?"
+                    >
+                      ℹ️
+                    </button>
+                  </span>
+                  <span className="result-value-small">{formatCurrency(ADMIN_FEE)}</span>
                 </div>
               </div>
 
               <div className="calculator-cta">
-                <p>Ready to get pre-approved? Let's connect you with our trusted lenders.</p>
+                <p>Ready to get pre-approved? As your realtor, I'll connect you with our trusted lenders. <strong>Ask me more about the pre-approval process.</strong></p>
                 <button className="cta-button primary" onClick={scrollToContact}>
                   Get Pre-Approved Today
                 </button>
@@ -650,7 +685,7 @@ function App() {
                 We'll find out what timeframe the seller prefers before submitting your offer. This ensures you get a closing date that works for you while keeping the seller happy.
               </p>
               <p className="component-description">
-                <strong>Typical timeframe:</strong> 21-30 days is most common in the DMV, though it can range from 15-90 days depending on the seller's needs.
+                <strong>Typical timeframe:</strong> 21-30 days is most common in the DMV, though it can range from 15-90 days depending on the seller's needs. <strong>As your realtor, I'll help you negotiate the best closing date for your situation.</strong>
               </p>
             </div>
 
@@ -678,7 +713,7 @@ function App() {
                 <strong>Market average in DMV:</strong> 1-5% of purchase price. 3% EMD is the standard. The larger the EMD, the more security the seller has that you'll move forward to settlement.
               </p>
               <p className="component-description">
-                <strong>Our strategy:</strong> If you have liquidity, a larger EMD is an easy way to make your offer stand out—at no extra cost to you.
+                <strong>Our strategy:</strong> If you have liquidity, a larger EMD is an easy way to make your offer stand out—at no extra cost to you. <strong>Ask me more about how we can use EMD strategically in your offer.</strong>
               </p>
             </div>
 
@@ -695,7 +730,7 @@ function App() {
                 <strong>Benefits of a larger down payment:</strong> Better loan terms, lower monthly payments, and may eliminate the need for private mortgage insurance (<span className="tooltip-trigger" data-tooltip="Private Mortgage Insurance: Insurance that protects the lender if you default. Typically required when your down payment is less than 20%.">PMI</span>).
               </p>
               <p className="component-description">
-                The amount you put down will depend on your financial situation, the type of loan you're using, and your long-term financial goals.
+                The amount you put down will depend on your financial situation, the type of loan you're using, and your long-term financial goals. <strong>As your realtor, I'll help you understand your options and make the best decision for your situation.</strong>
               </p>
             </div>
 
@@ -712,7 +747,7 @@ function App() {
                 <strong>How They Work Together:</strong> The lender provides financing, while the title company ensures the legal transfer is clean and handles closing. They coordinate to ensure all funds are properly transferred and documents are correctly executed.
               </p>
               <p className="component-description">
-                We have preferred vendors for both, but we'll always confirm who you decide to work with.
+                As your realtor, I have preferred vendors for both, but we'll always confirm who you decide to work with. <strong>Ask me more about our trusted lender and title company network.</strong>
               </p>
             </div>
 
@@ -732,10 +767,13 @@ function App() {
                 If the appraisal comes in low, you can renegotiate the price, make up the difference in cash, or walk away from the deal. This ensures you're not overpaying for the property.
               </p>
               <p className="component-description">
-                <strong>Strategy:</strong> Both contingencies are crucial protections, but shorter contingency periods can make your offer more competitive in hot markets.
+                <strong>Strategy:</strong> Both contingencies are crucial protections, but shorter contingency periods can make your offer more competitive in hot markets. <strong>As your realtor, I'll help you balance protection with competitiveness.</strong>
               </p>
               <p className="component-note">
                 <strong>Bonus: Home Warranty</strong> - A home warranty provides extra protection for your investment and can save you money in case of future emergencies. It typically covers major systems and appliances, giving you peace of mind after closing.
+              </p>
+              <p className="component-description" style={{ marginTop: '1rem', fontStyle: 'italic', color: '#c9a961', fontWeight: '600' }}>
+                Ask me more about home warranties and how they can protect your investment.
               </p>
             </div>
 
@@ -746,7 +784,7 @@ function App() {
                 Depending on how much competition there is on the property, you may be able to negotiate seller subsidy.
               </p>
               <p className="component-description">
-                This could be closing costs or money to repair something in the property. We'll assess each situation to see if this is a viable strategy for your offer.
+                This could be closing costs or money to repair something in the property. As your realtor, I'll assess each situation to see if this is a viable strategy for your offer. <strong>Ask me more about when seller subsidy makes sense.</strong>
               </p>
             </div>
 
@@ -757,10 +795,10 @@ function App() {
                 Adding a financing contingency to your contract can cause pause for many sellers, and can make or break an offer.
               </p>
               <p className="component-description">
-                We'll work with your lender to get you fully approved—with all documents and credit reviewed—prior to submitting your offer.
+                As your realtor, I'll work with your lender to get you fully approved—with all documents and credit reviewed—prior to submitting your offer.
               </p>
               <p className="component-description">
-                <strong>Strategy:</strong> If you need to add a financing contingency, the shorter the contingency period, the more compelling your offer will be.
+                <strong>Strategy:</strong> If you need to add a financing contingency, the shorter the contingency period, the more compelling your offer will be. <strong>Work with me to structure the strongest offer possible.</strong>
               </p>
               <div className="component-note">
                 <strong>Note:</strong> Oftentimes, larger banks need more time to work through loan approval, as they work with several 3rd party vendors throughout the lending process. This can be detrimental in the offer process since the seller is looking for the most concrete offer and extended contingencies can make them very nervous. Additionally, the lack of speed can be extremely stressful for the purchaser as we work through the waiting game of approval. This is why we recommend using our preferred lenders. If you do not have a financing contingency and cannot qualify for the loan, your deposit is at risk, so make sure you discuss your options with your lender and your agent as you navigate this decision.
@@ -789,7 +827,7 @@ function App() {
           </div>
 
           <div className="offer-cta-box">
-            <p className="offer-cta-text">Ready to craft your winning offer? Let's discuss your strategy.</p>
+            <p className="offer-cta-text">Ready to craft your winning offer? As your realtor, let's work together to discuss your strategy and create an offer that wins.</p>
             <button className="cta-button primary" onClick={scrollToContact}>
               Schedule My Free Buyer Consultation
             </button>
@@ -822,8 +860,8 @@ function App() {
             </div>
           </div>
           <p className="team-text">
-            You're not just hiring me, Frederick Sales; you're hiring the entire KS Team. We have the track record, 
-            the resources, and the market intel to ensure you win.
+            When you work with me as your realtor, you're not just hiring Frederick Sales; you're hiring the entire KS Team. We have the track record, 
+            the resources, and the market intel to ensure you win. <strong>Let's work together to find your perfect home.</strong>
           </p>
         </div>
       </section>
@@ -926,13 +964,13 @@ function App() {
             <div className="faq-item">
               <h3 className="faq-question">How long does the home buying process take?</h3>
               <p className="faq-answer">
-                Typically, the home buying process takes 30-45 days from offer acceptance to closing. However, this can vary based on financing, inspections, and negotiations. We'll work with you to ensure a timeline that works for your situation.
+                Typically, the home buying process takes 30-45 days from offer acceptance to closing. However, this can vary based on financing, inspections, and negotiations. As your realtor, I'll work with you to ensure a timeline that works for your situation.
               </p>
             </div>
             <div className="faq-item">
               <h3 className="faq-question">Do I need to be pre-approved before looking at homes?</h3>
               <p className="faq-answer">
-                While not required, being pre-approved is highly recommended. It makes you a "power-buyer" and allows you to act quickly when you find the perfect home. Many sellers won't even consider offers without pre-approval.
+                While not required, being pre-approved is highly recommended. It makes you a "power-buyer" and allows you to act quickly when you find the perfect home. Many sellers won't even consider offers without pre-approval. <strong>Ask me more about how pre-approval gives you a competitive edge.</strong>
               </p>
             </div>
             <div className="faq-item">
@@ -944,37 +982,37 @@ function App() {
             <div className="faq-item">
               <h3 className="faq-question">How much do I need for a down payment?</h3>
               <p className="faq-answer">
-                Down payments can range from 3% to 20% or more, depending on your loan type. Conventional loans typically require 3-20%, while VA loans can be 0% down. We'll help you understand your options based on your situation.
+                Down payments can range from 3% to 20% or more, depending on your loan type. Conventional loans typically require 3-20%, while VA loans can be 0% down. As your realtor, I'll help you understand your options based on your situation. <strong>Work with me to find the best down payment strategy for you.</strong>
               </p>
             </div>
             <div className="faq-item">
               <h3 className="faq-question">What are closing costs and who pays for them?</h3>
               <p className="faq-answer">
-                Closing costs typically range from 2.5% to 3% of the home price and include fees for appraisal, inspection, title insurance, and more. In the DMV, buyers typically pay closing costs, though we can negotiate seller contributions in some cases.
+                Closing costs typically range from 2.5% to 3% of the home price and include fees for appraisal, inspection, title insurance, and more. In the DMV, buyers typically pay closing costs, though as your realtor, I can negotiate seller contributions in some cases. <strong>Ask me more about how we can minimize your closing costs.</strong>
               </p>
             </div>
             <div className="faq-item">
               <h3 className="faq-question">What is earnest money and how much do I need?</h3>
               <p className="faq-answer">
-                Earnest money (EMD) shows the seller you're serious about buying. It's held in escrow and credited back at closing. In the DMV, EMD typically ranges from 1-5% of the purchase price. A larger EMD can make your offer more competitive.
+                Earnest money (EMD) shows the seller you're serious about buying. It's held in escrow and credited back at closing. In the DMV, EMD typically ranges from 1-5% of the purchase price. A larger EMD can make your offer more competitive. <strong>As your realtor, I'll help you determine the best EMD amount for your offer.</strong>
               </p>
             </div>
             <div className="faq-item">
               <h3 className="faq-question">Can I buy a home if I have student loans or other debt?</h3>
               <p className="faq-answer">
-                Yes! Having debt doesn't automatically disqualify you. Lenders look at your debt-to-income ratio. We'll connect you with trusted lenders who can help you understand your options and find the right loan program for your situation.
+                Yes! Having debt doesn't automatically disqualify you. Lenders look at your debt-to-income ratio. As your realtor, I'll connect you with trusted lenders who can help you understand your options and find the right loan program for your situation. <strong>Ask me more about how we can work together to get you approved.</strong>
               </p>
             </div>
             <div className="faq-item">
               <h3 className="faq-question">What areas do you serve?</h3>
               <p className="faq-answer">
-                I'm licensed in Virginia, Washington DC, and Maryland - the entire DMV area! Whether you're looking in Arlington, Bethesda, Alexandria, or anywhere in between, I can help you find your perfect home.
+                I'm licensed in Virginia, Washington DC, and Maryland - the entire DMV area! Whether you're looking in Arlington, Bethesda, Alexandria, or anywhere in between, as your realtor, I can help you find your perfect home. <strong>Let's work together to explore the best neighborhoods for you.</strong>
               </p>
             </div>
             <div className="faq-item">
               <h3 className="faq-question">Are there any first time home buyer programs?</h3>
               <p className="faq-answer">
-                Yes! There are several first-time home buyer programs available that can help with down payment assistance, lower interest rates, and reduced closing costs. These programs vary by state and locality, and can include options like FHA loans, VA loans (for eligible veterans), and state-specific programs. Your mortgage lender can provide more detailed information about first-time home buyer programs that you may qualify for based on your specific situation and location.
+                Yes! There are several first-time home buyer programs available that can help with down payment assistance, lower interest rates, and reduced closing costs. These programs vary by state and locality, and can include options like FHA loans, VA loans (for eligible veterans), and state-specific programs. As your realtor, I'll connect you with mortgage lenders who can provide detailed information about first-time home buyer programs you may qualify for. <strong>Ask me more about first-time buyer programs in the DMV.</strong>
               </p>
             </div>
           </div>
@@ -986,7 +1024,7 @@ function App() {
         <div className="container">
           <h2 className="section-title">Ready to Start Your Home Search?</h2>
           <p className="cta-quote">"All we ask from you is your loyalty. In return, you get our 100% commitment and expertise."</p>
-          <p className="section-subtitle">Let's set up a 30-minute, no-obligation buyer consultation. No pressure, just a great conversation about your goals.</p>
+          <p className="section-subtitle">Let's work together! Set up a 30-minute, no-obligation buyer consultation with me, your realtor. No pressure, just a great conversation about your goals and how we can find your perfect home.</p>
           
           {/* What's Included Section */}
           <div className="consultation-includes">
@@ -1096,10 +1134,33 @@ function App() {
               </div>
             </div>
             <button type="submit" className={`cta-button primary large ${formSubmitted ? 'submitting' : ''}`} disabled={formSubmitted}>
-              {formSubmitted ? 'Submitting...' : 'Schedule My Free Buyer Consultation'}
+              {formSubmitted ? 'Submitting...' : 'Submit'}
             </button>
             <p className="form-privacy">We respect your privacy. Your information will never be shared.</p>
           </form>
+
+          {/* Admin Fee Popup */}
+          {showAdminFeePopup && (
+            <div className="success-modal-overlay" onClick={() => setShowAdminFeePopup(false)}>
+              <div className="success-modal" onClick={(e) => e.stopPropagation()}>
+                <div className="success-icon" style={{ background: 'linear-gradient(135deg, #c9a961, #d4af37)' }}>💰</div>
+                <h3>What is a Real Estate Admin Fee?</h3>
+                <p style={{ textAlign: 'left', lineHeight: '1.8' }}>
+                  The real estate admin fee (also called a transaction fee or processing fee) is a standard fee charged by real estate brokerages to cover administrative costs associated with your transaction. This $495 fee helps cover:
+                </p>
+                <ul style={{ textAlign: 'left', lineHeight: '1.8', marginTop: '1rem' }}>
+                  <li>Document processing and file management</li>
+                  <li>Transaction coordination between all parties</li>
+                  <li>Compliance and regulatory requirements</li>
+                  <li>Administrative support throughout your home buying process</li>
+                </ul>
+                <p style={{ textAlign: 'left', lineHeight: '1.8', marginTop: '1rem', fontStyle: 'italic' }}>
+                  This fee is standard in the industry and is typically paid at closing. As your realtor, I'll make sure you understand all costs upfront—no surprises!
+                </p>
+                <button className="cta-button primary" onClick={() => setShowAdminFeePopup(false)}>Got It!</button>
+              </div>
+            </div>
+          )}
 
           {/* Success Modal */}
           {showSuccessModal && (
