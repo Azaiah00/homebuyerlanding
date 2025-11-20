@@ -538,6 +538,130 @@ function App() {
                 <div className="roi-percentage">ROI: 954%</div>
               </div>
             </div>
+            
+            {/* Renting vs. Buying Comparison */}
+            <div className="rent-vs-buy-comparison">
+              <h3 className="comparison-title">Renting vs. Buying: The Wealth Gap</h3>
+              <p className="comparison-subtitle">See how buying builds wealth while renting builds someone else's</p>
+              <div className="comparison-grid">
+                <div className="comparison-column rent-column">
+                  <div className="comparison-header">RENTING</div>
+                  <div className="comparison-item">
+                    <div className="comparison-period">5 Years</div>
+                    <div className="comparison-amount negative">-$90,000</div>
+                    <div className="comparison-detail">Total Rent Paid</div>
+                    <div className="comparison-note">No equity • No tax benefits • No wealth building</div>
+                  </div>
+                  <div className="comparison-item">
+                    <div className="comparison-period">10 Years</div>
+                    <div className="comparison-amount negative">-$180,000</div>
+                    <div className="comparison-detail">Total Rent Paid</div>
+                    <div className="comparison-note">Still no equity • Rent increases over time</div>
+                  </div>
+                  <div className="comparison-item">
+                    <div className="comparison-period">20 Years</div>
+                    <div className="comparison-amount negative">-$360,000</div>
+                    <div className="comparison-detail">Total Rent Paid</div>
+                    <div className="comparison-note">Zero wealth created • No asset to show</div>
+                  </div>
+                </div>
+                <div className="comparison-column buy-column">
+                  <div className="comparison-header">BUYING</div>
+                  <div className="comparison-item">
+                    <div className="comparison-period">5 Years</div>
+                    <div className="comparison-amount positive">+$120,250</div>
+                    <div className="comparison-detail">Net Wealth Created</div>
+                    <div className="comparison-note">Equity + Appreciation • Tax benefits • Building wealth</div>
+                  </div>
+                  <div className="comparison-item">
+                    <div className="comparison-period">10 Years</div>
+                    <div className="comparison-amount positive">+$261,300</div>
+                    <div className="comparison-detail">Net Wealth Created</div>
+                    <div className="comparison-note">Significant equity • Appreciation continues</div>
+                  </div>
+                  <div className="comparison-item">
+                    <div className="comparison-period">20 Years</div>
+                    <div className="comparison-amount positive">+$620,100</div>
+                    <div className="comparison-detail">Net Wealth Created</div>
+                    <div className="comparison-note">Massive equity • Potential to own outright</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mortgage Paydown Visualization */}
+            <div className="mortgage-paydown">
+              <h3 className="paydown-title">How Your Mortgage Builds Wealth Over Time</h3>
+              <p className="paydown-subtitle">Every payment builds equity while your home appreciates in value</p>
+              <div className="paydown-timeline">
+                <div className="paydown-milestone">
+                  <div className="milestone-year">Year 5</div>
+                  <div className="milestone-bars">
+                    <div className="equity-bar" style={{width: '15%'}}>
+                      <span className="bar-label">Equity Built: $97,500</span>
+                    </div>
+                    <div className="appreciation-bar" style={{width: '22%'}}>
+                      <span className="bar-label">Appreciation: $142,750</span>
+                    </div>
+                  </div>
+                  <div className="milestone-total">Total Equity: $240,250</div>
+                </div>
+                <div className="paydown-milestone">
+                  <div className="milestone-year">Year 10</div>
+                  <div className="milestone-bars">
+                    <div className="equity-bar" style={{width: '28%'}}>
+                      <span className="bar-label">Equity Built: $182,000</span>
+                    </div>
+                    <div className="appreciation-bar" style={{width: '48%'}}>
+                      <span className="bar-label">Appreciation: $312,500</span>
+                    </div>
+                  </div>
+                  <div className="milestone-total">Total Equity: $494,500</div>
+                </div>
+                <div className="paydown-milestone">
+                  <div className="milestone-year">Year 20</div>
+                  <div className="milestone-bars">
+                    <div className="equity-bar" style={{width: '48%'}}>
+                      <span className="bar-label">Equity Built: $312,000</span>
+                    </div>
+                    <div className="appreciation-bar" style={{width: '100%'}}>
+                      <span className="bar-label">Appreciation: $650,000</span>
+                    </div>
+                  </div>
+                  <div className="milestone-total">Total Equity: $962,000</div>
+                </div>
+              </div>
+              <div className="paydown-legend">
+                <div className="legend-item">
+                  <div className="legend-color equity"></div>
+                  <span>Equity from Mortgage Paydown</span>
+                </div>
+                <div className="legend-item">
+                  <div className="legend-color appreciation"></div>
+                  <span>Home Appreciation (5% annually)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Tax Benefits Callout */}
+            <div className="tax-benefits-callout">
+              <div className="tax-icon">💰</div>
+              <div className="tax-content">
+                <h3 className="tax-title">Tax Benefits of Homeownership</h3>
+                <p className="tax-description">
+                  As a homeowner, you may be eligible for significant tax deductions:
+                </p>
+                <ul className="tax-list">
+                  <li><strong>Mortgage Interest Deduction:</strong> Deduct interest paid on your mortgage (up to $750,000 loan amount)</li>
+                  <li><strong>Property Tax Deduction:</strong> Deduct state and local property taxes paid</li>
+                  <li><strong>Potential Savings:</strong> These deductions can save you thousands in taxes each year, effectively reducing your monthly housing cost</li>
+                </ul>
+                <p className="tax-note">
+                  <em>Note: Tax benefits vary based on individual circumstances. Consult with a tax professional for advice specific to your situation.</em>
+                </p>
+              </div>
+            </div>
+
             <p className="wealth-takeaway">
               This is why more wealth is created in real estate than any other sector. You're not just paying a mortgage—you're paying yourself.
             </p>

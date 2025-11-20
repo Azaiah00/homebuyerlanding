@@ -1390,6 +1390,337 @@ section {
   display: inline-block;
 }
 
+/* Renting vs. Buying Comparison */
+.rent-vs-buy-comparison {
+  margin: 4rem 0;
+  padding: 3rem;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  border-radius: 24px;
+  border: 2px solid rgba(201, 169, 97, 0.2);
+}
+
+.comparison-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.comparison-subtitle {
+  text-align: center;
+  color: #718096;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.comparison-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.comparison-header {
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 12px;
+  letter-spacing: 1px;
+}
+
+.rent-column .comparison-header {
+  background: linear-gradient(135deg, #fc8181, #f56565);
+  color: white;
+}
+
+.buy-column .comparison-header {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  color: white;
+}
+
+.comparison-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rent-column .comparison-item {
+  border-left-color: #f56565;
+}
+
+.buy-column .comparison-item {
+  border-left-color: #38a169;
+}
+
+.comparison-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.comparison-period {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 0.75rem;
+}
+
+.comparison-amount {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.comparison-amount.negative {
+  color: #f56565;
+}
+
+.comparison-amount.positive {
+  color: #38a169;
+}
+
+.comparison-detail {
+  font-size: 0.95rem;
+  color: #718096;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.comparison-note {
+  font-size: 0.85rem;
+  color: #a0aec0;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* Mortgage Paydown Visualization */
+.mortgage-paydown {
+  margin: 4rem 0;
+  padding: 3rem;
+  background: white;
+  border-radius: 24px;
+  border: 2px solid rgba(201, 169, 97, 0.2);
+}
+
+.paydown-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.paydown-subtitle {
+  text-align: center;
+  color: #718096;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+}
+
+.paydown-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.paydown-milestone {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.milestone-year {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #c9a961;
+  margin-bottom: 0.5rem;
+}
+
+.milestone-bars {
+  display: flex;
+  gap: 0.5rem;
+  height: 60px;
+  position: relative;
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 0.5rem;
+  align-items: center;
+}
+
+.equity-bar {
+  background: linear-gradient(135deg, #4299e1, #3182ce);
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.equity-bar:hover {
+  transform: scaleY(1.1);
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.4);
+}
+
+.appreciation-bar {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.appreciation-bar:hover {
+  transform: scaleY(1.1);
+  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+}
+
+.bar-label {
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  padding: 0 0.5rem;
+}
+
+.milestone-total {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2d3748;
+  text-align: center;
+  padding: 0.75rem;
+  background: #f7fafc;
+  border-radius: 8px;
+}
+
+.paydown-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: #4a5568;
+}
+
+.legend-color {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+.legend-color.equity {
+  background: linear-gradient(135deg, #4299e1, #3182ce);
+}
+
+.legend-color.appreciation {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+}
+
+/* Tax Benefits Callout */
+.tax-benefits-callout {
+  margin: 4rem 0;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, rgba(201, 169, 97, 0.1), rgba(212, 175, 55, 0.08));
+  border: 3px solid rgba(201, 169, 97, 0.3);
+  border-radius: 24px;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  box-shadow: 0 4px 16px rgba(201, 169, 97, 0.15);
+}
+
+.tax-icon {
+  font-size: 3rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(201, 169, 97, 0.3));
+}
+
+.tax-content {
+  flex: 1;
+}
+
+.tax-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #c9a961;
+  margin-bottom: 1rem;
+}
+
+.tax-description {
+  font-size: 1.05rem;
+  color: #2d3748;
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.tax-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tax-list li {
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.6;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.tax-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #c9a961;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.tax-list li strong {
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.tax-note {
+  font-size: 0.9rem;
+  color: #718096;
+  font-style: italic;
+  line-height: 1.6;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(201, 169, 97, 0.2);
+}
+
 .wealth-takeaway {
   text-align: center;
   font-size: 1.2rem;
@@ -1397,6 +1728,74 @@ section {
   color: #2d3748;
   font-style: italic;
   margin-top: 2rem;
+}
+
+/* Responsive adjustments for wealth section */
+@media (max-width: 768px) {
+  .rent-vs-buy-comparison {
+    padding: 2rem 1.5rem;
+    margin: 3rem 0;
+  }
+
+  .comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .comparison-title {
+    font-size: 1.5rem;
+  }
+
+  .comparison-amount {
+    font-size: 1.75rem;
+  }
+
+  .mortgage-paydown {
+    padding: 2rem 1.5rem;
+    margin: 3rem 0;
+  }
+
+  .paydown-title {
+    font-size: 1.5rem;
+  }
+
+  .milestone-bars {
+    flex-direction: column;
+    height: auto;
+    gap: 0.75rem;
+  }
+
+  .equity-bar,
+  .appreciation-bar {
+    width: 100% !important;
+    min-height: 50px;
+  }
+
+  .bar-label {
+    font-size: 0.8rem;
+  }
+
+  .paydown-legend {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .tax-benefits-callout {
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    margin: 3rem 0;
+  }
+
+  .tax-icon {
+    font-size: 2.5rem;
+    align-self: center;
+  }
+
+  .tax-title {
+    font-size: 1.3rem;
+    text-align: center;
+  }
 }
 
 /* ============================================
