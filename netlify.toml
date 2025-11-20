@@ -1,0 +1,8 @@
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+# Form email notifications need to be configured in Netlify Dashboard:
+# Site settings > Forms > Form notifications > Add notification
+# Set email to: fred@kerishullteam.com
+

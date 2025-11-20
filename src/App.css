@@ -2218,15 +2218,15 @@ section {
 
 /* Consultation Includes Section */
 .consultation-includes {
-  background: linear-gradient(135deg, rgba(201, 169, 97, 0.12), rgba(212, 175, 55, 0.08));
-  border: 3px solid rgba(201, 169, 97, 0.3);
-  border-radius: 24px;
-  padding: 3rem;
+  background: linear-gradient(135deg, rgba(201, 169, 97, 0.25), rgba(212, 175, 55, 0.18), rgba(255, 215, 0, 0.1));
+  border: 4px solid rgba(201, 169, 97, 0.5);
+  border-radius: 28px;
+  padding: 3.5rem;
   margin: 3rem 0;
   max-width: 950px;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 8px 32px rgba(201, 169, 97, 0.15), 0 4px 16px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 12px 48px rgba(201, 169, 97, 0.25), 0 6px 24px rgba(212, 175, 55, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -2237,10 +2237,27 @@ section {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #c9a961, #d4af37, #c9a961);
+  height: 5px;
+  background: linear-gradient(90deg, #c9a961, #d4af37, #ffd700, #d4af37, #c9a961);
   background-size: 200% 100%;
   animation: shimmer 3s ease-in-out infinite;
+}
+
+.consultation-includes::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @keyframes shimmer {
@@ -2249,12 +2266,17 @@ section {
 }
 
 .includes-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #c9a961;
-  margin-bottom: 2rem;
+  font-size: 1.85rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #c9a961, #d4af37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 2.5rem;
   text-align: center;
-  text-shadow: 0 2px 4px rgba(201, 169, 97, 0.2);
+  text-shadow: 0 2px 8px rgba(201, 169, 97, 0.3);
+  position: relative;
+  z-index: 2;
 }
 
 .includes-content {
@@ -2268,75 +2290,126 @@ section {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
 .includes-item {
   display: flex;
   align-items: flex-start;
-  gap: 1.25rem;
-  font-size: 1.1rem;
-  line-height: 1.7;
+  gap: 1.5rem;
+  font-size: 1.15rem;
+  line-height: 1.75;
   color: #2d3748;
-  padding: 1.25rem;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 12px;
-  border-left: 4px solid #c9a961;
-  transition: all 0.3s ease;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  border-left: 5px solid #c9a961;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(201, 169, 97, 0.15), 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .includes-item:hover {
-  background: rgba(255, 255, 255, 0.85);
-  transform: translateX(8px);
-  box-shadow: 0 4px 12px rgba(201, 169, 97, 0.2);
+  background: rgba(255, 255, 255, 1);
+  transform: translateX(10px) translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 169, 97, 0.3), 0 4px 12px rgba(212, 175, 55, 0.2);
+  border-left-width: 6px;
 }
 
 .includes-item.highlight-item {
-  background: linear-gradient(135deg, rgba(201, 169, 97, 0.15), rgba(212, 175, 55, 0.1));
+  background: linear-gradient(135deg, rgba(201, 169, 97, 0.2), rgba(212, 175, 55, 0.15), rgba(255, 255, 255, 0.9));
   border-left-color: #d4af37;
-  border-left-width: 5px;
+  border-left-width: 6px;
   font-weight: 500;
+  box-shadow: 0 6px 20px rgba(201, 169, 97, 0.25), 0 3px 10px rgba(212, 175, 55, 0.15);
 }
 
 .includes-item.highlight-item:hover {
-  background: linear-gradient(135deg, rgba(201, 169, 97, 0.25), rgba(212, 175, 55, 0.15));
-  transform: translateX(8px) scale(1.02);
+  background: linear-gradient(135deg, rgba(201, 169, 97, 0.3), rgba(212, 175, 55, 0.2), rgba(255, 255, 255, 0.95));
+  transform: translateX(10px) translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 32px rgba(201, 169, 97, 0.35), 0 5px 16px rgba(212, 175, 55, 0.25);
 }
 
 .includes-icon {
-  color: #c9a961;
-  font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 2rem;
   flex-shrink: 0;
-  margin-top: 0.15rem;
-  filter: drop-shadow(0 2px 4px rgba(201, 169, 97, 0.3));
+  margin-top: 0.2rem;
+  filter: drop-shadow(0 2px 6px rgba(201, 169, 97, 0.4));
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 .includes-item strong {
   color: #1a202c;
-  font-weight: 600;
+  font-weight: 700;
   display: block;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.4rem;
+  font-size: 1.2rem;
 }
 
 @media (max-width: 768px) {
   .consultation-includes {
-    padding: 2rem 1.5rem;
+    padding: 2.5rem 1.5rem;
     margin: 2rem 0;
+    border-width: 3px;
+  }
+
+  .includes-title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .includes-list {
+    gap: 1.5rem;
+  }
+
+  .includes-item {
+    font-size: 1.05rem;
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+
+  .includes-item strong {
+    font-size: 1.1rem;
+  }
+
+  .includes-icon {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .consultation-includes {
+    padding: 2rem 1.25rem;
+    border-width: 3px;
   }
 
   .includes-title {
     font-size: 1.3rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .includes-list {
+    gap: 1.25rem;
   }
 
   .includes-item {
     font-size: 1rem;
-    gap: 0.75rem;
+    gap: 1rem;
+    padding: 1.125rem;
+  }
+
+  .includes-item strong {
+    font-size: 1.05rem;
+    margin-bottom: 0.3rem;
   }
 
   .includes-icon {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 }
 
