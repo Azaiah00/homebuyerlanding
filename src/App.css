@@ -216,6 +216,11 @@ img, video, iframe {
     position: relative;
   }
 
+  /* Hide the animated spans when open, show only the X pseudo-element */
+  .hamburger.open span {
+    opacity: 0;
+  }
+
   .hamburger.open::after {
     content: '✕';
     position: absolute;
