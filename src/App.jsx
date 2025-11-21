@@ -23,7 +23,6 @@ function App() {
   const [monthlyPayment, setMonthlyPayment] = useState(0)
   const [totalInterest, setTotalInterest] = useState(0)
   const [totalPayment, setTotalPayment] = useState(0)
-  const [showAdminFeePopup, setShowAdminFeePopup] = useState(false)
   const ADMIN_FEE = 495
 
   // Note: Interest rate is pre-filled with current market rate (6.75%)
@@ -394,27 +393,10 @@ function App() {
                     <span>3% (Typically paid by the Seller)</span>
                   </div>
                 </li>
-                <li 
-                  onClick={() => setShowAdminFeePopup(true)}
-                  style={{ cursor: 'pointer' }}
-                >
+                <li>
                   <span className="cost-icon">📋</span>
                   <div>
-                    <strong>
-                      Admin Fee
-                      <button 
-                        type="button"
-                        className="info-icon"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setShowAdminFeePopup(true);
-                        }}
-                        aria-label="What is an admin fee?"
-                        style={{ marginLeft: '0.5rem', fontSize: '0.9rem' }}
-                      >
-                        ℹ️
-                      </button>
-                    </strong>
+                    <strong><span className="tooltip-trigger" data-tooltip="Admin Fee: A standard fee charged by real estate brokerages to cover administrative costs associated with your transaction. This $495 fee helps cover document processing, transaction coordination, compliance requirements, and administrative support throughout your home buying process. This fee is standard in the industry and is typically paid at closing.">Admin Fee</span></strong>
                     <span>${ADMIN_FEE}</span>
                   </div>
                 </li>
@@ -590,6 +572,9 @@ function App() {
               <div className="comparison-grid">
                 <div className="comparison-column rent-column">
                   <div className="comparison-header">RENTING</div>
+                  <p style={{ textAlign: 'center', margin: '1rem 0', fontSize: '0.95rem', color: '#718096', fontStyle: 'italic' }}>
+                    Based on a monthly rent of <strong>$1,500/month</strong> for a comparable property
+                  </p>
                   <div className="comparison-item">
                     <div className="comparison-period">5 Years</div>
                     <div className="comparison-amount negative">-$90,000</div>
@@ -630,16 +615,6 @@ function App() {
                     <div className="comparison-note">Massive equity • Potential to own outright</div>
                   </div>
                 </div>
-              </div>
-              <div className="rent-calculation-note">
-                <p className="calculation-title">How We Calculated Rent:</p>
-                <p className="calculation-detail">Based on a monthly rent of <strong>$1,500/month</strong> for a comparable property:</p>
-                <ul className="calculation-breakdown">
-                  <li><strong>5 Years:</strong> $1,500 × 60 months = $90,000</li>
-                  <li><strong>10 Years:</strong> $1,500 × 120 months = $180,000</li>
-                  <li><strong>20 Years:</strong> $1,500 × 240 months = $360,000</li>
-                </ul>
-                <p className="calculation-disclaimer"><em>Note: Rent typically increases 2-3% annually. These figures represent base rent without increases for simplicity.</em></p>
               </div>
             </div>
 
@@ -1155,29 +1130,6 @@ function App() {
             </button>
             <p className="form-privacy">We respect your privacy. Your information will never be shared.</p>
           </form>
-
-          {/* Admin Fee Popup */}
-          {showAdminFeePopup && (
-            <div className="success-modal-overlay" onClick={() => setShowAdminFeePopup(false)}>
-              <div className="success-modal" onClick={(e) => e.stopPropagation()}>
-                <div className="success-icon" style={{ background: 'linear-gradient(135deg, #c9a961, #d4af37)' }}>💰</div>
-                <h3>What is a Real Estate Admin Fee?</h3>
-                <p style={{ textAlign: 'left', lineHeight: '1.8' }}>
-                  The real estate admin fee (also called a transaction fee or processing fee) is a standard fee charged by real estate brokerages to cover administrative costs associated with your transaction. This $495 fee helps cover:
-                </p>
-                <ul style={{ textAlign: 'left', lineHeight: '1.8', marginTop: '1rem' }}>
-                  <li>Document processing and file management</li>
-                  <li>Transaction coordination between all parties</li>
-                  <li>Compliance and regulatory requirements</li>
-                  <li>Administrative support throughout your home buying process</li>
-                </ul>
-                <p style={{ textAlign: 'left', lineHeight: '1.8', marginTop: '1rem', fontStyle: 'italic' }}>
-                  This fee is standard in the industry and is typically paid at closing. As your realtor, I'll make sure you understand all costs upfront—no surprises!
-                </p>
-                <button className="cta-button primary" onClick={() => setShowAdminFeePopup(false)}>Got It!</button>
-              </div>
-            </div>
-          )}
 
           {/* Success Modal */}
           {showSuccessModal && (

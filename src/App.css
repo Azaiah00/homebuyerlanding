@@ -183,16 +183,49 @@ img, video, iframe {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.75rem;
-    min-width: 80px;
+    padding: 0.75rem 1rem;
+    min-width: 100px;
     justify-content: flex-end;
+    background: rgba(201, 169, 97, 0.1);
+    border-radius: 8px;
+    border: 2px solid rgba(201, 169, 97, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu-toggle:hover,
+  .mobile-menu-toggle:active {
+    background: rgba(201, 169, 97, 0.2);
+    border-color: rgba(201, 169, 97, 0.5);
+    transform: scale(1.05);
   }
 
   .close-text {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    color: #c9a961;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .sticky-nav:not(.scrolled) .close-text {
+    color: #c9a961;
+  }
+
+  .hamburger.open {
+    position: relative;
+  }
+
+  .hamburger.open::after {
+    content: '✕';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    color: #c9a961;
+    font-weight: 700;
+    z-index: 1;
   }
 
   .nav-links {
