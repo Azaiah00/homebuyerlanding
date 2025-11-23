@@ -2648,6 +2648,101 @@ section {
   padding: 6rem 0;
 }
 
+/* ============================================
+   AREAS WE SERVE SECTION
+   ============================================ */
+
+.areas-served {
+  background: #f8fafc;
+  position: relative;
+}
+
+.locations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem auto 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+.location-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.location-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(201, 169, 97, 0.15), 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-color: rgba(201, 169, 97, 0.3);
+}
+
+.location-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1a202c;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+  border-bottom: 2px solid #c9a961;
+  padding-bottom: 0.75rem;
+}
+
+.location-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.location-list li {
+  padding: 0.75rem 0;
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.6;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.location-list li:last-child {
+  border-bottom: none;
+  font-weight: 600;
+  color: #c9a961;
+  margin-top: 0.5rem;
+}
+
+.location-list li:hover {
+  color: #1a202c;
+  padding-left: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .locations-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .location-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .location-title {
+    font-size: 1.5rem;
+  }
+
+  .location-list li {
+    font-size: 0.95rem;
+  }
+}
+
+/* ============================================
+   TESTIMONIALS SECTION
+   ============================================ */
+
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
