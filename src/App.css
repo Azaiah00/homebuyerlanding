@@ -3136,16 +3136,37 @@ section {
 }
 
 .contact-form {
-  max-width: 700px;
+  max-width: 800px;
   margin: 3rem auto 0;
   background: white;
-  padding: 4rem;
+  padding: 3.5rem 4rem;
   border-radius: 32px;
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.15);
   transition: all 0.4s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(201, 169, 97, 0.2);
   position: relative;
   z-index: 1;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.75rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.form-subtitle {
+  font-size: 1rem;
+  color: #718096;
+  margin: 0;
 }
 
 .contact-form.submitted {
@@ -3161,28 +3182,70 @@ section {
 
 .form-group {
   position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.required-asterisk {
+  color: #e53e3e;
+  font-weight: 700;
+  margin-left: 2px;
 }
 
 .form-input {
   width: 100%;
-  padding: 1rem 1.2rem;
+  padding: 1.1rem 1.3rem;
   border: 2px solid #e2e8f0;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 1rem;
   font-family: inherit;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   color: #2d3748;
   background: white;
-  min-height: 48px;
+  min-height: 52px;
   -webkit-appearance: none;
   appearance: none;
+  box-sizing: border-box;
+}
+
+.form-input::placeholder {
+  color: #a0aec0;
+  opacity: 0.8;
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232d3748' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.3rem center;
+  background-size: 12px;
+  padding-right: 3rem;
+  cursor: pointer;
+}
+
+.form-select:focus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a961' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+}
+
+.form-select option {
+  padding: 0.75rem;
+  color: #2d3748;
+  background: white;
 }
 
 .form-input:focus {
   outline: none;
   border-color: #c9a961;
-  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
-  transform: translateY(-2px);
+  box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.2);
+  transform: translateY(-1px);
+  background: #fafafa;
 }
 
 .form-input:valid {
@@ -3205,8 +3268,23 @@ section {
 .form-privacy {
   text-align: center;
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin-top: 1rem;
+  color: #718096;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.form-required-note {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #718096;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.form-required-note .required-asterisk {
+  color: #e53e3e;
+  font-weight: 700;
 }
 
 .cta-button.submitting {
@@ -3216,7 +3294,18 @@ section {
 
 .contact-form .cta-button {
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 2rem;
+  padding: 1.25rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  min-height: 56px;
+  box-shadow: 0 8px 24px rgba(201, 169, 97, 0.3);
+  transition: all 0.3s ease;
+}
+
+.contact-form .cta-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(201, 169, 97, 0.4);
 }
 
 .contact-form .cta-button:disabled {
@@ -3969,7 +4058,20 @@ section {
   }
 
   .contact-form {
-    padding: 2rem;
+    padding: 2rem 1.5rem;
+    max-width: 100%;
+  }
+
+  .form-title {
+    font-size: 1.5rem;
+  }
+
+  .form-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .form-label {
+    font-size: 0.9rem;
   }
 
   .calculator-wrapper {

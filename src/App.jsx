@@ -1021,6 +1021,17 @@ function App() {
             </div>
 
             <div className="offer-component-card">
+              <div className="component-icon"><Handshake size={32} /></div>
+              <h3 className="component-title">Seller Subsidy</h3>
+              <p className="component-description">
+                Depending on how much competition there is on the property, you may be able to negotiate seller subsidy.
+              </p>
+              <p className="component-description">
+                This could be closing costs or money to repair something in the property. As your realtor, I'll assess each situation to see if this is a viable strategy for your offer. <strong>Ask me more about when seller subsidy makes sense.</strong>
+              </p>
+            </div>
+
+            <div className="offer-component-card">
               <div className="component-icon"><Search size={32} /></div>
               <h3 className="component-title">Home Inspection <span className="tooltip-trigger" data-tooltip="Contingency: A condition in your offer that must be met for the sale to proceed. If not met, you can withdraw without penalty.">Contingency</span> & Appraisal <span className="tooltip-trigger" data-tooltip="Contingency: A condition in your offer that must be met for the sale to proceed. If not met, you can withdraw without penalty.">Contingency</span></h3>
               <p className="component-description">
@@ -1043,17 +1054,6 @@ function App() {
               </p>
               <p className="component-description" style={{ marginTop: '1rem', fontStyle: 'italic', color: '#c9a961', fontWeight: '600' }}>
                 Ask me more about home warranties and how they can protect your investment.
-              </p>
-            </div>
-
-            <div className="offer-component-card">
-              <div className="component-icon"><Handshake size={32} /></div>
-              <h3 className="component-title">Seller Subsidy</h3>
-              <p className="component-description">
-                Depending on how much competition there is on the property, you may be able to negotiate seller subsidy.
-              </p>
-              <p className="component-description">
-                This could be closing costs or money to repair something in the property. As your realtor, I'll assess each situation to see if this is a viable strategy for your offer. <strong>Ask me more about when seller subsidy makes sense.</strong>
               </p>
             </div>
 
@@ -1237,45 +1237,63 @@ function App() {
               </p>
             </div>
             <div className="faq-item">
-              <h3 className="faq-question">Do I need to be pre-approved before looking at homes?</h3>
+              <h3 className="faq-question">What credit score do I need to buy a home?</h3>
               <p className="faq-answer">
-                While not required, being pre-approved is highly recommended. It makes you a "power-buyer" and allows you to act quickly when you find the perfect home. Many sellers won't even consider offers without pre-approval. <strong>Ask me more about how pre-approval gives you a competitive edge.</strong>
+                Most conventional loans require a credit score of 620 or higher, while FHA loans may accept scores as low as 580 (or even 500 with a larger down payment). VA loans typically require 620+. However, higher scores get better interest rates. As your realtor, I'll connect you with trusted lenders who can review your specific situation and help improve your credit if needed. <strong>Ask me more about credit score requirements and how to improve yours.</strong>
               </p>
             </div>
             <div className="faq-item">
-              <h3 className="faq-question">What's the difference between pre-qualified and pre-approved?</h3>
+              <h3 className="faq-question">What is PMI (Private Mortgage Insurance) and when do I need it?</h3>
               <p className="faq-answer">
-                Pre-qualification is a quick estimate based on basic information. Pre-approval involves a thorough review of your financial documents and credit. Pre-approval is what you need to be competitive in today's market.
-              </p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-question">How much do I need for a down payment?</h3>
-              <p className="faq-answer">
-                Down payments can range from 3% to 20% or more, depending on your loan type. Conventional loans typically require 3-20%, while VA loans can be 0% down. As your realtor, I'll help you understand your options based on your situation. <strong>Work with me to find the best down payment strategy for you.</strong>
-              </p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-question">What are closing costs and who pays for them?</h3>
-              <p className="faq-answer">
-                Closing costs typically range from 2.5% to 3% of the home price and include fees for appraisal, inspection, title insurance, and more. In the DMV, buyers typically pay closing costs, though as your realtor, I can negotiate seller contributions in some cases. <strong>Ask me more about how we can minimize your closing costs.</strong>
-              </p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-question">What is earnest money and how much do I need?</h3>
-              <p className="faq-answer">
-                Earnest money (EMD) shows the seller you're serious about buying. It's held in escrow and credited back at closing. In the DMV, EMD typically ranges from 1-5% of the purchase price. A larger EMD can make your offer more competitive. <strong>As your realtor, I'll help you determine the best EMD amount for your offer.</strong>
+                PMI is insurance that protects the lender if you default on your loan. It's typically required when your down payment is less than 20% of the home's purchase price. PMI usually costs 0.5% to 1% of your loan amount annually and can be removed once you reach 20% equity. As your realtor, I'll help you understand your PMI options and when it makes sense to pay it. <strong>Ask me more about PMI and how to minimize or avoid it.</strong>
               </p>
             </div>
             <div className="faq-item">
               <h3 className="faq-question">Can I buy a home if I have student loans or other debt?</h3>
               <p className="faq-answer">
-                Yes! Having debt doesn't automatically disqualify you. Lenders look at your debt-to-income ratio. As your realtor, I'll connect you with trusted lenders who can help you understand your options and find the right loan program for your situation. <strong>Ask me more about how we can work together to get you approved.</strong>
+                Yes! Having debt doesn't automatically disqualify you. Lenders look at your debt-to-income ratio (DTI), which should typically be below 43% for most loans. As your realtor, I'll connect you with trusted lenders who can help you understand your options and find the right loan program for your situation. <strong>Ask me more about how we can work together to get you approved.</strong>
               </p>
             </div>
             <div className="faq-item">
-              <h3 className="faq-question">What areas do you serve?</h3>
+              <h3 className="faq-question">Should I get a home inspection?</h3>
               <p className="faq-answer">
-                I'm licensed in Virginia, Washington DC, and Maryland - the entire DMV area! Whether you're looking in Arlington, Bethesda, Alexandria, McLean, Tysons Corner, Reston, Rockville, Silver Spring, or anywhere in between, as your realtor, I can help you find your perfect home. I specialize in Northern Virginia (NOVA), Washington DC, and Maryland real estate. <strong>Let's work together to explore the best neighborhoods for you.</strong>
+                Absolutely! A home inspection is one of the most important steps in the buying process. It reveals potential issues with the property's structure, systems (HVAC, plumbing, electrical), and safety concerns. Even in competitive markets, an inspection contingency protects you from buying a home with hidden problems. As your realtor, I'll help you find a qualified inspector and negotiate repairs if issues are found. <strong>Ask me more about home inspections and how they protect you.</strong>
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">What happens if the home doesn't appraise for the purchase price?</h3>
+              <p className="faq-answer">
+                If the appraisal comes in lower than your offer price, you have several options: renegotiate the price with the seller, make up the difference in cash, or walk away from the deal (if you have an appraisal contingency). This is why an appraisal contingency is crucial—it protects you from overpaying. As your realtor, I'll help you navigate this situation and negotiate the best outcome. <strong>Ask me more about appraisal contingencies and how they protect you.</strong>
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">Can I negotiate the price after the inspection?</h3>
+              <p className="faq-answer">
+                Yes! If the inspection reveals issues, you can negotiate with the seller to either lower the price, have them make repairs, or provide a credit at closing. The key is having an inspection contingency in your offer. As your realtor, I'll help you determine which issues are worth negotiating and craft a strategy that protects your interests while keeping the deal together. <strong>Ask me more about inspection negotiations.</strong>
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">How do I know if I'm ready to buy a home?</h3>
+              <p className="faq-answer">
+                You're ready if you have stable income, a good credit score, savings for down payment and closing costs, and plan to stay in the area for at least 3-5 years. You should also be comfortable with the ongoing costs of homeownership (maintenance, repairs, property taxes, insurance). As your realtor, I'll help you assess your readiness and create a plan to get you there if you're not quite ready yet. <strong>Let's work together to determine if now is the right time for you.</strong>
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">What should I look for when viewing homes?</h3>
+              <p className="faq-answer">
+                Focus on the home's condition, layout, location, and potential issues. Look for signs of water damage, foundation problems, outdated systems, and neighborhood factors (noise, traffic, schools). Don't get distracted by staging—focus on the bones of the house. As your realtor, I'll point out red flags and help you evaluate each property objectively. <strong>Ask me more about what to look for during home viewings.</strong>
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">How many homes should I view before making an offer?</h3>
+              <p className="faq-answer">
+                There's no magic number, but most buyers view 10-15 homes before making an offer. The key is viewing enough homes to understand the market and recognize a good deal when you see it. However, in competitive markets, you may need to act quickly. As your realtor, I'll help you balance thoroughness with speed so you don't miss out on great opportunities. <strong>Let's work together to find your perfect home.</strong>
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">What is a home warranty and do I need one?</h3>
+              <p className="faq-answer">
+                A home warranty covers repairs or replacements for major systems (HVAC, plumbing, electrical) and appliances for a set period, typically one year. It's not required, but it can provide peace of mind and save you money on unexpected repairs. Some sellers offer a home warranty as part of the sale. As your realtor, I'll help you understand if a home warranty makes sense for your situation. <strong>Ask me more about home warranties and how they can protect your investment.</strong>
               </p>
             </div>
             <div className="faq-item">
@@ -1285,21 +1303,9 @@ function App() {
               </p>
             </div>
             <div className="faq-item">
-              <h3 className="faq-question">What are the best neighborhoods for first-time home buyers in Northern Virginia?</h3>
+              <h3 className="faq-question">What are the best neighborhoods for home buyers in the DMV area?</h3>
               <p className="faq-answer">
-                Northern Virginia offers many great neighborhoods for first-time home buyers, including Arlington, Alexandria, Falls Church, McLean, Tysons Corner, Reston, Vienna, Annandale, Springfield, Burke, Centreville, and Manassas. Each area has its own unique character, price points, and amenities. As your realtor, I'll help you find the best neighborhood that fits your budget, lifestyle, and commute needs. <strong>Let's work together to explore the best Northern Virginia neighborhoods for you.</strong>
-              </p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-question">What are the best neighborhoods for first-time home buyers in Washington DC?</h3>
-              <p className="faq-answer">
-                Washington DC has many excellent neighborhoods for first-time home buyers, including Capitol Hill, Georgetown, Dupont Circle, Adams Morgan, Logan Circle, Shaw, U Street, SW Waterfront, and many more. Each neighborhood offers different price points, amenities, and lifestyles. As your realtor, I'll help you navigate DC's diverse neighborhoods to find the perfect fit for your first home. <strong>Ask me more about the best DC neighborhoods for first-time buyers.</strong>
-              </p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-question">What are the best neighborhoods for first-time home buyers in Maryland?</h3>
-              <p className="faq-answer">
-                Maryland offers many attractive neighborhoods for first-time home buyers, including Bethesda, Rockville, Gaithersburg, Silver Spring, College Park, Hyattsville, and throughout Montgomery County and Prince George's County. Each area has its own unique character, school districts, and price points. As your realtor, I'll help you find the best Maryland neighborhood that fits your budget and lifestyle. <strong>Let's work together to explore the best Maryland neighborhoods for you.</strong>
+                The DMV offers excellent neighborhoods across Northern Virginia, Washington DC, and Maryland. In Northern Virginia, popular areas include Arlington, Alexandria, Falls Church, McLean, Tysons Corner, Reston, and Vienna. In DC, great options include Capitol Hill, Georgetown, Dupont Circle, Adams Morgan, and SW Waterfront. In Maryland, consider Bethesda, Rockville, Gaithersburg, and Silver Spring. Each area has unique character, price points, and amenities. As your realtor, I'll help you find the best neighborhood that fits your budget, lifestyle, and commute needs. <strong>Let's work together to explore the best neighborhoods for you.</strong>
               </p>
             </div>
           </div>
@@ -1364,12 +1370,23 @@ function App() {
                 Don't fill this out if you're human: <input name="bot-field" />
               </label>
             </p>
+            
+            <div className="form-header">
+              <h3 className="form-title">Get Your Free Consultation</h3>
+              <p className="form-subtitle">Fill out the form below and we'll get back to you within 24 hours</p>
+              <p className="form-required-note">All fields marked with <span className="required-asterisk">*</span> are required</p>
+            </div>
+
             <div className="form-row">
               <div className="form-group">
+                <label htmlFor="name" className="form-label">
+                  Your Name <span className="required-asterisk">*</span>
+                </label>
                 <input
                   type="text"
+                  id="name"
                   name="name"
-                  placeholder="Your Name *"
+                  placeholder="Enter your full name"
                   value={formData.name}
                   onChange={handleInputChange}
                   required
@@ -1378,10 +1395,14 @@ function App() {
                 {formErrors.name && <span className="error-message">{formErrors.name}</span>}
               </div>
               <div className="form-group">
+                <label htmlFor="email" className="form-label">
+                  Your Email <span className="required-asterisk">*</span>
+                </label>
                 <input
                   type="email"
+                  id="email"
                   name="email"
-                  placeholder="Your Email *"
+                  placeholder="Enter your email address"
                   value={formData.email}
                   onChange={handleInputChange}
                   required
@@ -1392,10 +1413,14 @@ function App() {
             </div>
             <div className="form-row">
               <div className="form-group">
+                <label htmlFor="phone" className="form-label">
+                  Your Phone <span className="required-asterisk">*</span>
+                </label>
                 <input
                   type="tel"
+                  id="phone"
                   name="phone"
-                  placeholder="Your Phone *"
+                  placeholder="(555) 123-4567"
                   value={formData.phone}
                   onChange={handleInputChange}
                   required
@@ -1404,24 +1429,29 @@ function App() {
                 {formErrors.phone && <span className="error-message">{formErrors.phone}</span>}
               </div>
               <div className="form-group">
+                <label htmlFor="timeline" className="form-label">
+                  When are you thinking of buying? <span className="required-asterisk">*</span>
+                </label>
                 <select
+                  id="timeline"
                   name="timeline"
                   value={formData.timeline}
                   onChange={handleInputChange}
                   required
-                  className={`form-input ${formErrors.timeline ? 'error' : ''}`}
+                  className={`form-input form-select ${formErrors.timeline ? 'error' : ''}`}
                 >
-                  <option value="">When are you thinking of buying? *</option>
-                  <option value="asap">ASAP</option>
+                  <option value="">Select your timeline</option>
+                  <option value="asap">ASAP - Ready to buy now</option>
                   <option value="1-3">1-3 Months</option>
                   <option value="3-6">3-6 Months</option>
-                  <option value="browsing">Just Browsing</option>
+                  <option value="6-12">6-12 Months</option>
+                  <option value="browsing">Just Browsing - Exploring options</option>
                 </select>
                 {formErrors.timeline && <span className="error-message">{formErrors.timeline}</span>}
               </div>
             </div>
             <button type="submit" className={`cta-button primary large ${formSubmitted ? 'submitting' : ''}`} disabled={formSubmitted}>
-              {formSubmitted ? 'Submitting...' : 'Submit'}
+              {formSubmitted ? 'Submitting...' : 'Schedule My Free Consultation'}
             </button>
             <p className="form-privacy">We respect your privacy. Your information will never be shared.</p>
           </form>
