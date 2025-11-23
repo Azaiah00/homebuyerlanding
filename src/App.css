@@ -236,26 +236,14 @@ img, video, iframe {
 
 @media (min-width: 1024px) {
   .sidebar-nav-wrapper {
-    display: block;
+    display: flex;
+    align-items: center;
     position: fixed;
-    left: max(1rem, calc((100vw - 1280px) / 2 - 160px));
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
     z-index: 40;
     height: auto;
-    transition: left 0.3s ease;
-  }
-  
-  @media (min-width: 1440px) {
-    .sidebar-nav-wrapper {
-      left: calc((100vw - 1280px) / 2 - 160px);
-    }
-  }
-  
-  @media (min-width: 1600px) {
-    .sidebar-nav-wrapper {
-      left: calc((100vw - 1280px) / 2 - 160px);
-    }
   }
 
   .sidebar-nav {
@@ -287,12 +275,17 @@ img, video, iframe {
     flex-direction: column;
     gap: 0.25rem;
   }
+  
+  .sidebar-nav-content > div {
+    display: flex;
+    flex-direction: column;
+  }
 
   .sidebar-button {
     position: relative;
     width: 100%;
     text-align: left;
-    padding: 0.75rem 0.75rem;
+    padding: 0.625rem 0.75rem;
     border-radius: 12px;
     background: none;
     border: none;
