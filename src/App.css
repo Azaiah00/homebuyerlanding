@@ -12,12 +12,6 @@
   text-size-adjust: 100%;
 }
 
-@media (min-width: 1024px) {
-  .landing-page {
-    padding-left: 160px; /* Space for sidebar */
-  }
-}
-
 /* Prevent horizontal scroll on mobile */
 * {
   max-width: 100%;
@@ -244,11 +238,24 @@ img, video, iframe {
   .sidebar-nav-wrapper {
     display: block;
     position: fixed;
-    left: 0;
+    left: max(1rem, calc((100vw - 1280px) / 2 - 160px));
     top: 50%;
     transform: translateY(-50%);
     z-index: 40;
     height: auto;
+    transition: left 0.3s ease;
+  }
+  
+  @media (min-width: 1440px) {
+    .sidebar-nav-wrapper {
+      left: calc((100vw - 1280px) / 2 - 160px);
+    }
+  }
+  
+  @media (min-width: 1600px) {
+    .sidebar-nav-wrapper {
+      left: calc((100vw - 1280px) / 2 - 160px);
+    }
   }
 
   .sidebar-nav {
