@@ -653,6 +653,7 @@ img, video, iframe {
   margin: 0 auto 2rem;
   display: block;
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .hero-photo:hover {
@@ -3785,6 +3786,98 @@ section {
 /* ============================================
    BACK TO TOP BUTTON
    ============================================ */
+
+/* Photo Modal Styles */
+.photo-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.photo-modal-content {
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  animation: scaleIn 0.3s ease-out;
+}
+
+.photo-modal-image {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  display: block;
+}
+
+.photo-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: #1a202c;
+}
+
+.photo-modal-close:hover {
+  background: #f3f4f6;
+  transform: scale(1.1);
+}
+
+.photo-modal-close:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.5);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .photo-modal-content {
+    max-width: 90%;
+  }
+  
+  .photo-modal-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 36px;
+    height: 36px;
+  }
+}
 
 .back-to-top {
   position: fixed;

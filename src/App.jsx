@@ -37,6 +37,7 @@ function App() {
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [showPhotoModal, setShowPhotoModal] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [formErrors, setFormErrors] = useState({})
   const [activeChapter, setActiveChapter] = useState(null)
@@ -430,6 +431,7 @@ function App() {
               src="/images/frederick-headshot.jpg" 
               alt="Frederick Sales - Real Estate Agent"
               className="hero-photo"
+              onClick={() => setShowPhotoModal(true)}
               onError={(e) => {
                 // Fallback to placeholder if image doesn't exist
                 e.target.style.display = 'none';
@@ -1355,6 +1357,36 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* PHOTO MODAL */}
+      {showPhotoModal && (
+        <div
+          className="photo-modal-overlay"
+          onClick={() => setShowPhotoModal(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="photo-modal-title"
+        >
+          <div
+            className="photo-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img 
+              src="/images/frederick-headshot.jpg" 
+              alt="Frederick Sales - Real Estate Agent"
+              className="photo-modal-image"
+              loading="lazy"
+            />
+            <button
+              onClick={() => setShowPhotoModal(false)}
+              className="photo-modal-close"
+              aria-label="Close photo"
+            >
+              <X size={24} />
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* BACK TO TOP BUTTON */}
       {showBackToTop && (
