@@ -461,7 +461,7 @@ function App() {
           <div className="hero-image-wrapper">
             <img 
               src="/images/frederick-headshot.jpg" 
-              alt="Frederick Sales - Real Estate Agent"
+              alt="Frederick Sales - Best Real Estate Agent for First Time Home Buyers in Northern Virginia, DC and Maryland"
               className="hero-photo"
               onClick={() => setShowPhotoModal(true)}
               onError={(e) => {
