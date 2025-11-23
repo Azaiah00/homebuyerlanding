@@ -20,7 +20,9 @@ import {
   Coins,
   TrendingUp,
   Wrench,
-  Zap
+  Zap,
+  Menu,
+  X
 } from 'lucide-react'
 import './App.css'
 
@@ -353,37 +355,52 @@ function App() {
       </aside>
 
       {/* STICKY NAVIGATION */}
-      <nav className={`sticky-nav ${isScrolled ? 'scrolled' : ''}`}>
+      <nav 
+        className={`sticky-nav ${isScrolled ? 'scrolled' : ''}`}
+        role="navigation"
+        aria-label="Main navigation"
+      >
         <div className="nav-container">
-          <div className="nav-center">
-            <button 
-              className="nav-logo" 
+          <div className="nav-center-wrapper">
+            {/* Center - Frederick Sales */}
+            <button
               onClick={scrollToTop}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit' }}
-              aria-label="Return to top"
+              className={`nav-logo ${isScrolled ? 'scrolled' : ''}`}
+              aria-label="Frederick Sales - Return to top"
             >
               Frederick Sales
             </button>
-          </div>
-          
-          {/* Desktop CTA Button */}
-          <div className="nav-cta-desktop">
-            <button className="nav-cta" onClick={scrollToContact}>Get Started</button>
-          </div>
 
-          {/* Mobile Menu Toggle */}
-          <button className="mobile-menu-toggle" onClick={toggleMobileMenu} aria-label="Toggle menu">
-            <span className={`hamburger ${mobileMenuOpen ? 'open' : ''}`}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-            {mobileMenuOpen && <span className="close-text">Close</span>}
-          </button>
+            {/* Right Side - CTA Button (Desktop) */}
+            <div className="nav-cta-desktop">
+              <button
+                onClick={scrollToContact}
+                className="nav-cta"
+              >
+                Get Started
+              </button>
+            </div>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={toggleMobileMenu}
+              className={`mobile-menu-toggle ${isScrolled ? 'scrolled' : ''}`}
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
 
           {/* Mobile Navigation */}
           {mobileMenuOpen && (
-            <div className="mobile-nav-menu">
+            <div
+              id="mobile-menu"
+              className="mobile-nav-menu"
+              role="navigation"
+              aria-label="Mobile navigation"
+            >
               {chapters.map((chapter) => (
                 <button
                   key={chapter.id}
