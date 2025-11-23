@@ -65,13 +65,21 @@ function App() {
     downPaymentPercent: '',
     state: 'VA', // VA, DC, or MD for state-specific calculations
     loanType: 'conventional', // conventional, FHA, VA
+    propertyType: 'single-family', // single-family, townhome, condo
     includePrepaids: true,
     propertyTaxRate: 1.0, // Annual property tax rate (DMV average ~1%)
-    homeInsurance: 1500, // Annual home insurance estimate
+    homeInsurance: 1500, // Annual home insurance estimate (defaults to single-family)
     hoaFee: 0, // Monthly HOA/Condo fee
     sellerPaysClosing: false, // Whether seller is paying some closing costs
     sellerContribution: 0
   })
+
+  // Property type insurance defaults (DMV typical ranges)
+  const propertyInsuranceDefaults = {
+    'single-family': 1500, // $1,200-$2,000/year
+    'townhome': 1000, // $800-$1,400/year
+    'condo': 500 // $300-$700/year (much cheaper, HOA master policy covers building)
+  }
 
   const [closingCostBreakdown, setClosingCostBreakdown] = useState({
     loanOrigination: 0,
@@ -329,6 +337,15 @@ function App() {
         const formattedValue = numericValue === '' ? '' : parseInt(numericValue).toLocaleString('en-US')
         setClosingCostData(prev => ({ ...prev, [name]: formattedValue }))
       }
+    } else if (name === 'propertyType') {
+      // Update property type and auto-update home insurance to default for that type
+      const newPropertyType = value
+      const defaultInsurance = propertyInsuranceDefaults[newPropertyType]
+      setClosingCostData(prev => ({
+        ...prev,
+        propertyType: newPropertyType,
+        homeInsurance: defaultInsurance
+      }))
     } else if (type === 'checkbox') {
       setClosingCostData(prev => ({ ...prev, [name]: checked }))
     } else {
@@ -1160,6 +1177,22 @@ https://homebuyerconsultation.netlify.app`
               </div>
 
               <div className="calc-input-group">
+                <label htmlFor="cc-propertyType">Property Type</label>
+                <select
+                  id="cc-propertyType"
+                  name="propertyType"
+                  value={closingCostData.propertyType}
+                  onChange={handleClosingCostChange}
+                  className="calc-select"
+                >
+                  <option value="single-family">Single Family Home</option>
+                  <option value="townhome">Townhome</option>
+                  <option value="condo">Condo</option>
+                </select>
+                <small className="input-help">Select property type to auto-populate typical insurance range</small>
+              </div>
+
+              <div className="calc-input-group">
                 <label htmlFor="cc-propertyTaxRate">Annual Property Tax Rate (%)</label>
                 <div className="input-wrapper">
                   <input
@@ -1189,11 +1222,15 @@ https://homebuyerconsultation.netlify.app`
                     value={closingCostData.homeInsurance}
                     onChange={handleClosingCostChange}
                     min="0"
-                    step="100"
+                    step="50"
                     className="calc-input"
                   />
                 </div>
-                <small className="input-help">Typical range: $1,200-$2,000/year</small>
+                <small className="input-help">
+                  {closingCostData.propertyType === 'single-family' && 'Typical range: $1,200-$2,000/year'}
+                  {closingCostData.propertyType === 'townhome' && 'Typical range: $800-$1,400/year'}
+                  {closingCostData.propertyType === 'condo' && 'Typical range: $300-$700/year (much cheaper - HOA master policy covers building)'}
+                </small>
               </div>
 
               <div className="calc-input-group">
