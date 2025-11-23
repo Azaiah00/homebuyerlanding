@@ -22,7 +22,11 @@ import {
   Wrench,
   Zap,
   Menu,
-  X
+  X,
+  Copy,
+  Info,
+  Printer,
+  Download
 } from 'lucide-react'
 import './App.css'
 
@@ -52,6 +56,36 @@ function App() {
   const [totalPayment, setTotalPayment] = useState(0)
   const [rateLastUpdated, setRateLastUpdated] = useState(null)
   const ADMIN_FEE = 495
+
+  // Closing Cost Calculator State
+  const [closingCostData, setClosingCostData] = useState({
+    homePrice: '',
+    downPaymentPercent: '',
+    state: 'VA', // VA, DC, or MD for state-specific calculations
+    loanType: 'conventional', // conventional, FHA, VA
+    includePrepaids: true,
+    propertyTaxRate: 1.0, // Annual property tax rate (DMV average ~1%)
+    homeInsurance: 1500, // Annual home insurance estimate
+    hoaFee: 0, // Monthly HOA/Condo fee
+    sellerPaysClosing: false, // Whether seller is paying some closing costs
+    sellerContribution: 0
+  })
+
+  const [closingCostBreakdown, setClosingCostBreakdown] = useState({
+    loanOrigination: 0,
+    appraisal: 0,
+    inspection: 0,
+    titleInsurance: 0,
+    recordingFees: 0,
+    transferTax: 0,
+    propertyTax: 0,
+    homeInsurance: 0,
+    prepaidInterest: 0,
+    adminFee: 495,
+    totalClosingCosts: 0,
+    totalCashNeeded: 0,
+    emd: 0
+  })
 
   // Fetch current mortgage rate from Freddie Mac Primary Mortgage Market Survey (PMMS)
   // Freddie Mac publishes weekly rates every Thursday
@@ -126,6 +160,127 @@ function App() {
     }
   }, [calculatorData])
 
+  // Sync closing cost calculator with mortgage calculator when home price or down payment changes
+  useEffect(() => {
+    const mortgageHomePrice = parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) || 0
+    const mortgageDownPayment = parseFloat(calculatorData.downPaymentPercent) || 0
+    
+    if (mortgageHomePrice > 0 && (!closingCostData.homePrice || closingCostData.homePrice === '')) {
+      setClosingCostData(prev => ({
+        ...prev,
+        homePrice: calculatorData.homePrice,
+        downPaymentPercent: mortgageDownPayment || prev.downPaymentPercent
+      }))
+    }
+  }, [calculatorData.homePrice, calculatorData.downPaymentPercent])
+
+  // Calculate closing costs
+  useEffect(() => {
+    const calculateClosingCosts = () => {
+      const homePrice = parseFloat(closingCostData.homePrice.toString().replace(/,/g, '')) || 0
+      const downPaymentPercent = parseFloat(closingCostData.downPaymentPercent) || 0
+      const downPayment = (homePrice * downPaymentPercent) / 100
+      const loanAmount = homePrice - downPayment
+      
+      if (homePrice === 0) {
+        setClosingCostBreakdown({
+          loanOrigination: 0,
+          appraisal: 0,
+          inspection: 0,
+          titleInsurance: 0,
+          recordingFees: 0,
+          transferTax: 0,
+          propertyTax: 0,
+          homeInsurance: 0,
+          prepaidInterest: 0,
+          adminFee: 495,
+          totalClosingCosts: 0,
+          totalCashNeeded: 0,
+          emd: 0
+        })
+        return
+      }
+
+      // Loan Origination Fee (typically 0.5-1% of loan amount)
+      const loanOrigination = loanAmount * 0.01 // 1% estimate
+      
+      // Appraisal (DMV: $400-$600+, varies by property size)
+      const appraisal = homePrice > 750000 ? 600 : 450
+      
+      // Home Inspection (DMV: $350-$750)
+      const inspection = 550 // Average
+      
+      // Title Insurance (varies by state and loan amount)
+      // VA: ~0.5-0.7% of loan amount, DC: ~0.6-0.8%, MD: ~0.5-0.7%
+      let titleInsuranceRate = 0.006
+      if (closingCostData.state === 'DC') titleInsuranceRate = 0.007
+      const titleInsurance = loanAmount * titleInsuranceRate
+      
+      // Recording Fees (varies by state)
+      let recordingFees = 200
+      if (closingCostData.state === 'DC') recordingFees = 300
+      if (closingCostData.state === 'MD') recordingFees = 250
+      
+      // Transfer Tax (varies significantly by state/county)
+      // VA: Typically 0.2% of sale price, DC: 1.1% (split between buyer/seller), MD: 0.5% (split)
+      let transferTax = 0
+      if (closingCostData.state === 'VA') {
+        transferTax = homePrice * 0.002 // 0.2%
+      } else if (closingCostData.state === 'DC') {
+        transferTax = homePrice * 0.0055 // Buyer typically pays 0.55% of 1.1%
+      } else if (closingCostData.state === 'MD') {
+        transferTax = homePrice * 0.0025 // Buyer typically pays 0.25% of 0.5%
+      }
+      
+      // Property Tax Proration (estimate 1-2 months)
+      const monthlyPropertyTax = (homePrice * closingCostData.propertyTaxRate / 100) / 12
+      const propertyTax = monthlyPropertyTax * 2 // 2 months prepaid
+      
+      // Home Insurance (annual, prorated for 1 year)
+      const homeInsurance = closingCostData.includePrepaids ? closingCostData.homeInsurance : 0
+      
+      // Prepaid Interest (estimate 15 days) - use rate from mortgage calculator
+      const interestRate = calculatorData.interestRate || 6.26
+      const dailyInterest = (loanAmount * (interestRate / 100)) / 365
+      const prepaidInterest = closingCostData.includePrepaids ? dailyInterest * 15 : 0
+      
+      // Admin Fee
+      const adminFee = 495
+      
+      // Total Closing Costs
+      let totalClosingCosts = loanOrigination + appraisal + inspection + titleInsurance + 
+                             recordingFees + transferTax + propertyTax + homeInsurance + 
+                             prepaidInterest + adminFee
+      
+      // Subtract seller contribution if applicable
+      if (closingCostData.sellerPaysClosing) {
+        totalClosingCosts = Math.max(0, totalClosingCosts - closingCostData.sellerContribution)
+      }
+      
+      // Total Cash Needed = Down Payment + Closing Costs + EMD (if not credited)
+      const emd = homePrice * 0.03 // 3% EMD estimate
+      const totalCashNeeded = downPayment + totalClosingCosts + emd
+      
+      setClosingCostBreakdown({
+        loanOrigination,
+        appraisal,
+        inspection,
+        titleInsurance,
+        recordingFees,
+        transferTax,
+        propertyTax,
+        homeInsurance,
+        prepaidInterest,
+        adminFee,
+        totalClosingCosts,
+        totalCashNeeded,
+        emd
+      })
+    }
+    
+    calculateClosingCosts()
+  }, [closingCostData, calculatorData.interestRate])
+
   const handleCalculatorChange = (e) => {
     const { name, value } = e.target
     if (name === 'homePrice') {
@@ -162,6 +317,110 @@ function App() {
         [name]: parseFloat(value) || (value === '' ? '' : 0)
       }))
     }
+  }
+
+  const handleClosingCostChange = (e) => {
+    const { name, value, type, checked } = e.target
+    if (name === 'homePrice') {
+      const numericValue = value.replace(/,/g, '')
+      if (numericValue === '' || /^\d+$/.test(numericValue)) {
+        const formattedValue = numericValue === '' ? '' : parseInt(numericValue).toLocaleString('en-US')
+        setClosingCostData(prev => ({ ...prev, [name]: formattedValue }))
+      }
+    } else if (type === 'checkbox') {
+      setClosingCostData(prev => ({ ...prev, [name]: checked }))
+    } else {
+      setClosingCostData(prev => ({
+        ...prev,
+        [name]: parseFloat(value) || (value === '' ? '' : 0)
+      }))
+    }
+  }
+
+  const copyFromMortgageCalculator = () => {
+    const mortgageHomePrice = calculatorData.homePrice
+    const mortgageDownPayment = calculatorData.downPaymentPercent
+    
+    if (mortgageHomePrice && mortgageDownPayment) {
+      setClosingCostData(prev => ({
+        ...prev,
+        homePrice: mortgageHomePrice,
+        downPaymentPercent: mortgageDownPayment
+      }))
+    }
+  }
+
+  const printClosingCosts = () => {
+    window.print()
+  }
+
+  const exportClosingCosts = () => {
+    const homePrice = parseFloat(closingCostData.homePrice.toString().replace(/,/g, '')) || 0
+    const downPaymentPercent = parseFloat(closingCostData.downPaymentPercent) || 0
+    
+    const data = {
+      homePrice: formatCurrency(homePrice),
+      downPayment: formatCurrency((homePrice * downPaymentPercent) / 100),
+      downPaymentPercent: `${downPaymentPercent}%`,
+      state: closingCostData.state,
+      loanType: closingCostData.loanType,
+      breakdown: {
+        downPayment: formatCurrency((homePrice * downPaymentPercent) / 100),
+        emd: formatCurrency(closingCostBreakdown.emd),
+        loanOrigination: formatCurrency(closingCostBreakdown.loanOrigination),
+        appraisal: formatCurrency(closingCostBreakdown.appraisal),
+        inspection: formatCurrency(closingCostBreakdown.inspection),
+        titleInsurance: formatCurrency(closingCostBreakdown.titleInsurance),
+        transferTax: formatCurrency(closingCostBreakdown.transferTax),
+        recordingFees: formatCurrency(closingCostBreakdown.recordingFees),
+        propertyTax: formatCurrency(closingCostBreakdown.propertyTax),
+        homeInsurance: formatCurrency(closingCostBreakdown.homeInsurance),
+        prepaidInterest: formatCurrency(closingCostBreakdown.prepaidInterest),
+        adminFee: formatCurrency(closingCostBreakdown.adminFee),
+        sellerContribution: closingCostData.sellerPaysClosing ? formatCurrency(closingCostData.sellerContribution) : '$0',
+        totalClosingCosts: formatCurrency(closingCostBreakdown.totalClosingCosts),
+        totalCashNeeded: formatCurrency(closingCostBreakdown.totalCashNeeded)
+      }
+    }
+    
+    const text = `Closing Cost Estimate
+====================
+Home Price: ${data.homePrice}
+Down Payment: ${data.downPayment} (${data.downPaymentPercent})
+State: ${data.state}
+Loan Type: ${data.loanType}
+
+Breakdown:
+----------
+Down Payment: ${data.breakdown.downPayment}
+Earnest Money Deposit: ${data.breakdown.emd}
+Loan Origination Fee: ${data.breakdown.loanOrigination}
+Appraisal: ${data.breakdown.appraisal}
+Home Inspection: ${data.breakdown.inspection}
+Title Insurance: ${data.breakdown.titleInsurance}
+Transfer Tax: ${data.breakdown.transferTax}
+Recording Fees: ${data.breakdown.recordingFees}
+Property Tax (2 months): ${data.breakdown.propertyTax}
+Home Insurance (1 year): ${data.breakdown.homeInsurance}
+Prepaid Interest (15 days): ${data.breakdown.prepaidInterest}
+Admin Fee: ${data.breakdown.adminFee}
+${closingCostData.sellerPaysClosing ? `Seller Contribution: -${data.breakdown.sellerContribution}` : ''}
+
+Total Closing Costs: ${data.breakdown.totalClosingCosts}
+Total Cash Needed: ${data.breakdown.totalCashNeeded}
+
+Generated by Frederick Sales - Home Buyer Consultation
+https://homebuyerconsultation.netlify.app`
+
+    const blob = new Blob([text], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `closing-cost-estimate-${new Date().toISOString().split('T')[0]}.txt`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
   }
 
   const formatCurrency = (amount) => {
@@ -214,10 +473,10 @@ function App() {
     }
   }, [mobileMenuOpen])
 
-  // Track active chapter based on scroll position
+      // Track active chapter based on scroll position
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['game-plan', 'money-talk', 'mortgage-calculator', 'wealth-building', 'winning-offer', 'team-advantage', 'testimonials', 'faq', 'contact-section']
+      const sections = ['game-plan', 'money-talk', 'mortgage-calculator', 'closing-cost-calculator', 'wealth-building', 'winning-offer', 'team-advantage', 'testimonials', 'faq', 'contact-section']
       const scrollPosition = window.scrollY + 200
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -337,10 +596,11 @@ function App() {
     { id: 'game-plan', number: 1, title: 'Process' },
     { id: 'money-talk', number: 2, title: 'Costs' },
     { id: 'mortgage-calculator', number: 3, title: 'Mortgage\nCalculator' },
-    { id: 'winning-offer', number: 4, title: 'Winning Offer' },
-    { id: 'team-advantage', number: 5, title: 'Why Us' },
-    { id: 'testimonials', number: 6, title: 'Reviews' },
-    { id: 'faq', number: 7, title: 'FAQ' }
+    { id: 'closing-cost-calculator', number: 4, title: 'Closing\nCosts' },
+    { id: 'winning-offer', number: 5, title: 'Winning Offer' },
+    { id: 'team-advantage', number: 6, title: 'Why Us' },
+    { id: 'testimonials', number: 7, title: 'Reviews' },
+    { id: 'faq', number: 8, title: 'FAQ' }
   ]
 
   return (
@@ -616,7 +876,7 @@ function App() {
           <p className="section-subtitle">No surprises. Here's what to expect financially.</p>
           <div className="money-grid">
             <div className="money-card">
-              <h3 className="money-card-title"><span className="tooltip-trigger" data-tooltip="Pre-Qualified: A quick estimate based on basic information you provide. Not verified. Pre-Approved: A thorough review with document verification that makes you a serious, competitive buyer.">Pre-Qualified</span> vs. <span className="tooltip-trigger" data-tooltip="Pre-Approved: A thorough qualification with document verification. This makes you a serious buyer and lets you act fast. Required to be competitive in today's market.">Pre-Approved</span></h3>
+              <h3 className="money-card-title"><span className="tooltip-trigger" data-tooltip="Pre-Qualified: A quick estimate based on basic information you provide. Not verified by a lender.">Pre-Qualified</span> vs. <span className="tooltip-trigger" data-tooltip="Pre-Approved: A thorough qualification with document verification. This makes you a serious buyer and lets you act fast. Required to be competitive in today's market.">Pre-Approved</span></h3>
               <div className="comparison-item">
                 <div className="comparison-badge">7 Mins</div>
                 <h4>Pre-Qualified</h4>
@@ -798,6 +1058,378 @@ function App() {
                 <p>Ready to get pre-approved? As your realtor, I'll connect you with our trusted lenders. <strong>Ask me more about the pre-approval process.</strong></p>
                 <button className="cta-button primary" onClick={scrollToContact}>
                   Get Pre-Approved Today
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CLOSING COST CALCULATOR */}
+      <section id="closing-cost-calculator" className="closing-cost-calculator fade-in-section">
+        <div className="container">
+          <h2 className="section-title">Closing Cost Calculator</h2>
+          <p className="section-subtitle">
+            Estimate your total closing costs and cash needed to buy a home in the DMV. 
+            Get a detailed breakdown of all fees and expenses.
+          </p>
+          
+          <div className="calculator-wrapper">
+            <div className="calculator-inputs">
+              {calculatorData.homePrice && calculatorData.downPaymentPercent && (
+                <div className="calc-input-group">
+                  <button
+                    type="button"
+                    onClick={copyFromMortgageCalculator}
+                    className="copy-from-mortgage-btn"
+                  >
+                    <Copy size={16} />
+                    Copy from Mortgage Calculator
+                  </button>
+                </div>
+              )}
+
+              <div className="calc-input-group">
+                <label htmlFor="cc-homePrice">Home Price</label>
+                <div className="input-wrapper">
+                  <span className="input-prefix">$</span>
+                  <input
+                    type="text"
+                    id="cc-homePrice"
+                    name="homePrice"
+                    value={closingCostData.homePrice}
+                    onChange={handleClosingCostChange}
+                    placeholder="500,000"
+                    className="calc-input"
+                  />
+                </div>
+              </div>
+
+              <div className="calc-input-group">
+                <label htmlFor="cc-downPaymentPercent">Down Payment (%)</label>
+                <div className="input-wrapper">
+                  <input
+                    type="number"
+                    id="cc-downPaymentPercent"
+                    name="downPaymentPercent"
+                    value={closingCostData.downPaymentPercent}
+                    onChange={handleClosingCostChange}
+                    min="0"
+                    max="100"
+                    step="0.5"
+                    className="calc-input"
+                  />
+                  <span className="input-suffix">%</span>
+                </div>
+              </div>
+
+              <div className="calc-input-group">
+                <label htmlFor="cc-state">State</label>
+                <select
+                  id="cc-state"
+                  name="state"
+                  value={closingCostData.state}
+                  onChange={handleClosingCostChange}
+                  className="calc-select"
+                >
+                  <option value="VA">Virginia</option>
+                  <option value="DC">Washington DC</option>
+                  <option value="MD">Maryland</option>
+                </select>
+              </div>
+
+              <div className="calc-input-group">
+                <label htmlFor="cc-loanType">Loan Type</label>
+                <select
+                  id="cc-loanType"
+                  name="loanType"
+                  value={closingCostData.loanType}
+                  onChange={handleClosingCostChange}
+                  className="calc-select"
+                >
+                  <option value="conventional">Conventional</option>
+                  <option value="FHA">FHA</option>
+                  <option value="VA">VA Loan</option>
+                </select>
+              </div>
+
+              <div className="calc-input-group">
+                <label htmlFor="cc-propertyTaxRate">Annual Property Tax Rate (%)</label>
+                <div className="input-wrapper">
+                  <input
+                    type="number"
+                    id="cc-propertyTaxRate"
+                    name="propertyTaxRate"
+                    value={closingCostData.propertyTaxRate}
+                    onChange={handleClosingCostChange}
+                    min="0"
+                    max="5"
+                    step="0.1"
+                    className="calc-input"
+                  />
+                  <span className="input-suffix">%</span>
+                </div>
+                <small className="input-help">DMV average: ~1.0% annually</small>
+              </div>
+
+              <div className="calc-input-group">
+                <label htmlFor="cc-homeInsurance">Annual Home Insurance</label>
+                <div className="input-wrapper">
+                  <span className="input-prefix">$</span>
+                  <input
+                    type="number"
+                    id="cc-homeInsurance"
+                    name="homeInsurance"
+                    value={closingCostData.homeInsurance}
+                    onChange={handleClosingCostChange}
+                    min="0"
+                    step="100"
+                    className="calc-input"
+                  />
+                </div>
+                <small className="input-help">Typical range: $1,200-$2,000/year</small>
+              </div>
+
+              <div className="calc-input-group">
+                <label htmlFor="cc-hoaFee">Monthly HOA/Condo Fee (if applicable)</label>
+                <div className="input-wrapper">
+                  <span className="input-prefix">$</span>
+                  <input
+                    type="number"
+                    id="cc-hoaFee"
+                    name="hoaFee"
+                    value={closingCostData.hoaFee}
+                    onChange={handleClosingCostChange}
+                    min="0"
+                    step="50"
+                    className="calc-input"
+                  />
+                </div>
+              </div>
+
+              <div className="calc-input-group checkbox-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="includePrepaids"
+                    checked={closingCostData.includePrepaids}
+                    onChange={handleClosingCostChange}
+                  />
+                  Include prepaid items (insurance, property tax, interest)
+                </label>
+              </div>
+
+              <div className="calc-input-group checkbox-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="sellerPaysClosing"
+                    checked={closingCostData.sellerPaysClosing}
+                    onChange={handleClosingCostChange}
+                  />
+                  Seller is contributing to closing costs
+                </label>
+              </div>
+
+              {closingCostData.sellerPaysClosing && (
+                <div className="calc-input-group">
+                  <label htmlFor="cc-sellerContribution">Seller Contribution Amount</label>
+                  <div className="input-wrapper">
+                    <span className="input-prefix">$</span>
+                    <input
+                      type="number"
+                      id="cc-sellerContribution"
+                      name="sellerContribution"
+                      value={closingCostData.sellerContribution}
+                      onChange={handleClosingCostChange}
+                      min="0"
+                      step="500"
+                      className="calc-input"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="calculator-results">
+              <div className="result-card primary">
+                <div className="result-label">Total Cash Needed</div>
+                <div className="result-value">{formatCurrency(closingCostBreakdown.totalCashNeeded)}</div>
+                <div className="result-note">Down Payment + Closing Costs + Earnest Money</div>
+              </div>
+
+              <div className="result-card secondary">
+                <div className="result-label">Total Closing Costs</div>
+                <div className="result-value">{formatCurrency(closingCostBreakdown.totalClosingCosts)}</div>
+              </div>
+
+              <div className="closing-cost-breakdown">
+                <div className="breakdown-header">
+                  <h4 className="breakdown-title">Closing Cost Breakdown</h4>
+                  <div className="breakdown-actions">
+                    <button
+                      type="button"
+                      onClick={printClosingCosts}
+                      className="action-btn"
+                      title="Print"
+                      aria-label="Print closing costs"
+                    >
+                      <Printer size={18} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={exportClosingCosts}
+                      className="action-btn"
+                      title="Export"
+                      aria-label="Export closing costs"
+                    >
+                      <Download size={18} />
+                    </button>
+                  </div>
+                </div>
+                <div className="breakdown-list">
+                  <div className="breakdown-item">
+                    <div className="breakdown-item-label">
+                      <span>Down Payment</span>
+                      <span className="tooltip-icon" data-tooltip="The initial cash amount you pay toward the purchase price. This is your equity stake in the property from day one.">
+                        <Info size={14} />
+                      </span>
+                    </div>
+                    <span className="breakdown-value">
+                      {closingCostData.homePrice && closingCostData.downPaymentPercent
+                        ? formatCurrency((parseFloat(closingCostData.homePrice.toString().replace(/,/g, '')) * parseFloat(closingCostData.downPaymentPercent)) / 100)
+                        : '$0'}
+                    </span>
+                  </div>
+                  <div className="breakdown-item">
+                    <div className="breakdown-item-label">
+                      <span>Earnest Money Deposit (EMD)</span>
+                      <span className="tooltip-icon" data-tooltip="A good-faith deposit showing you're serious about buying. Held in escrow and credited back at closing. Typically 1-5% of purchase price, with 3% being standard in the DMV.">
+                        <Info size={14} />
+                      </span>
+                    </div>
+                    <span className="breakdown-value">{formatCurrency(closingCostBreakdown.emd || 0)}</span>
+                  </div>
+                  <div className="breakdown-item">
+                    <div className="breakdown-item-label">
+                      <span>Loan Origination Fee</span>
+                      <span className="tooltip-icon" data-tooltip="A fee charged by the lender for processing your loan application. Typically 0.5-1% of the loan amount. This covers the cost of underwriting, processing, and funding your mortgage.">
+                        <Info size={14} />
+                      </span>
+                    </div>
+                    <span className="breakdown-value">{formatCurrency(closingCostBreakdown.loanOrigination)}</span>
+                  </div>
+                  <div className="breakdown-item">
+                    <div className="breakdown-item-label">
+                      <span>Appraisal</span>
+                      <span className="tooltip-icon" data-tooltip="A professional assessment of the home's value by a licensed appraiser. Required by lenders to ensure the property is worth the loan amount. In the DMV, typically costs $400-$600+ depending on property size.">
+                        <Info size={14} />
+                      </span>
+                    </div>
+                    <span className="breakdown-value">{formatCurrency(closingCostBreakdown.appraisal)}</span>
+                  </div>
+                  <div className="breakdown-item">
+                    <div className="breakdown-item-label">
+                      <span>Home Inspection</span>
+                      <span className="tooltip-icon" data-tooltip="A professional evaluation of the property's condition, including structural elements, systems (HVAC, plumbing, electrical), and safety concerns. In the DMV, typically costs $350-$750. Allows you to negotiate repairs or withdraw if major issues are found.">
+                        <Info size={14} />
+                      </span>
+                    </div>
+                    <span className="breakdown-value">{formatCurrency(closingCostBreakdown.inspection)}</span>
+                  </div>
+                  <div className="breakdown-item">
+                    <div className="breakdown-item-label">
+                      <span>Title Insurance</span>
+                      <span className="tooltip-icon" data-tooltip="Insurance that protects you and your lender from ownership disputes, liens, or other title issues. Rates vary by state: VA ~0.5-0.7%, DC ~0.6-0.8%, MD ~0.5-0.7% of loan amount.">
+                        <Info size={14} />
+                      </span>
+                    </div>
+                    <span className="breakdown-value">{formatCurrency(closingCostBreakdown.titleInsurance)}</span>
+                  </div>
+                  <div className="breakdown-item">
+                    <div className="breakdown-item-label">
+                      <span>Transfer Tax</span>
+                      <span className="tooltip-icon" data-tooltip="A tax on the transfer of property ownership. Rates vary by state: VA typically 0.2% of sale price, DC 1.1% (split between buyer/seller, buyer pays ~0.55%), MD 0.5% (split, buyer pays ~0.25%).">
+                        <Info size={14} />
+                      </span>
+                    </div>
+                    <span className="breakdown-value">{formatCurrency(closingCostBreakdown.transferTax)}</span>
+                  </div>
+                  <div className="breakdown-item">
+                    <div className="breakdown-item-label">
+                      <span>Recording Fees</span>
+                      <span className="tooltip-icon" data-tooltip="Fees paid to the local government to record the deed and mortgage documents in public records. Typically $200-$300 depending on state and county.">
+                        <Info size={14} />
+                      </span>
+                    </div>
+                    <span className="breakdown-value">{formatCurrency(closingCostBreakdown.recordingFees)}</span>
+                  </div>
+                  {closingCostData.includePrepaids && (
+                    <>
+                      <div className="breakdown-item">
+                        <div className="breakdown-item-label">
+                          <span>Property Tax (2 months)</span>
+                          <span className="tooltip-icon" data-tooltip="Prepaid property taxes for the first 2 months. This ensures your property taxes are paid in advance. Amount varies based on your property tax rate and home value.">
+                            <Info size={14} />
+                          </span>
+                        </div>
+                        <span className="breakdown-value">{formatCurrency(closingCostBreakdown.propertyTax)}</span>
+                      </div>
+                      <div className="breakdown-item">
+                        <div className="breakdown-item-label">
+                          <span>Home Insurance (1 year)</span>
+                          <span className="tooltip-icon" data-tooltip="First year of homeowners insurance paid upfront. Required by lenders to protect their investment. Typical range in DMV: $1,200-$2,000 per year depending on home value and coverage.">
+                            <Info size={14} />
+                          </span>
+                        </div>
+                        <span className="breakdown-value">{formatCurrency(closingCostBreakdown.homeInsurance)}</span>
+                      </div>
+                      <div className="breakdown-item">
+                        <div className="breakdown-item-label">
+                          <span>Prepaid Interest (15 days)</span>
+                          <span className="tooltip-icon" data-tooltip="Interest on your loan from the closing date until your first mortgage payment. Typically covers 15 days of interest based on your loan amount and interest rate.">
+                            <Info size={14} />
+                          </span>
+                        </div>
+                        <span className="breakdown-value">{formatCurrency(closingCostBreakdown.prepaidInterest)}</span>
+                      </div>
+                    </>
+                  )}
+                  <div className="breakdown-item">
+                    <div className="breakdown-item-label">
+                      <span>Admin Fee</span>
+                      <span className="tooltip-icon" data-tooltip="A standard fee charged by real estate brokerages to cover administrative costs associated with your transaction. This $495 fee helps cover document processing, transaction coordination, compliance requirements, and administrative support throughout your home buying process.">
+                        <Info size={14} />
+                      </span>
+                    </div>
+                    <span className="breakdown-value">{formatCurrency(closingCostBreakdown.adminFee)}</span>
+                  </div>
+                  {closingCostData.sellerPaysClosing && closingCostData.sellerContribution > 0 && (
+                    <div className="breakdown-item discount">
+                      <div className="breakdown-item-label">
+                        <span>Seller Contribution (Credit)</span>
+                        <span className="tooltip-icon" data-tooltip="A credit from the seller toward your closing costs. This can be negotiated as part of your offer and reduces the amount you need to bring to closing.">
+                          <Info size={14} />
+                        </span>
+                      </div>
+                      <span className="breakdown-value">-{formatCurrency(closingCostData.sellerContribution)}</span>
+                    </div>
+                  )}
+                  <div className="breakdown-item total">
+                    <span>Total Closing Costs</span>
+                    <span className="breakdown-value">{formatCurrency(closingCostBreakdown.totalClosingCosts)}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="calculator-cta">
+                <p>
+                  <strong>Note:</strong> These are estimates. Actual closing costs may vary based on your lender, 
+                  property location, and specific transaction details. <strong>As your realtor, I'll help you 
+                  understand every fee and negotiate the best terms.</strong>
+                </p>
+                <button className="cta-button primary" onClick={scrollToContact}>
+                  Get Your Personalized Estimate
                 </button>
               </div>
             </div>

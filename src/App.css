@@ -1781,6 +1781,339 @@ section {
 }
 
 /* ============================================
+   CLOSING COST CALCULATOR SECTION
+   ============================================ */
+
+.closing-cost-calculator {
+  background: #ffffff;
+  padding: 6rem 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+.closing-cost-calculator .calculator-wrapper {
+  max-width: 1000px;
+  margin: 3rem auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  width: 100%;
+}
+
+.closing-cost-calculator .calc-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.closing-cost-calculator .calc-input-group.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.closing-cost-calculator .calc-input-group.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: #2d3748;
+  font-size: 0.95rem;
+}
+
+.closing-cost-calculator .calc-input-group.checkbox-group input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #c9a961;
+}
+
+.copy-from-mortgage-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, rgba(201, 169, 97, 0.1), rgba(201, 169, 97, 0.05));
+  border: 2px solid #c9a961;
+  border-radius: 12px;
+  color: #c9a961;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.copy-from-mortgage-btn:hover {
+  background: linear-gradient(135deg, #c9a961, #d4af37);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(201, 169, 97, 0.3);
+}
+
+.input-help {
+  color: #718096;
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+.result-card.secondary {
+  background: linear-gradient(135deg, #4a5568, #2d3748);
+  margin-top: 1.5rem;
+}
+
+.closing-cost-breakdown {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-top: 1.5rem;
+}
+
+.breakdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.breakdown-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+}
+
+.breakdown-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: #c9a961;
+  color: white;
+  border-color: #c9a961;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(201, 169, 97, 0.3);
+}
+
+.breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+  gap: 1rem;
+}
+
+.breakdown-item:hover {
+  background: #edf2f7;
+  border-color: #c9a961;
+  transform: translateX(3px);
+}
+
+.breakdown-item-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.breakdown-item-label span:first-child {
+  color: #4a5568;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.breakdown-value {
+  color: #2d3748;
+  font-weight: 700;
+  font-size: 1.05rem;
+  white-space: nowrap;
+}
+
+.tooltip-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #718096;
+  cursor: help;
+  transition: color 0.2s ease;
+}
+
+.tooltip-icon:hover {
+  color: #c9a961;
+}
+
+.tooltip-icon::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: #2d3748;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  white-space: normal;
+  width: 280px;
+  max-width: 90vw;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  line-height: 1.5;
+}
+
+.tooltip-icon::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-2px);
+  border: 6px solid transparent;
+  border-top-color: #2d3748;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1001;
+}
+
+.tooltip-icon:hover::after,
+.tooltip-icon:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-12px);
+}
+
+.tooltip-icon:hover::before {
+  transform: translateX(-50%) translateY(-6px);
+}
+
+.breakdown-item.discount {
+  background: rgba(201, 169, 97, 0.1);
+  border-color: #c9a961;
+}
+
+.breakdown-item.discount span:last-child {
+  color: #c9a961;
+}
+
+.breakdown-item.total {
+  background: linear-gradient(135deg, rgba(201, 169, 97, 0.15), rgba(201, 169, 97, 0.1));
+  border: 2px solid #c9a961;
+  padding: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.breakdown-item.total span:first-child {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #2d3748;
+}
+
+.breakdown-item.total .breakdown-value {
+  color: #c9a961;
+  font-size: 1.3rem;
+}
+
+/* Mobile Responsive for Closing Cost Calculator */
+@media (max-width: 768px) {
+  .closing-cost-calculator .calculator-wrapper {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .closing-cost-calculator {
+    padding: 4rem 0;
+  }
+
+  .breakdown-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .breakdown-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .breakdown-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .breakdown-item-label {
+    width: 100%;
+  }
+
+  .breakdown-value {
+    font-size: 1.2rem;
+    width: 100%;
+    text-align: right;
+  }
+
+  .breakdown-item.total {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tooltip-icon::after {
+    width: 250px;
+    font-size: 0.8rem;
+    left: 0;
+    transform: translateY(-8px);
+  }
+
+  .tooltip-icon:hover::after {
+    transform: translateY(-12px);
+  }
+
+  .tooltip-icon::before {
+    left: 20px;
+    transform: translateY(-2px);
+  }
+
+  .tooltip-icon:hover::before {
+    transform: translateY(-6px);
+  }
+}
+
+/* ============================================
    PRIORITY ACCESS SECTION
    ============================================ */
 
@@ -4669,14 +5002,15 @@ section {
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
   z-index: 10000;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
   width: 320px;
   max-width: 90vw;
   white-space: normal;
   text-align: left;
   line-height: 1.6;
   visibility: hidden;
-  border: 2px solid rgba(201, 169, 97, 0.3);
+  border: 2px solid #c9a961;
+  backdrop-filter: blur(10px);
 }
 
 .tooltip-trigger::before {
@@ -4692,6 +5026,7 @@ section {
   transition: opacity 0.3s ease, visibility 0.3s ease;
   z-index: 10001;
   visibility: hidden;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .tooltip-trigger:hover::after,
@@ -4756,5 +5091,99 @@ section {
     font-size: 0.85rem;
     padding: 0.875rem 1.125rem;
     line-height: 1.5;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  /* Hide navigation and non-essential elements */
+  .sticky-nav,
+  .sidebar-nav-wrapper,
+  .mobile-nav-menu,
+  .floating-cta,
+  .back-to-top,
+  .copy-from-mortgage-btn,
+  .breakdown-actions,
+  .action-btn,
+  .tooltip-icon,
+  .calculator-cta,
+  .footer {
+    display: none !important;
+  }
+
+  /* Show only closing cost calculator section */
+  .landing-page > *:not(.closing-cost-calculator) {
+    display: none !important;
+  }
+
+  .closing-cost-calculator {
+    display: block !important;
+    padding: 2rem 0 !important;
+    background: white !important;
+    page-break-inside: avoid;
+  }
+
+  .calculator-wrapper {
+    display: block !important;
+    max-width: 100% !important;
+  }
+
+  .calculator-inputs {
+    display: none !important;
+  }
+
+  .calculator-results {
+    width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  .result-card {
+    page-break-inside: avoid;
+    background: #f7fafc !important;
+    color: #2d3748 !important;
+    border: 2px solid #e2e8f0 !important;
+    box-shadow: none !important;
+  }
+
+  .result-value {
+    color: #2d3748 !important;
+  }
+
+  .closing-cost-breakdown {
+    page-break-inside: avoid;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+  }
+
+  .breakdown-item {
+    page-break-inside: avoid;
+    border: 1px solid #e2e8f0 !important;
+  }
+
+  .breakdown-item.total {
+    border: 2px solid #2d3748 !important;
+    background: #f7fafc !important;
+  }
+
+  /* Ensure text is black for printing */
+  * {
+    color: #000 !important;
+    background: white !important;
+  }
+
+  .result-card.primary,
+  .result-card.secondary {
+    background: #f7fafc !important;
+  }
+
+  .breakdown-value {
+    color: #000 !important;
+  }
+
+  .breakdown-item.total .breakdown-value {
+    color: #2d3748 !important;
   }
 }
