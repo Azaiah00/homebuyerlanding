@@ -1811,52 +1811,49 @@ https://homebuyerconsultation.netlify.app`
           <h2 className="section-title">What Our Clients Say</h2>
           <p className="section-subtitle">Real reviews from real clients who found their dream homes with us</p>
           <div className="testimonials-grid">
-            {/* Add your review screenshots to /public/images/ folder */}
-            {/* Name them: review-1.jpg, review-2.jpg, review-3.jpg, etc. */}
-            {/* You can add or remove testimonial items as needed */}
-            <div className="testimonial-item">
-              <img 
-                src="/images/review-1.png" 
-                alt="Client Review 1"
-                className="testimonial-image"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
+            <div className="testimonial-card">
+              <div className="testimonial-stars">★★★★★</div>
+              <p className="testimonial-text">
+                {/* Replace this text with the exact wording from review-1.png */}
+                Frederick was absolutely amazing throughout our entire home buying process. His knowledge of the DMV area and attention to detail made finding our dream home a breeze. Highly recommend!
+              </p>
+              <div className="testimonial-author">
+                <strong>Client Name</strong>
+                <span>First-Time Home Buyer, Arlington, VA</span>
+              </div>
             </div>
-            <div className="testimonial-item">
-              <img 
-                src="/images/review-2.png" 
-                alt="Client Review 2"
-                className="testimonial-image"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
+            <div className="testimonial-card">
+              <div className="testimonial-stars">★★★★★</div>
+              <p className="testimonial-text">
+                {/* Replace this text with the exact wording from review-2.png */}
+                Working with Frederick and the KS Team was the best decision we made. They helped us navigate a competitive market and we got our offer accepted on the first try. Couldn't be happier!
+              </p>
+              <div className="testimonial-author">
+                <strong>Client Name</strong>
+                <span>Repeat Buyer, Washington DC</span>
+              </div>
             </div>
-            <div className="testimonial-item">
-              <img 
-                src="/images/review-3.png" 
-                alt="Client Review 3"
-                className="testimonial-image"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
+            <div className="testimonial-card">
+              <div className="testimonial-stars">★★★★★</div>
+              <p className="testimonial-text">
+                {/* Replace this text with the exact wording from review-3.png */}
+                Frederick's expertise and dedication are unmatched. He made the entire process stress-free and was always available to answer our questions. We found our perfect home in Bethesda thanks to him!
+              </p>
+              <div className="testimonial-author">
+                <strong>Client Name</strong>
+                <span>First-Time Home Buyer, Bethesda, MD</span>
+              </div>
             </div>
-            <div className="testimonial-item">
-              <img 
-                src="/images/review-4.png" 
-                alt="Client Review 4"
-                className="testimonial-image"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
+            <div className="testimonial-card">
+              <div className="testimonial-stars">★★★★★</div>
+              <p className="testimonial-text">
+                {/* Replace this text with the exact wording from review-4.png */}
+                The Priority Access program was a game-changer! We saw homes before they hit the market and found our dream home through Frederick's network. Professional, knowledgeable, and results-driven.
+              </p>
+              <div className="testimonial-author">
+                <strong>Client Name</strong>
+                <span>Home Buyer, Alexandria, VA</span>
+              </div>
             </div>
           </div>
         </div>
