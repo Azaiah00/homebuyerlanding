@@ -18,6 +18,34 @@
   box-sizing: border-box;
 }
 
+/* Base mobile improvements */
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Improve touch targets for all interactive elements */
+button,
+a,
+input[type="button"],
+input[type="submit"],
+input[type="checkbox"],
+input[type="radio"],
+select {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(201, 169, 97, 0.2);
+}
+
 img, video, iframe {
   max-width: 100%;
   height: auto;
@@ -3370,17 +3398,42 @@ section {
   }
 }
 
+/* Medium devices (Tablets, small laptops) - 481px to 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+  .hero {
+    padding: 4rem 2rem;
+    padding-top: 7rem;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .money-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calculator-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile devices (iPhone, Android) - up to 768px */
 @media (max-width: 768px) {
   .sticky-nav {
     padding: 0.5rem 0;
   }
 
   .nav-container {
-    padding: 0 1.25rem;
+    padding: 0 1rem;
   }
 
   .nav-logo {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
   }
 
   .nav-links {
@@ -3396,15 +3449,31 @@ section {
   }
 
   .mobile-menu-toggle {
-    min-width: 44px;
-    min-height: 44px;
+    min-width: 48px;
+    min-height: 48px;
     padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-nav-item {
+    min-height: 48px;
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+  }
+
+  .mobile-nav-cta {
+    min-height: 48px;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
   }
 
   .hero {
     min-height: 80vh;
-    padding: 3rem 1.5rem;
-    padding-top: 6rem;
+    padding: 3rem 1rem;
+    padding-top: 5.5rem;
+    background-attachment: scroll; /* Better performance on mobile */
   }
 
   .hero-title {
@@ -3482,17 +3551,33 @@ section {
   .contact-form input,
   .contact-form select,
   .contact-form textarea {
-    font-size: 16px !important;
+    font-size: 16px !important; /* Prevents zoom on iOS */
     padding: 1rem 1.2rem !important;
     min-height: 48px;
+    border-radius: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .contact-form textarea {
+    min-height: 120px;
+    resize: vertical;
   }
 
   .calc-input,
   .calc-select {
-    font-size: 16px !important;
+    font-size: 16px !important; /* Prevents zoom on iOS */
     min-height: 48px;
-    padding: 1.1rem !important;
-    padding-left: 3rem !important;
+    padding: 1rem !important;
+    padding-left: 2.75rem !important;
+    border-radius: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .input-prefix {
+    left: 0.875rem;
+    font-size: 1rem;
   }
 
   /* Better text readability */
@@ -3523,6 +3608,27 @@ section {
 
   .steps-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .step-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .step-number {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .step-title {
+    font-size: 1.4rem;
+  }
+
+  .step-description {
+    font-size: 0.95rem;
+    line-height: 1.7;
   }
 
   .offer-components-grid {
@@ -3552,7 +3658,31 @@ section {
   }
 
   .calculator-inputs {
-    padding: 2rem;
+    padding: 1.75rem 1.5rem;
+  }
+
+  .calc-input-group {
+    gap: 0.75rem;
+  }
+
+  .calc-input-group label {
+    font-size: 0.95rem;
+  }
+
+  .calculator-results {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .result-item {
+    padding: 1rem;
+  }
+
+  .result-label {
+    font-size: 0.9rem;
+  }
+
+  .result-value {
+    font-size: 1.8rem;
   }
 
   .result-value {
@@ -3571,11 +3701,21 @@ section {
   .floating-cta {
     bottom: 1rem;
     right: 1rem;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.25rem;
     font-size: 0.9rem;
     white-space: normal;
-    max-width: 200px;
+    max-width: 180px;
     text-align: center;
+    min-height: 48px;
+    box-shadow: 0 4px 12px rgba(201, 169, 97, 0.4);
+  }
+
+  .back-to-top {
+    bottom: 1rem;
+    left: 1rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
   }
 
   .faq-grid {
@@ -3598,12 +3738,28 @@ section {
     grid-template-columns: 1fr;
     gap: 1.5rem;
     margin-top: 2rem;
+    padding: 0 1rem;
   }
 
   .offer-component-card {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    margin: 0;
+  }
+
+  .component-icon svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .component-title {
+    font-size: 1.3rem;
+  }
+
+  .component-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 
   .hero-photo-placeholder {
@@ -3636,23 +3792,119 @@ section {
   }
 }
 
+/* Extra small devices (iPhone SE, older iPhones) - 320px to 375px */
+@media (max-width: 375px) {
+  .nav-logo {
+    font-size: 1.1rem;
+  }
+
+  .hero {
+    padding: 2.5rem 1rem;
+    padding-top: 5.5rem;
+    min-height: 75vh;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  .hero-slogan {
+    font-size: 1.1rem;
+  }
+
+  .hero-intro {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .hero-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+  }
+
+  section {
+    padding: 3rem 0;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .step-card,
+  .money-card,
+  .offer-component-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .cta-button {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    min-height: 48px;
+  }
+
+  .mobile-menu-toggle {
+    padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .trust-bar-content {
+    gap: 1rem;
+    flex-direction: column;
+  }
+
+  .trust-number {
+    font-size: 1.3rem;
+  }
+
+  .trust-label {
+    font-size: 0.75rem;
+  }
+
+  .calculator-inputs {
+    padding: 1.5rem;
+  }
+
+  .result-value {
+    font-size: 1.8rem;
+  }
+
+  .floating-cta {
+    bottom: 0.75rem;
+    right: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.85rem;
+    max-width: 180px;
+  }
+}
+
+/* Small devices (iPhone 6/7/8, iPhone X/11/12/13/14) - 376px to 480px */
 @media (max-width: 480px) {
   .stats-grid {
     grid-template-columns: 1fr;
   }
 
   .cta-button {
-    padding: 1.2rem 2.5rem;
-    font-size: 1.1rem;
+    padding: 1.2rem 2rem;
+    font-size: 1.05rem;
     min-height: 48px;
     width: 100%;
     max-width: 100%;
   }
 
   .cta-button.large {
-    padding: 1.4rem 3rem;
-    font-size: 1.2rem;
-    min-height: 52px;
+    padding: 1.3rem 2.5rem;
+    font-size: 1.15rem;
+    min-height: 50px;
   }
 
   .form-row {
