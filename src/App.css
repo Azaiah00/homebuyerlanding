@@ -617,9 +617,8 @@ img, video, iframe {
   max-width: 900px;
   margin: 0 auto;
   width: 100%;
-  padding: 0 2rem;
+  padding: 2rem 2rem 0;
   animation: fadeInUp 1s ease-out;
-  padding-top: 2rem;
 }
 
 .hero-image-wrapper {
