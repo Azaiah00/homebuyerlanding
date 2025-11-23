@@ -92,6 +92,7 @@ function App() {
     propertyTax: 0,
     homeInsurance: 0,
     prepaidInterest: 0,
+    hoaPrepaid: 0,
     adminFee: 495,
     totalClosingCosts: 0,
     totalCashNeeded: 0
@@ -203,6 +204,7 @@ function App() {
           propertyTax: 0,
         homeInsurance: 0,
         prepaidInterest: 0,
+        hoaPrepaid: 0,
         adminFee: 495,
         totalClosingCosts: 0,
         totalCashNeeded: 0
@@ -253,13 +255,16 @@ function App() {
       const dailyInterest = (loanAmount * (interestRate / 100)) / 365
       const prepaidInterest = closingCostData.includePrepaids ? dailyInterest * 15 : 0
       
+      // HOA/Condo Fee Prepaid (1 month in advance)
+      const hoaPrepaid = closingCostData.includePrepaids && closingCostData.hoaFee > 0 ? closingCostData.hoaFee : 0
+      
       // Admin Fee
       const adminFee = 495
       
       // Total Closing Costs
       let totalClosingCosts = loanOrigination + appraisal + inspection + titleInsurance + 
                              recordingFees + transferTax + propertyTax + homeInsurance + 
-                             prepaidInterest + adminFee
+                             prepaidInterest + hoaPrepaid + adminFee
       
       // Subtract seller contribution if applicable
       if (closingCostData.sellerPaysClosing) {
@@ -279,6 +284,7 @@ function App() {
         propertyTax,
         homeInsurance,
         prepaidInterest,
+        hoaPrepaid,
         adminFee,
         totalClosingCosts,
         totalCashNeeded
@@ -409,25 +415,27 @@ function App() {
       doc.line(x1, y1, x2, y2)
     }
 
-    // Header with gold accent
+    // Header with gold accent bar
     doc.setFillColor(goldColor[0], goldColor[1], goldColor[2])
-    doc.rect(margin, yPosition, contentWidth, 8, 'F')
-    yPosition += 12
+    doc.rect(margin, yPosition, contentWidth, 6, 'F')
+    yPosition += 12 // Space after gold bar
     
+    // Title with proper spacing
     addText('CLOSING COST ESTIMATE', pageWidth / 2, yPosition, {
       fontSize: 20,
       fontStyle: 'bold',
       color: goldColor,
       align: 'center'
     })
-    yPosition += 8
+    yPosition += 12 // More space after title
 
+    // Subtitle
     addText('Frederick Sales | Realtor®', pageWidth / 2, yPosition, {
       fontSize: 12,
       color: grayColor,
       align: 'center'
     })
-    yPosition += 15
+    yPosition += 18 // Space before next section
 
     // Property Information Section
     drawLine(margin, yPosition, pageWidth - margin, yPosition, goldColor, 1)
@@ -495,6 +503,11 @@ function App() {
         ['Home Insurance (1 year)', formatCurrency(closingCostBreakdown.homeInsurance)],
         ['Prepaid Interest (15 days)', formatCurrency(closingCostBreakdown.prepaidInterest)]
       )
+      if (closingCostData.hoaFee > 0) {
+        breakdownItems.push(
+          ['HOA/Condo Fee (1 month prepaid)', formatCurrency(closingCostBreakdown.hoaPrepaid)]
+        )
+      }
     }
 
     breakdownItems.push(['Admin Fee', formatCurrency(closingCostBreakdown.adminFee)])
@@ -877,11 +890,23 @@ function App() {
                       onClick={() => scrollToSection(chapter.id)}
                       className={`mobile-nav-item ${activeChapter === chapter.id ? 'active' : ''}`}
                     >
-                      {chapter.number}. {chapter.title}
+                      <span className="mobile-nav-item-number">{chapter.number}.</span>
+                      <span className="mobile-nav-item-title">
+                        {chapter.title.includes('\n') ? (
+                          chapter.title.split('\n').map((line, i) => (
+                            <span key={i} className="mobile-nav-title-line">{line}</span>
+                          ))
+                        ) : (
+                          chapter.title
+                        )}
+                      </span>
                     </button>
                   ))}
                   <button
-                    onClick={scrollToContact}
+                    onClick={() => {
+                      scrollToContact()
+                      setMobileMenuOpen(false)
+                    }}
                     className="mobile-nav-cta"
                   >
                     Get Started
@@ -1406,13 +1431,12 @@ function App() {
                     <div className="recommendation-box">
                       <strong>Condo Recommendations:</strong>
                       <ul>
-                        <li>Typical range: <strong>$300 - $700/year</strong> (much lower cost)</li>
+                        <li>Typical range: <strong>$300 - $700/year</strong> - Adjust based on property size</li>
                         <li>HOA master policy covers: Building structure, common areas, exterior</li>
                         <li>Your policy covers: Interior walls, personal property, liability, improvements</li>
                         <li>Studios/1BR: ~$300-$450/year</li>
                         <li>2BR: ~$450-$600/year</li>
                         <li>3BR+: ~$600-$700+/year</li>
-                        <li><em>Note: Condo insurance is significantly cheaper because the HOA master policy covers the building structure.</em></li>
                       </ul>
                     </div>
                   )}
@@ -1613,6 +1637,17 @@ function App() {
                         </div>
                         <span className="breakdown-value">{formatCurrency(closingCostBreakdown.prepaidInterest)}</span>
                       </div>
+                      {closingCostData.hoaFee > 0 && (
+                        <div className="breakdown-item">
+                          <div className="breakdown-item-label">
+                            <span>HOA/Condo Fee (1 month prepaid)</span>
+                            <span className="tooltip-icon" data-tooltip="One month of HOA or condo fees paid in advance at closing. This is standard practice to ensure the HOA is paid ahead of time.">
+                              <Info size={14} />
+                            </span>
+                          </div>
+                          <span className="breakdown-value">{formatCurrency(closingCostBreakdown.hoaPrepaid)}</span>
+                        </div>
+                      )}
                     </>
                   )}
                   <div className="breakdown-item">
