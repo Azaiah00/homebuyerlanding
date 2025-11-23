@@ -29,6 +29,7 @@ import {
   Download,
   ChevronDown
 } from 'lucide-react'
+import jsPDF from 'jspdf'
 import './App.css'
 
 function App() {
@@ -93,8 +94,7 @@ function App() {
     prepaidInterest: 0,
     adminFee: 495,
     totalClosingCosts: 0,
-    totalCashNeeded: 0,
-    emd: 0
+    totalCashNeeded: 0
   })
 
   // Fetch current mortgage rate from Freddie Mac Primary Mortgage Market Survey (PMMS)
@@ -201,15 +201,14 @@ function App() {
           recordingFees: 0,
           transferTax: 0,
           propertyTax: 0,
-          homeInsurance: 0,
-          prepaidInterest: 0,
-          adminFee: 495,
-          totalClosingCosts: 0,
-          totalCashNeeded: 0,
-          emd: 0
-        })
-        return
-      }
+        homeInsurance: 0,
+        prepaidInterest: 0,
+        adminFee: 495,
+        totalClosingCosts: 0,
+        totalCashNeeded: 0
+      })
+      return
+    }
 
       // Loan Origination Fee (typically 0.5-1% of loan amount)
       const loanOrigination = loanAmount * 0.01 // 1% estimate
@@ -267,9 +266,8 @@ function App() {
         totalClosingCosts = Math.max(0, totalClosingCosts - closingCostData.sellerContribution)
       }
       
-      // Total Cash Needed = Down Payment + Closing Costs + EMD (if not credited)
-      const emd = homePrice * 0.03 // 3% EMD estimate
-      const totalCashNeeded = downPayment + totalClosingCosts + emd
+      // Total Cash Needed = Down Payment + Closing Costs
+      const totalCashNeeded = downPayment + totalClosingCosts
       
       setClosingCostBreakdown({
         loanOrigination,
@@ -283,8 +281,7 @@ function App() {
         prepaidInterest,
         adminFee,
         totalClosingCosts,
-        totalCashNeeded,
-        emd
+        totalCashNeeded
       })
     }
     
@@ -377,69 +374,222 @@ function App() {
     const homePrice = parseFloat(closingCostData.homePrice.toString().replace(/,/g, '')) || 0
     const downPaymentPercent = parseFloat(closingCostData.downPaymentPercent) || 0
     
-    const data = {
-      homePrice: formatCurrency(homePrice),
-      downPayment: formatCurrency((homePrice * downPaymentPercent) / 100),
-      downPaymentPercent: `${downPaymentPercent}%`,
-      state: closingCostData.state,
-      loanType: closingCostData.loanType,
-      breakdown: {
-        downPayment: formatCurrency((homePrice * downPaymentPercent) / 100),
-        emd: formatCurrency(closingCostBreakdown.emd),
-        loanOrigination: formatCurrency(closingCostBreakdown.loanOrigination),
-        appraisal: formatCurrency(closingCostBreakdown.appraisal),
-        inspection: formatCurrency(closingCostBreakdown.inspection),
-        titleInsurance: formatCurrency(closingCostBreakdown.titleInsurance),
-        transferTax: formatCurrency(closingCostBreakdown.transferTax),
-        recordingFees: formatCurrency(closingCostBreakdown.recordingFees),
-        propertyTax: formatCurrency(closingCostBreakdown.propertyTax),
-        homeInsurance: formatCurrency(closingCostBreakdown.homeInsurance),
-        prepaidInterest: formatCurrency(closingCostBreakdown.prepaidInterest),
-        adminFee: formatCurrency(closingCostBreakdown.adminFee),
-        sellerContribution: closingCostData.sellerPaysClosing ? formatCurrency(closingCostData.sellerContribution) : '$0',
-        totalClosingCosts: formatCurrency(closingCostBreakdown.totalClosingCosts),
-        totalCashNeeded: formatCurrency(closingCostBreakdown.totalCashNeeded)
-      }
+    // Create PDF
+    const doc = new jsPDF()
+    const pageWidth = doc.internal.pageSize.getWidth()
+    const pageHeight = doc.internal.pageSize.getHeight()
+    const margin = 20
+    const contentWidth = pageWidth - (margin * 2)
+    let yPosition = margin
+
+    // Colors matching website
+    const goldColor = [201, 169, 97] // #c9a961
+    const darkColor = [45, 55, 72] // #2d3748
+    const grayColor = [113, 128, 150] // #718096
+    const lightGrayColor = [247, 250, 252] // #f7fafc
+
+    // Helper function to add text with styling
+    const addText = (text, x, y, options = {}) => {
+      const {
+        fontSize = 12,
+        fontStyle = 'normal',
+        color = darkColor,
+        align = 'left'
+      } = options
+      doc.setFontSize(fontSize)
+      doc.setFont('helvetica', fontStyle)
+      doc.setTextColor(color[0], color[1], color[2])
+      doc.text(text, x, y, { align })
     }
+
+    // Helper function to draw a line
+    const drawLine = (x1, y1, x2, y2, color = goldColor, width = 0.5) => {
+      doc.setDrawColor(color[0], color[1], color[2])
+      doc.setLineWidth(width)
+      doc.line(x1, y1, x2, y2)
+    }
+
+    // Header with gold accent
+    doc.setFillColor(goldColor[0], goldColor[1], goldColor[2])
+    doc.rect(margin, yPosition, contentWidth, 8, 'F')
+    yPosition += 12
     
-    const text = `Closing Cost Estimate
-====================
-Home Price: ${data.homePrice}
-Down Payment: ${data.downPayment} (${data.downPaymentPercent})
-State: ${data.state}
-Loan Type: ${data.loanType}
+    addText('CLOSING COST ESTIMATE', pageWidth / 2, yPosition, {
+      fontSize: 20,
+      fontStyle: 'bold',
+      color: goldColor,
+      align: 'center'
+    })
+    yPosition += 8
 
-Breakdown:
-----------
-Down Payment: ${data.breakdown.downPayment}
-Earnest Money Deposit: ${data.breakdown.emd}
-Loan Origination Fee: ${data.breakdown.loanOrigination}
-Appraisal: ${data.breakdown.appraisal}
-Home Inspection: ${data.breakdown.inspection}
-Title Insurance: ${data.breakdown.titleInsurance}
-Transfer Tax: ${data.breakdown.transferTax}
-Recording Fees: ${data.breakdown.recordingFees}
-Property Tax (2 months): ${data.breakdown.propertyTax}
-Home Insurance (1 year): ${data.breakdown.homeInsurance}
-Prepaid Interest (15 days): ${data.breakdown.prepaidInterest}
-Admin Fee: ${data.breakdown.adminFee}
-${closingCostData.sellerPaysClosing ? `Seller Contribution: -${data.breakdown.sellerContribution}` : ''}
+    addText('Frederick Sales | Realtor®', pageWidth / 2, yPosition, {
+      fontSize: 12,
+      color: grayColor,
+      align: 'center'
+    })
+    yPosition += 15
 
-Total Closing Costs: ${data.breakdown.totalClosingCosts}
-Total Cash Needed: ${data.breakdown.totalCashNeeded}
+    // Property Information Section
+    drawLine(margin, yPosition, pageWidth - margin, yPosition, goldColor, 1)
+    yPosition += 8
 
-Generated by Frederick Sales - Home Buyer Consultation
-https://homebuyerconsultation.netlify.app`
+    addText('Property Information', margin, yPosition, {
+      fontSize: 14,
+      fontStyle: 'bold',
+      color: darkColor
+    })
+    yPosition += 8
 
-    const blob = new Blob([text], { type: 'text/plain' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `closing-cost-estimate-${new Date().toISOString().split('T')[0]}.txt`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
+    const propertyInfo = [
+      ['Home Price', formatCurrency(homePrice)],
+      ['Down Payment', `${formatCurrency((homePrice * downPaymentPercent) / 100)} (${downPaymentPercent}%)`],
+      ['State', closingCostData.state],
+      ['Loan Type', closingCostData.loanType],
+      ['Property Type', closingCostData.propertyType === 'single-family' ? 'Single Family Home' : closingCostData.propertyType === 'townhome' ? 'Townhome' : 'Condo']
+    ]
+
+    propertyInfo.forEach(([label, value]) => {
+      addText(label + ':', margin, yPosition, { fontSize: 10, color: grayColor })
+      addText(value, margin + 60, yPosition, { fontSize: 10, fontStyle: 'bold', color: darkColor })
+      yPosition += 6
+    })
+
+    yPosition += 8
+
+    // Breakdown Section
+    drawLine(margin, yPosition, pageWidth - margin, yPosition, goldColor, 1)
+    yPosition += 8
+
+    addText('Closing Cost Breakdown', margin, yPosition, {
+      fontSize: 14,
+      fontStyle: 'bold',
+      color: darkColor
+    })
+    yPosition += 8
+
+    // Table header background
+    doc.setFillColor(lightGrayColor[0], lightGrayColor[1], lightGrayColor[2])
+    doc.rect(margin, yPosition - 5, contentWidth, 6, 'F')
+    
+    addText('Item', margin + 5, yPosition, { fontSize: 10, fontStyle: 'bold', color: darkColor })
+    addText('Amount', pageWidth - margin - 5, yPosition, { fontSize: 10, fontStyle: 'bold', color: darkColor, align: 'right' })
+    yPosition += 8
+
+    drawLine(margin, yPosition, pageWidth - margin, yPosition, [226, 232, 240], 0.3)
+    yPosition += 5
+
+    // Breakdown items
+    const breakdownItems = [
+      ['Down Payment', formatCurrency((homePrice * downPaymentPercent) / 100)],
+      ['Loan Origination Fee', formatCurrency(closingCostBreakdown.loanOrigination)],
+      ['Appraisal', formatCurrency(closingCostBreakdown.appraisal)],
+      ['Home Inspection', formatCurrency(closingCostBreakdown.inspection)],
+      ['Title Insurance', formatCurrency(closingCostBreakdown.titleInsurance)],
+      ['Transfer Tax', formatCurrency(closingCostBreakdown.transferTax)],
+      ['Recording Fees', formatCurrency(closingCostBreakdown.recordingFees)]
+    ]
+
+    if (closingCostData.includePrepaids) {
+      breakdownItems.push(
+        ['Property Tax (2 months)', formatCurrency(closingCostBreakdown.propertyTax)],
+        ['Home Insurance (1 year)', formatCurrency(closingCostBreakdown.homeInsurance)],
+        ['Prepaid Interest (15 days)', formatCurrency(closingCostBreakdown.prepaidInterest)]
+      )
+    }
+
+    breakdownItems.push(['Admin Fee', formatCurrency(closingCostBreakdown.adminFee)])
+
+    if (closingCostData.sellerPaysClosing && closingCostData.sellerContribution > 0) {
+      breakdownItems.push(['Seller Contribution (Credit)', `-${formatCurrency(closingCostData.sellerContribution)}`])
+    }
+
+    breakdownItems.forEach(([label, value]) => {
+      if (yPosition > pageHeight - 30) {
+        doc.addPage()
+        yPosition = margin
+      }
+      addText(label, margin + 5, yPosition, { fontSize: 9, color: darkColor })
+      addText(value, pageWidth - margin - 5, yPosition, { fontSize: 9, fontStyle: 'bold', color: darkColor, align: 'right' })
+      yPosition += 6
+    })
+
+    yPosition += 5
+    drawLine(margin, yPosition, pageWidth - margin, yPosition, goldColor, 1)
+    yPosition += 8
+
+    // Totals
+    addText('Total Closing Costs', margin + 5, yPosition, {
+      fontSize: 12,
+      fontStyle: 'bold',
+      color: darkColor
+    })
+    addText(formatCurrency(closingCostBreakdown.totalClosingCosts), pageWidth - margin - 5, yPosition, {
+      fontSize: 12,
+      fontStyle: 'bold',
+      color: goldColor,
+      align: 'right'
+    })
+    yPosition += 8
+
+    // Total Cash Needed - highlighted
+    doc.setFillColor(goldColor[0], goldColor[1], goldColor[2])
+    doc.setDrawColor(goldColor[0], goldColor[1], goldColor[2])
+    doc.roundedRect(margin, yPosition - 6, contentWidth, 10, 2, 2, 'FD')
+    
+    addText('Total Cash Needed', margin + 5, yPosition + 1, {
+      fontSize: 14,
+      fontStyle: 'bold',
+      color: [255, 255, 255],
+    })
+    addText(formatCurrency(closingCostBreakdown.totalCashNeeded), pageWidth - margin - 5, yPosition + 1, {
+      fontSize: 14,
+      fontStyle: 'bold',
+      color: [255, 255, 255],
+      align: 'right'
+    })
+    yPosition += 15
+
+    // Footer
+    if (yPosition > pageHeight - 30) {
+      doc.addPage()
+      yPosition = margin
+    }
+
+    drawLine(margin, yPosition, pageWidth - margin, yPosition, [226, 232, 240], 0.3)
+    yPosition += 8
+
+    addText('Note: These are estimates. Actual closing costs may vary based on your lender,', margin, yPosition, {
+      fontSize: 8,
+      color: grayColor
+    })
+    yPosition += 4
+    addText('property location, and specific transaction details.', margin, yPosition, {
+      fontSize: 8,
+      color: grayColor
+    })
+    yPosition += 8
+
+    addText('Generated by Frederick Sales - Home Buyer Consultation', pageWidth / 2, yPosition, {
+      fontSize: 9,
+      color: grayColor,
+      align: 'center'
+    })
+    yPosition += 4
+    addText('https://homebuyerconsultation.netlify.app', pageWidth / 2, yPosition, {
+      fontSize: 8,
+      color: grayColor,
+      align: 'center'
+    })
+    yPosition += 4
+    addText(`Generated on ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`, pageWidth / 2, yPosition, {
+      fontSize: 8,
+      color: grayColor,
+      align: 'center'
+    })
+
+    // Save PDF
+    const fileName = `closing-cost-estimate-${new Date().toISOString().split('T')[0]}.pdf`
+    doc.save(fileName)
   }
 
   const formatCurrency = (amount) => {
@@ -1298,7 +1448,7 @@ https://homebuyerconsultation.netlify.app`
               <div className="result-card primary">
                 <div className="result-label">Total Cash Needed</div>
                 <div className="result-value">{formatCurrency(closingCostBreakdown.totalCashNeeded)}</div>
-                <div className="result-note">Down Payment + Closing Costs + Earnest Money</div>
+                <div className="result-note">Down Payment + Closing Costs</div>
               </div>
 
               <div className="result-card secondary">
@@ -1343,15 +1493,6 @@ https://homebuyerconsultation.netlify.app`
                         ? formatCurrency((parseFloat(closingCostData.homePrice.toString().replace(/,/g, '')) * parseFloat(closingCostData.downPaymentPercent)) / 100)
                         : '$0'}
                     </span>
-                  </div>
-                  <div className="breakdown-item">
-                    <div className="breakdown-item-label">
-                      <span>Earnest Money Deposit (EMD)</span>
-                      <span className="tooltip-icon" data-tooltip="A good-faith deposit showing you're serious about buying. Held in escrow and credited back at closing. Typically 1-5% of purchase price, with 3% being standard in the DMV.">
-                        <Info size={14} />
-                      </span>
-                    </div>
-                    <span className="breakdown-value">{formatCurrency(closingCostBreakdown.emd || 0)}</span>
                   </div>
                   <div className="breakdown-item">
                     <div className="breakdown-item-label">
