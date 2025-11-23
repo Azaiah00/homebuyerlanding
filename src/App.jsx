@@ -356,9 +356,13 @@ function App() {
                   className={`sidebar-button ${activeChapter === chapter.id ? 'active' : ''}`}
                 >
                   <div className={`sidebar-button-text ${activeChapter === chapter.id ? 'active' : ''}`}>
-                    {chapter.title.split('\n').map((line, i) => (
-                      <span key={i} style={{ display: 'block' }}>{line}</span>
-                    ))}
+                    {chapter.title.includes('\n') ? (
+                      chapter.title.split('\n').map((line, i) => (
+                        <span key={i} className="sidebar-text-line">{line}</span>
+                      ))
+                    ) : (
+                      chapter.title
+                    )}
                   </div>
                 </button>
                 {index < chapters.length - 1 && (
