@@ -58,13 +58,31 @@ img, video, iframe {
 }
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 1280px; /* max-w-7xl equivalent */
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+@media (min-width: 640px) {
+  .nav-container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nav-container {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .nav-container {
+    padding: 0 3rem;
+  }
 }
 
 .nav-center {
@@ -530,9 +548,27 @@ img, video, iframe {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1280px; /* max-w-7xl equivalent */
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    padding: 0 3rem;
+  }
 }
 
 /* ============================================
@@ -1068,9 +1104,11 @@ section {
 }
 
 .component-icon {
-  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 1rem;
-  display: block;
+  color: #c9a961;
 }
 
 .component-title {
@@ -1255,9 +1293,11 @@ section {
 }
 
 .cost-icon {
-  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: 50px;
-  text-align: center;
+  color: #c9a961;
 }
 
 .cost-list li div {
@@ -1563,8 +1603,11 @@ section {
 }
 
 .house-icon {
-  font-size: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s ease;
+  color: #c9a961;
 }
 
 .house-icon.locked {
@@ -1919,8 +1962,11 @@ section {
 }
 
 .tax-icon {
-  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  color: #c9a961;
   filter: drop-shadow(0 2px 4px rgba(201, 169, 97, 0.3));
 }
 
@@ -2100,8 +2146,12 @@ section {
   }
 
   .tax-icon {
-    font-size: 2.5rem;
     align-self: center;
+  }
+  
+  .tax-icon svg {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .tax-title {
@@ -2265,8 +2315,9 @@ section {
     gap: 1.25rem;
   }
 
-  .tax-icon {
-    font-size: 2.25rem;
+  .tax-icon svg {
+    width: 2.25rem;
+    height: 2.25rem;
   }
 
   .tax-title {
@@ -2409,8 +2460,11 @@ section {
 }
 
 .family-icon {
-  font-size: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 1.5rem;
+  color: #c9a961;
 }
 
 .family-title {
@@ -2663,9 +2717,12 @@ section {
 }
 
 .includes-icon {
-  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   margin-top: 0.2rem;
+  color: #c9a961;
   filter: drop-shadow(0 2px 6px rgba(201, 169, 97, 0.4));
   animation: iconPulse 2s ease-in-out infinite;
 }
@@ -2709,8 +2766,9 @@ section {
     font-size: 1.1rem;
   }
 
-  .includes-icon {
-    font-size: 1.75rem;
+  .includes-icon svg {
+    width: 1.75rem;
+    height: 1.75rem;
   }
 }
 
@@ -2740,8 +2798,9 @@ section {
     margin-bottom: 0.3rem;
   }
 
-  .includes-icon {
-    font-size: 1.5rem;
+  .includes-icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 }
 
@@ -3691,8 +3750,9 @@ section {
     gap: 1rem;
   }
 
-  .house-icon {
-    font-size: 3.5rem;
+  .house-icon svg {
+    width: 3.5rem;
+    height: 3.5rem;
   }
 
   .arrow {

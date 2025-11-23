@@ -1,4 +1,27 @@
 import { useState, useEffect } from 'react'
+import { 
+  Camera, 
+  DollarSign, 
+  FileText, 
+  Search, 
+  BarChart3, 
+  CheckCircle, 
+  Clipboard, 
+  Home, 
+  Calendar, 
+  Handshake, 
+  Building, 
+  PartyPopper, 
+  Heart, 
+  Target, 
+  Key, 
+  Trophy, 
+  MessageCircle,
+  Coins,
+  TrendingUp,
+  Wrench,
+  Zap
+} from 'lucide-react'
 import './App.css'
 
 function App() {
@@ -397,7 +420,7 @@ function App() {
               }}
             />
             <div className="hero-photo-placeholder" style={{display: 'none'}}>
-              <span>📸</span>
+              <Camera size={48} style={{ color: 'rgba(255, 255, 255, 0.7)' }} />
               <p>Add Your Professional Photo Here</p>
             </div>
           </div>
@@ -490,49 +513,49 @@ function App() {
               <p className="money-card-subtitle">Here's a simple breakdown of your potential costs. We'll walk you through every line item.</p>
               <ul className="cost-list">
                 <li>
-                  <span className="cost-icon">💰</span>
+                  <span className="cost-icon"><DollarSign size={24} /></span>
                   <div>
                     <strong>Down Payment</strong>
                     <span>3%+</span>
                   </div>
                 </li>
                 <li>
-                  <span className="cost-icon">📝</span>
+                  <span className="cost-icon"><FileText size={24} /></span>
                   <div>
                     <strong><span className="tooltip-trigger" data-tooltip="Closing Costs: Fees paid at settlement including appraisal, inspection, title insurance, loan origination, and recording fees. Typically 2.5-3% of home price in the DMV.">Closing Costs</span></strong>
                     <span>~2.5% - 3%</span>
                   </div>
                 </li>
                 <li>
-                  <span className="cost-icon">💵</span>
+                  <span className="cost-icon"><Coins size={24} /></span>
                   <div>
                     <strong>Earnest Money Deposit (<span className="tooltip-trigger" data-tooltip="Earnest Money Deposit: A good-faith deposit showing you're serious about buying. Held in escrow and credited back at closing.">EMD</span>)</strong>
                     <span>3%+</span>
                   </div>
                 </li>
                 <li>
-                  <span className="cost-icon">🔍</span>
+                  <span className="cost-icon"><Search size={24} /></span>
                   <div>
                     <strong><span className="tooltip-trigger" data-tooltip="Home Inspection: A professional evaluation of the property's condition, including structural elements, systems (HVAC, plumbing, electrical), and safety concerns. Allows you to negotiate repairs or withdraw if major issues are found.">Home Inspection</span></strong>
                     <span>~$350 - $750</span>
                   </div>
                 </li>
                 <li>
-                  <span className="cost-icon">📊</span>
+                  <span className="cost-icon"><BarChart3 size={24} /></span>
                   <div>
                     <strong><span className="tooltip-trigger" data-tooltip="Appraisal: A professional assessment of the home's value by a licensed appraiser. Required by lenders to ensure the property is worth the loan amount. If the appraisal comes in lower than your offer, you can renegotiate or walk away.">Appraisal</span></strong>
                     <span>~$400 - $600+</span>
                   </div>
                 </li>
                 <li>
-                  <span className="cost-icon">✅</span>
+                  <span className="cost-icon"><CheckCircle size={24} /></span>
                   <div>
                     <strong>Buyer's Commission</strong>
                     <span>3% (Typically paid by the Seller)</span>
                   </div>
                 </li>
                 <li>
-                  <span className="cost-icon">📋</span>
+                  <span className="cost-icon"><Clipboard size={24} /></span>
                   <div>
                     <strong><span className="tooltip-trigger" data-tooltip="Admin Fee: A standard fee charged by real estate brokerages to cover administrative costs associated with your transaction. This $495 fee helps cover document processing, transaction coordination, compliance requirements, and administrative support throughout your home buying process. This fee is standard in the industry and is typically paid at closing.">Admin Fee</span></strong>
                     <span>${ADMIN_FEE}</span>
@@ -763,7 +786,7 @@ function App() {
 
             {/* Tax Benefits Callout */}
             <div className="tax-benefits-callout">
-              <div className="tax-icon">💰</div>
+              <div className="tax-icon"><DollarSign size={48} /></div>
               <div className="tax-content">
                 <h3 className="tax-title">Tax Benefits of Homeownership</h3>
                 <p className="tax-description">
@@ -793,9 +816,9 @@ function App() {
           <h2 className="section-title">Your Secret Weapon: The Priority Access Program</h2>
           <div className="priority-content">
             <div className="priority-visual">
-              <div className="house-icon locked">🏠</div>
+              <div className="house-icon locked"><Home size={48} /></div>
               <div className="arrow">→</div>
-              <div className="house-icon unlocked">🏠</div>
+              <div className="house-icon unlocked"><Home size={48} /></div>
             </div>
             <p className="priority-text">
               Why limit your search to what's on Zillow? As a KS Team client, you get exclusive access to homes NOT listed 
@@ -813,7 +836,7 @@ function App() {
           
           <div className="offer-components-grid">
             <div className="offer-component-card">
-              <div className="component-icon">📅</div>
+              <div className="component-icon"><Calendar size={32} /></div>
               <h3 className="component-title">Closing Date</h3>
               <p className="component-subtitle">Also called Settlement date</p>
               <p className="component-description">
@@ -825,7 +848,7 @@ function App() {
             </div>
 
             <div className="offer-component-card">
-              <div className="component-icon">🏠</div>
+              <div className="component-icon"><Home size={32} /></div>
               <h3 className="component-title">Post Settlement Occupancy</h3>
               <p className="component-description">
                 Sometimes a seller will request a "rent back"—allowing them to stay in the home after closing. This can be a very compelling tactic that sets your offer apart.
@@ -839,7 +862,7 @@ function App() {
             </div>
 
             <div className="offer-component-card">
-              <div className="component-icon">💰</div>
+              <div className="component-icon"><DollarSign size={32} /></div>
               <h3 className="component-title">EMD (<span className="tooltip-trigger" data-tooltip="Earnest Money Deposit: A good-faith deposit showing you're serious about buying. Held in escrow and credited back at closing.">Earnest Money Deposit</span>)</h3>
               <p className="component-description">
                 The EMD (earnest money deposit) goes into an escrow account at the title company until settlement. At closing, it's credited back to you and can be used toward your down payment or refunded.
@@ -853,7 +876,7 @@ function App() {
             </div>
 
             <div className="offer-component-card">
-              <div className="component-icon">💵</div>
+              <div className="component-icon"><Coins size={32} /></div>
               <h3 className="component-title">Down Payment</h3>
               <p className="component-description">
                 The down payment is the initial cash amount you pay toward the purchase price of the home. It's your equity stake in the property from day one.
@@ -870,7 +893,7 @@ function App() {
             </div>
 
             <div className="offer-component-card">
-              <div className="component-icon">🏦</div>
+              <div className="component-icon"><Building size={32} /></div>
               <h3 className="component-title">Lender/Title Company</h3>
               <p className="component-description">
                 <strong>The Lender</strong> provides your mortgage financing, reviews your financial documents, and approves your loan. They handle all the financial aspects of the transaction.
@@ -887,7 +910,7 @@ function App() {
             </div>
 
             <div className="offer-component-card">
-              <div className="component-icon">🔍</div>
+              <div className="component-icon"><Search size={32} /></div>
               <h3 className="component-title">Home Inspection <span className="tooltip-trigger" data-tooltip="Contingency: A condition in your offer that must be met for the sale to proceed. If not met, you can withdraw without penalty.">Contingency</span> & Appraisal <span className="tooltip-trigger" data-tooltip="Contingency: A condition in your offer that must be met for the sale to proceed. If not met, you can withdraw without penalty.">Contingency</span></h3>
               <p className="component-description">
                 <strong>Home Inspection Contingency:</strong> This gives you the right to have the property professionally inspected and to negotiate repairs or withdraw from the contract if major issues are found.
@@ -913,7 +936,7 @@ function App() {
             </div>
 
             <div className="offer-component-card">
-              <div className="component-icon">🤝</div>
+              <div className="component-icon"><Handshake size={32} /></div>
               <h3 className="component-title">Seller Subsidy</h3>
               <p className="component-description">
                 Depending on how much competition there is on the property, you may be able to negotiate seller subsidy.
@@ -924,7 +947,7 @@ function App() {
             </div>
 
             <div className="offer-component-card">
-              <div className="component-icon">✅</div>
+              <div className="component-icon"><CheckCircle size={32} /></div>
               <h3 className="component-title">Financing Contingency</h3>
               <p className="component-description">
                 Adding a financing contingency to your contract can cause pause for many sellers, and can make or break an offer.
@@ -941,7 +964,7 @@ function App() {
             </div>
 
             <div className="offer-component-card">
-              <div className="component-icon">🏘️</div>
+              <div className="component-icon"><Building size={32} /></div>
               <h3 className="component-title">HOA/Condo Association</h3>
               <p className="component-description">
                 If you're buying a condominium or a home in a community with a Homeowners Association (HOA), understanding the association and its fees is crucial to your home buying decision.
@@ -1008,21 +1031,21 @@ function App() {
           <p className="section-subtitle">When you work with us, you become part of our real estate family.</p>
           <div className="family-grid">
             <div className="family-card">
-              <div className="family-icon">🔧</div>
+              <div className="family-icon"><Wrench size={48} /></div>
               <h3 className="family-title">Your Vendor Source</h3>
               <p className="family-description">
                 Need a great plumber, painter, or contractor? Our trusted vendor list is now your list.
               </p>
             </div>
             <div className="family-card">
-              <div className="family-icon">🎉</div>
+              <div className="family-icon"><PartyPopper size={48} /></div>
               <h3 className="family-title">Fun Client Events</h3>
               <p className="family-description">
                 You're invited! Get exclusive invitations to our annual Nats game, fall family fun day, brunch with Santa, and more.
               </p>
             </div>
             <div className="family-card">
-              <div className="family-icon">❤️</div>
+              <div className="family-icon"><Heart size={48} /></div>
               <h3 className="family-title">We Give Back Together</h3>
               <p className="family-description">
                 We love the DMV. For every referral we receive, we donate $250 to charities like Habitat for Humanity, 
@@ -1183,15 +1206,15 @@ function App() {
                   <span><strong>Priority Access Preview</strong> - Learn how to access off-market homes before they hit Zillow</span>
                 </li>
                 <li className="includes-item">
-                  <span className="includes-icon">🏆</span>
+                  <span className="includes-icon"><Trophy size={24} /></span>
                   <span><strong>Winning Offer Strategy</strong> - Discover proven tactics to craft offers that stand out in competitive markets</span>
                 </li>
                 <li className="includes-item">
-                  <span className="includes-icon">🤝</span>
+                  <span className="includes-icon"><Handshake size={24} /></span>
                   <span><strong>KS Team Resources</strong> - Access to our network of trusted lenders, inspectors, and vendors</span>
                 </li>
                 <li className="includes-item">
-                  <span className="includes-icon">💬</span>
+                  <span className="includes-icon"><MessageCircle size={24} /></span>
                   <span><strong>All Your Real Estate Questions Answered</strong> - Get expert answers to any questions you have about buying a home, the DMV market, neighborhoods, financing, or the home buying process</span>
                 </li>
               </ul>
