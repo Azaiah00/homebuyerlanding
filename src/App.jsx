@@ -479,11 +479,11 @@ function App() {
             <span className="trust-badge-icon">✓</span>
             <span>Licensed in VA, DC & MD • 7+ Years Experience</span>
           </div>
-          <h1 className="hero-title">Your Keys to the DMV:<br />Your Home Buying Strategy</h1>
-          <p className="hero-slogan">Work with a DMV Native who knows the neighborhoods, not just the listings.</p>
+          <h1 className="hero-title">First Time Home Buyer Guide | Northern Virginia, DC & Maryland</h1>
+          <p className="hero-slogan">Work with a Northern Virginia native who knows the neighborhoods, not just the listings.</p>
           <p className="hero-intro">
-            Hi, I'm Frederick Sales! I grew up in Alexandria, VA and I currently live in Washington DC in the SW Waterfront neighborhood. Finding your next home is a huge step, and as your realtor, I'm here to make it smarter, simpler, and way more fun. 
-            With 7+ years of experience in VA, DC, and MD, I've built a "Winning Game Plan" to get you the perfect home. Let's work together to find your dream home!
+            Hi, I'm Frederick Sales! I'm a Northern Virginia native (grew up in Alexandria) and currently live in Washington DC's SW Waterfront neighborhood. As a top real estate agent specializing in first-time home buyers throughout Northern Virginia (NOVA), Washington DC, and Maryland, I've helped over 5,275 families find their dream homes. 
+            Finding your next home is a huge step, and as your realtor, I'm here to make it smarter, simpler, and way more fun. With 7+ years of experience in VA, DC, and MD, I've built a "Winning Game Plan" to get you the perfect home. Let's work together to find your dream home!
           </p>
           <button className="cta-button primary" onClick={scrollToContact}>
             Schedule My Free Buyer Consultation
@@ -1215,13 +1215,31 @@ function App() {
             <div className="faq-item">
               <h3 className="faq-question">What areas do you serve?</h3>
               <p className="faq-answer">
-                I'm licensed in Virginia, Washington DC, and Maryland - the entire DMV area! Whether you're looking in Arlington, Bethesda, Alexandria, or anywhere in between, as your realtor, I can help you find your perfect home. <strong>Let's work together to explore the best neighborhoods for you.</strong>
+                I'm licensed in Virginia, Washington DC, and Maryland - the entire DMV area! Whether you're looking in Arlington, Bethesda, Alexandria, McLean, Tysons Corner, Reston, Rockville, Silver Spring, or anywhere in between, as your realtor, I can help you find your perfect home. I specialize in Northern Virginia (NOVA), Washington DC, and Maryland real estate. <strong>Let's work together to explore the best neighborhoods for you.</strong>
               </p>
             </div>
             <div className="faq-item">
               <h3 className="faq-question">Are there any first time home buyer programs?</h3>
               <p className="faq-answer">
-                Yes! There are several first-time home buyer programs available that can help with down payment assistance, lower interest rates, and reduced closing costs. These programs vary by state and locality, and can include options like FHA loans, VA loans (for eligible veterans), and state-specific programs. As your realtor, I'll connect you with mortgage lenders who can provide detailed information about first-time home buyer programs you may qualify for. <strong>Ask me more about first-time buyer programs in the DMV.</strong>
+                Yes! There are several first-time home buyer programs available in Northern Virginia, DC, and Maryland that can help with down payment assistance, lower interest rates, and reduced closing costs. These programs vary by state and locality, and can include options like FHA loans, VA loans (for eligible veterans), and state-specific programs like the Virginia Housing Development Authority (VHDA) programs, DC's HPAP program, and Maryland's first-time home buyer programs. As your realtor, I'll connect you with mortgage lenders who can provide detailed information about first-time home buyer programs you may qualify for. <strong>Ask me more about first-time buyer programs in Northern Virginia, DC, and Maryland.</strong>
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">What are the best neighborhoods for first-time home buyers in Northern Virginia?</h3>
+              <p className="faq-answer">
+                Northern Virginia offers many great neighborhoods for first-time home buyers, including Arlington, Alexandria, Falls Church, McLean, Tysons Corner, Reston, Vienna, Annandale, Springfield, Burke, Centreville, and Manassas. Each area has its own unique character, price points, and amenities. As your realtor, I'll help you find the best neighborhood that fits your budget, lifestyle, and commute needs. <strong>Let's work together to explore the best Northern Virginia neighborhoods for you.</strong>
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">What are the best neighborhoods for first-time home buyers in Washington DC?</h3>
+              <p className="faq-answer">
+                Washington DC has many excellent neighborhoods for first-time home buyers, including Capitol Hill, Georgetown, Dupont Circle, Adams Morgan, Logan Circle, Shaw, U Street, SW Waterfront, and many more. Each neighborhood offers different price points, amenities, and lifestyles. As your realtor, I'll help you navigate DC's diverse neighborhoods to find the perfect fit for your first home. <strong>Ask me more about the best DC neighborhoods for first-time buyers.</strong>
+              </p>
+            </div>
+            <div className="faq-item">
+              <h3 className="faq-question">What are the best neighborhoods for first-time home buyers in Maryland?</h3>
+              <p className="faq-answer">
+                Maryland offers many attractive neighborhoods for first-time home buyers, including Bethesda, Rockville, Gaithersburg, Silver Spring, College Park, Hyattsville, and throughout Montgomery County and Prince George's County. Each area has its own unique character, school districts, and price points. As your realtor, I'll help you find the best Maryland neighborhood that fits your budget and lifestyle. <strong>Let's work together to explore the best Maryland neighborhoods for you.</strong>
               </p>
             </div>
           </div>
