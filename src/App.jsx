@@ -369,7 +369,7 @@ function App() {
               className={`nav-logo ${isScrolled ? 'scrolled' : ''}`}
               aria-label="Frederick Sales - Return to top"
             >
-              Frederick Sales
+              Frederick Sales<sup>®</sup>
             </button>
 
             {/* Right Side - CTA Button (Desktop) */}
