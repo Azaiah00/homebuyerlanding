@@ -345,6 +345,8 @@ img, video, iframe {
     z-index: 10;
     color: rgba(255, 255, 255, 0.85);
     line-height: 1.2;
+    word-wrap: break-word;
+    white-space: normal;
   }
 
   .sidebar-button.active .sidebar-button-text {
@@ -798,9 +800,41 @@ img, video, iframe {
   font-size: 3.8rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
-  line-height: 1.15;
+  line-height: 1.2;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   letter-spacing: -1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.3rem;
+}
+
+.hero-title-line-1,
+.hero-title-line-2,
+.hero-title-line-3 {
+  display: block;
+}
+
+.hero-title-line-1 {
+  font-size: 3.8rem;
+  font-weight: 800;
+}
+
+.hero-title-line-2 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #c9a961;
+  margin-top: 0.2rem;
+}
+
+.hero-title-line-3 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 0.3rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .hero-trust-badge {
@@ -1658,8 +1692,15 @@ section {
 }
 
 .result-note {
-  font-size: 0.9rem;
-  opacity: 0.9;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e53e3e;
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(229, 62, 62, 0.1);
+  border-left: 3px solid #e53e3e;
+  border-radius: 6px;
+  text-align: center;
 }
 
 .result-details {
@@ -3568,6 +3609,19 @@ section {
     font-size: 2.5rem;
   }
 
+  .hero-title-line-1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-title-line-2 {
+    font-size: 2rem;
+  }
+
+  .hero-title-line-3 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+
   .hero-slogan {
     font-size: 1.3rem;
   }
@@ -3623,6 +3677,18 @@ section {
 
   .hero-title {
     font-size: 2.25rem;
+  }
+
+  .hero-title-line-1 {
+    font-size: 2.25rem;
+  }
+
+  .hero-title-line-2 {
+    font-size: 1.8rem;
+  }
+
+  .hero-title-line-3 {
+    font-size: 1.3rem;
   }
 
   .section-title {
@@ -3720,6 +3786,18 @@ section {
 
   .hero-title {
     font-size: 2rem;
+  }
+
+  .hero-title-line-1 {
+    font-size: 2rem;
+  }
+
+  .hero-title-line-2 {
+    font-size: 1.6rem;
+  }
+
+  .hero-title-line-3 {
+    font-size: 1.2rem;
   }
 
   .hero-slogan {
@@ -4049,6 +4127,19 @@ section {
   .hero-title {
     font-size: 1.75rem;
     line-height: 1.2;
+  }
+
+  .hero-title-line-1 {
+    font-size: 1.75rem;
+  }
+
+  .hero-title-line-2 {
+    font-size: 1.4rem;
+  }
+
+  .hero-title-line-3 {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
   }
 
   .hero-slogan {

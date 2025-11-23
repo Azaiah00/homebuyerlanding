@@ -336,7 +336,7 @@ function App() {
   const chapters = [
     { id: 'game-plan', number: 1, title: 'Process' },
     { id: 'money-talk', number: 2, title: 'Costs' },
-    { id: 'mortgage-calculator', number: 3, title: 'Calculator' },
+    { id: 'mortgage-calculator', number: 3, title: 'Mortgage Calculator' },
     { id: 'winning-offer', number: 4, title: 'Winning Offer' },
     { id: 'team-advantage', number: 5, title: 'Why Us' },
     { id: 'testimonials', number: 6, title: 'Reviews' },
@@ -479,10 +479,14 @@ function App() {
             <span className="trust-badge-icon">✓</span>
             <span>Licensed in VA, DC & MD • 7+ Years Experience</span>
           </div>
-          <h1 className="hero-title">Home Buying Made Simple | Top Buyer's Agent | DC, NOVA, MD</h1>
+          <h1 className="hero-title">
+            <span className="hero-title-line-1">Home Buying Made Simple</span>
+            <span className="hero-title-line-2">Top Buyer's Agent</span>
+            <span className="hero-title-line-3">DC, NOVA, MD</span>
+          </h1>
           <p className="hero-slogan">Work with a Northern Virginia native who knows the neighborhoods, not just the listings.</p>
           <p className="hero-intro">
-            Hi, I'm Frederick Sales! I'm a Northern Virginia native (grew up in Alexandria) and currently live in Washington DC's SW Waterfront neighborhood. As a top real estate agent specializing in home buyers—from first-time buyers to repeat buyers—throughout Northern Virginia (NOVA), Washington DC, and Maryland, I've helped over 5,275 families find their dream homes. 
+            Hi, I'm Frederick Sales! I'm a Northern Virginia native (grew up in Alexandria) and currently live in Washington DC's SW Waterfront neighborhood. As a top real estate agent specializing in home buyers—from first-time buyers to repeat buyers—throughout Northern Virginia (NOVA), Washington DC, and Maryland, I'm passionate about helping you find the perfect home. 
             Finding your next home is a huge step, and as your realtor, I'm here to make it smarter, simpler, and way more fun. With 7+ years of experience in VA, DC, and MD, I've built a "Winning Game Plan" to get you the perfect home. Whether you're buying your first home or your next home, let's work together to find your dream home!
           </p>
           <button className="cta-button primary" onClick={scrollToContact}>
@@ -740,14 +744,6 @@ function App() {
                   />
                   <span className="input-suffix">%</span>
                 </div>
-                <div className="rate-note">
-                  <small>Current market rate from Freddie Mac PMMS (Primary Mortgage Market Survey). Updated weekly on Thursdays. You can adjust this.</small>
-                  {rateLastUpdated && (
-                    <small style={{ display: 'block', marginTop: '0.25rem', fontSize: '0.8rem', color: '#a0aec0' }}>
-                      Rate loaded: {rateLastUpdated.toLocaleDateString()} • Source: Freddie Mac PMMS
-                    </small>
-                  )}
-                </div>
               </div>
 
               <div className="calc-input-group">
@@ -770,7 +766,7 @@ function App() {
               <div className="result-card primary">
                 <div className="result-label">Monthly Payment</div>
                 <div className="result-value">{formatCurrency(monthlyPayment)}</div>
-                <div className="result-note">Principal & Interest (does not include taxes and insurance)</div>
+                <div className="result-note">Principal & Interest (does not include taxes, insurance, or HOA/Condo fees)</div>
               </div>
 
               <div className="result-details">
@@ -845,9 +841,14 @@ function App() {
             <div className="rent-vs-buy-comparison">
               <h3 className="comparison-title">Renting vs. Buying: The Wealth Gap</h3>
               <p className="comparison-subtitle">See how buying builds wealth while renting builds someone else's</p>
-              <p style={{ textAlign: 'center', margin: '1.5rem 0', fontSize: '0.95rem', color: '#718096', fontStyle: 'italic' }}>
-                Based on a monthly rent of <strong>$1,500/month</strong> for a comparable property • Assumes <strong>3% annual appreciation</strong> (15.9% over 5 years, 34.4% over 10 years, 80.6% over 20 years)
-              </p>
+              <div style={{ textAlign: 'center', margin: '1.5rem 0', fontSize: '0.95rem', color: '#718096', fontStyle: 'italic' }}>
+                <p style={{ margin: '0.5rem 0' }}>
+                  Based on a monthly rent of <strong>$1,500/month</strong> for a comparable property
+                </p>
+                <p style={{ margin: '0.5rem 0' }}>
+                  Assumes <strong>3% annual appreciation</strong> (15.9% over 5 years, 34.4% over 10 years, 80.6% over 20 years)
+                </p>
+              </div>
               <div className="comparison-grid">
                 <div className="comparison-column rent-column">
                   <div className="comparison-header">RENTING</div>
