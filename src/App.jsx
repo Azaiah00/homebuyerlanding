@@ -461,7 +461,7 @@ function App() {
           <div className="hero-image-wrapper">
             <img 
               src="/images/frederick-headshot.jpg" 
-              alt="Frederick Sales - Best Real Estate Agent for First Time Home Buyers in Northern Virginia, DC and Maryland"
+              alt="Frederick Sales - Expert Real Estate Agent for Home Buyers (First-Time & Repeat Buyers) in Northern Virginia, DC and Maryland"
               className="hero-photo"
               onClick={() => setShowPhotoModal(true)}
               onError={(e) => {
@@ -479,11 +479,11 @@ function App() {
             <span className="trust-badge-icon">✓</span>
             <span>Licensed in VA, DC & MD • 7+ Years Experience</span>
           </div>
-          <h1 className="hero-title">First Time Home Buyer Guide | Northern Virginia, DC & Maryland</h1>
+          <h1 className="hero-title">Expert Home Buyer Guide | Northern Virginia, DC & Maryland</h1>
           <p className="hero-slogan">Work with a Northern Virginia native who knows the neighborhoods, not just the listings.</p>
           <p className="hero-intro">
-            Hi, I'm Frederick Sales! I'm a Northern Virginia native (grew up in Alexandria) and currently live in Washington DC's SW Waterfront neighborhood. As a top real estate agent specializing in first-time home buyers throughout Northern Virginia (NOVA), Washington DC, and Maryland, I've helped over 5,275 families find their dream homes. 
-            Finding your next home is a huge step, and as your realtor, I'm here to make it smarter, simpler, and way more fun. With 7+ years of experience in VA, DC, and MD, I've built a "Winning Game Plan" to get you the perfect home. Let's work together to find your dream home!
+            Hi, I'm Frederick Sales! I'm a Northern Virginia native (grew up in Alexandria) and currently live in Washington DC's SW Waterfront neighborhood. As a top real estate agent specializing in home buyers—from first-time buyers to repeat buyers—throughout Northern Virginia (NOVA), Washington DC, and Maryland, I've helped over 5,275 families find their dream homes. 
+            Finding your next home is a huge step, and as your realtor, I'm here to make it smarter, simpler, and way more fun. With 7+ years of experience in VA, DC, and MD, I've built a "Winning Game Plan" to get you the perfect home. Whether you're buying your first home or your next home, let's work together to find your dream home!
           </p>
           <button className="cta-button primary" onClick={scrollToContact}>
             Schedule My Free Buyer Consultation
