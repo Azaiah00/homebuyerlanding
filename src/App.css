@@ -585,7 +585,7 @@ img, video, iframe {
   background-attachment: fixed;
   color: white;
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 8rem 2rem 4rem;
   overflow: hidden;
 }
 
@@ -619,10 +619,12 @@ img, video, iframe {
   width: 100%;
   padding: 0 2rem;
   animation: fadeInUp 1s ease-out;
+  padding-top: 2rem;
 }
 
 .hero-image-wrapper {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
 }
