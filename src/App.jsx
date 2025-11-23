@@ -893,59 +893,31 @@ function App() {
 
           {/* Mobile Navigation */}
           {mobileMenuOpen && (
-            <>
-              <div
-                className="mobile-nav-overlay"
-                onClick={toggleMobileMenu}
-                aria-hidden="true"
-              />
-              <div
-                id="mobile-menu"
-                className="mobile-nav-menu"
-                role="navigation"
-                aria-label="Mobile navigation"
+            <div
+              id="mobile-menu"
+              className="mobile-nav-dropdown"
+              role="navigation"
+              aria-label="Mobile navigation"
+            >
+              {chapters.map((chapter) => (
+                <button
+                  key={chapter.id}
+                  onClick={() => scrollToSection(chapter.id)}
+                  className={`mobile-nav-dropdown-item ${activeChapter === chapter.id ? 'active' : ''}`}
+                >
+                  {chapter.title}
+                </button>
+              ))}
+              <button
+                onClick={() => {
+                  scrollToContact()
+                  setMobileMenuOpen(false)
+                }}
+                className="mobile-nav-dropdown-cta"
               >
-                <div className="mobile-nav-header">
-                  <h3 className="mobile-nav-title">Navigation</h3>
-                  <button
-                    onClick={toggleMobileMenu}
-                    className="mobile-nav-close-btn"
-                    aria-label="Close menu"
-                  >
-                    <X size={24} />
-                  </button>
-                </div>
-                <div className="mobile-nav-items">
-                  {chapters.map((chapter) => (
-                    <button
-                      key={chapter.id}
-                      onClick={() => scrollToSection(chapter.id)}
-                      className={`mobile-nav-item ${activeChapter === chapter.id ? 'active' : ''}`}
-                    >
-                      <span className="mobile-nav-item-number">{chapter.number}.</span>
-                      <span className="mobile-nav-item-title">
-                        {chapter.title.includes('\n') ? (
-                          chapter.title.split('\n').map((line, i) => (
-                            <span key={i} className="mobile-nav-title-line">{line}</span>
-                          ))
-                        ) : (
-                          chapter.title
-                        )}
-                      </span>
-                    </button>
-                  ))}
-                  <button
-                    onClick={() => {
-                      scrollToContact()
-                      setMobileMenuOpen(false)
-                    }}
-                    className="mobile-nav-cta"
-                  >
-                    Get Started
-                  </button>
-                </div>
-              </div>
-            </>
+                Get Started
+              </button>
+            </div>
           )}
         </div>
       </nav>
