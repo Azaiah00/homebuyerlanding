@@ -1229,6 +1229,31 @@ section {
   width: 100%;
 }
 
+@media (max-width: 768px) {
+  .money-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  .money-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .money-card-title {
+    font-size: 1.5rem;
+  }
+
+  .comparison-item {
+    padding: 1.5rem;
+  }
+
+  .cost-list li {
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
+}
+
 .money-card {
   background: #f8fafc;
   padding: 3rem;
