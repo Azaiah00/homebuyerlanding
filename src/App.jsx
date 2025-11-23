@@ -27,7 +27,8 @@ import {
   Info,
   Printer,
   Download,
-  ChevronDown
+  ChevronDown,
+  ArrowUp
 } from 'lucide-react'
 import jsPDF from 'jspdf'
 import './App.css'
@@ -690,7 +691,7 @@ function App() {
       // Track active chapter based on scroll position
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['game-plan', 'money-talk', 'mortgage-calculator', 'closing-cost-calculator', 'wealth-building', 'winning-offer', 'team-advantage', 'testimonials', 'faq', 'contact-section']
+      const sections = ['game-plan', 'money-talk', 'mortgage-calculator', 'closing-cost-calculator', 'wealth-building', 'winning-offer', 'team-advantage', 'faq', 'contact-section']
       const scrollPosition = window.scrollY + 200
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -817,8 +818,7 @@ function App() {
     { id: 'closing-cost-calculator', number: 4, title: 'Closing Costs' },
     { id: 'winning-offer', number: 5, title: 'Winning Offer' },
     { id: 'team-advantage', number: 6, title: 'Why Us' },
-    { id: 'testimonials', number: 7, title: 'Reviews' },
-    { id: 'faq', number: 8, title: 'FAQ' }
+    { id: 'faq', number: 7, title: 'FAQ' }
   ]
 
   return (
@@ -2101,60 +2101,6 @@ function App() {
         </div>
       </section>
 
-      {/* TESTIMONIALS SECTION */}
-      <section id="testimonials" className="testimonials fade-in-section">
-        <div className="container">
-          <h2 className="section-title">What Our Clients Say</h2>
-          <p className="section-subtitle">Real reviews from real clients who found their dream homes with us</p>
-          <div className="testimonials-grid">
-            <div className="testimonial-card">
-              <div className="testimonial-stars">★★★★★</div>
-              <p className="testimonial-text">
-                {/* Replace this text with the exact wording from review-1.png */}
-                Frederick was absolutely amazing throughout our entire home buying process. His knowledge of the DMV area and attention to detail made finding our dream home a breeze. Highly recommend!
-              </p>
-              <div className="testimonial-author">
-                <strong>Client Name</strong>
-                <span>First-Time Home Buyer, Arlington, VA</span>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-stars">★★★★★</div>
-              <p className="testimonial-text">
-                {/* Replace this text with the exact wording from review-2.png */}
-                Working with Frederick and the KS Team was the best decision we made. They helped us navigate a competitive market and we got our offer accepted on the first try. Couldn't be happier!
-              </p>
-              <div className="testimonial-author">
-                <strong>Client Name</strong>
-                <span>Repeat Buyer, Washington DC</span>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-stars">★★★★★</div>
-              <p className="testimonial-text">
-                {/* Replace this text with the exact wording from review-3.png */}
-                Frederick's expertise and dedication are unmatched. He made the entire process stress-free and was always available to answer our questions. We found our perfect home in Bethesda thanks to him!
-              </p>
-              <div className="testimonial-author">
-                <strong>Client Name</strong>
-                <span>First-Time Home Buyer, Bethesda, MD</span>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-stars">★★★★★</div>
-              <p className="testimonial-text">
-                {/* Replace this text with the exact wording from review-4.png */}
-                The Priority Access program was a game-changer! We saw homes before they hit the market and found our dream home through Frederick's network. Professional, knowledgeable, and results-driven.
-              </p>
-              <div className="testimonial-author">
-                <strong>Client Name</strong>
-                <span>Home Buyer, Alexandria, VA</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ SECTION */}
       <section id="faq" className="faq fade-in-section">
         <div className="container">
@@ -2518,9 +2464,9 @@ function App() {
         <button 
           className="back-to-top" 
           onClick={scrollToTop}
-          aria-label="Back to top"
+          aria-label="Scroll to top"
         >
-          ↑
+          <ArrowUp size={48} strokeWidth={2.5} />
         </button>
       )}
     </div>
