@@ -282,8 +282,8 @@ img, video, iframe {
     border-right: 1px solid rgba(201, 169, 97, 0.15);
     border-radius: 0 16px 16px 0;
     padding: 0.75rem;
-    min-width: 110px;
-    max-width: 110px;
+    min-width: 125px;
+    max-width: 125px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
