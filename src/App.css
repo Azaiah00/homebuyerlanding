@@ -3843,40 +3843,87 @@ section {
   padding: 6rem 0;
 }
 
-.faq-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
+.faq-list {
+  max-width: 900px;
+  margin: 3rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.faq-item {
+.faq-bar {
   background: white;
-  padding: 2.5rem;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
   transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.faq-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(201, 169, 97, 0.15);
-  border-color: rgba(201, 169, 97, 0.3);
+.faq-bar:hover {
+  border-color: #c9a961;
 }
 
-.faq-question {
-  font-size: 1.3rem;
-  font-weight: 700;
+.faq-bar.open {
+  border-color: #c9a961;
+  box-shadow: 0 2px 8px rgba(201, 169, 97, 0.1);
+}
+
+.faq-question-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  font-weight: 600;
   color: #2d3748;
-  margin-bottom: 1rem;
-  line-height: 1.4;
+  gap: 1rem;
+}
+
+.faq-question-bar:hover {
+  background: #f7fafc;
+  color: #c9a961;
+}
+
+.faq-question-bar span {
+  flex: 1;
+  line-height: 1.5;
+}
+
+.faq-icon {
+  color: #718096;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.faq-icon.open {
+  transform: rotate(180deg);
+  color: #c9a961;
+}
+
+.faq-answer-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 1.5rem;
+}
+
+.faq-bar.open .faq-answer-content {
+  max-height: 1000px;
+  padding: 0 1.5rem 1.5rem 1.5rem;
 }
 
 .faq-answer {
   color: #718096;
   line-height: 1.7;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
+  margin: 0;
+  padding-top: 0.5rem;
 }
 
 /* ============================================
@@ -4452,8 +4499,17 @@ section {
     font-size: 1.2rem;
   }
 
-  .faq-grid {
-    grid-template-columns: 1fr;
+  .faq-list {
+    gap: 0.5rem;
+  }
+
+  .faq-question-bar {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .faq-bar.open .faq-answer-content {
+    padding: 0 1.25rem 1.25rem 1.25rem;
   }
 
   /* Ensure winning offer section displays properly on mobile */

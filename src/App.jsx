@@ -26,7 +26,8 @@ import {
   Copy,
   Info,
   Printer,
-  Download
+  Download,
+  ChevronDown
 } from 'lucide-react'
 import './App.css'
 
@@ -45,6 +46,7 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [formErrors, setFormErrors] = useState({})
   const [activeChapter, setActiveChapter] = useState(null)
+  const [openFaq, setOpenFaq] = useState(null)
   const [calculatorData, setCalculatorData] = useState({
     homePrice: '',
     downPaymentPercent: '',
@@ -590,6 +592,10 @@ https://homebuyerconsultation.netlify.app`
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index)
   }
 
   const chapters = [
@@ -1864,78 +1870,138 @@ https://homebuyerconsultation.netlify.app`
         <div className="container">
           <h2 className="section-title">Frequently Asked Questions</h2>
           <p className="section-subtitle">Everything you need to know about buying a home in the DMV</p>
-          <div className="faq-grid">
-            <div className="faq-item">
-              <h3 className="faq-question">How long does the home buying process take?</h3>
-              <p className="faq-answer">
-                Typically, the home buying process takes 30-45 days from offer acceptance to closing. However, this can vary based on financing, inspections, and negotiations. As your realtor, I'll work with you to ensure a timeline that works for your situation.
-              </p>
+          <div className="faq-list">
+            <div className={`faq-bar ${openFaq === 0 ? 'open' : ''}`}>
+              <button className="faq-question-bar" onClick={() => toggleFaq(0)}>
+                <span>How long does the home buying process take?</span>
+                <ChevronDown className={`faq-icon ${openFaq === 0 ? 'open' : ''}`} size={20} />
+              </button>
+              <div className="faq-answer-content">
+                <p className="faq-answer">
+                  Typically, the home buying process takes 30-45 days from offer acceptance to closing. However, this can vary based on financing, inspections, and negotiations. As your realtor, I'll work with you to ensure a timeline that works for your situation.
+                </p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h3 className="faq-question">What credit score do I need to buy a home?</h3>
-              <p className="faq-answer">
-                Most conventional loans require a credit score of 620 or higher, while FHA loans may accept scores as low as 580 (or even 500 with a larger down payment). VA loans typically require 620+. However, higher scores get better interest rates. As your realtor, I'll connect you with trusted lenders who can review your specific situation and help improve your credit if needed. <strong>Ask me more about credit score requirements and how to improve yours.</strong>
-              </p>
+            <div className={`faq-bar ${openFaq === 1 ? 'open' : ''}`}>
+              <button className="faq-question-bar" onClick={() => toggleFaq(1)}>
+                <span>What credit score do I need to buy a home?</span>
+                <ChevronDown className={`faq-icon ${openFaq === 1 ? 'open' : ''}`} size={20} />
+              </button>
+              <div className="faq-answer-content">
+                <p className="faq-answer">
+                  Most conventional loans require a credit score of 620 or higher, while FHA loans may accept scores as low as 580 (or even 500 with a larger down payment). VA loans typically require 620+. However, higher scores get better interest rates. As your realtor, I'll connect you with trusted lenders who can review your specific situation and help improve your credit if needed. <strong>Ask me more about credit score requirements and how to improve yours.</strong>
+                </p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h3 className="faq-question">What is PMI (Private Mortgage Insurance) and when do I need it?</h3>
-              <p className="faq-answer">
-                PMI is insurance that protects the lender if you default on your loan. It's typically required when your down payment is less than 20% of the home's purchase price. PMI usually costs 0.5% to 1% of your loan amount annually and can be removed once you reach 20% equity. As your realtor, I'll help you understand your PMI options and when it makes sense to pay it. <strong>Ask me more about PMI and how to minimize or avoid it.</strong>
-              </p>
+            <div className={`faq-bar ${openFaq === 2 ? 'open' : ''}`}>
+              <button className="faq-question-bar" onClick={() => toggleFaq(2)}>
+                <span>What is PMI (Private Mortgage Insurance) and when do I need it?</span>
+                <ChevronDown className={`faq-icon ${openFaq === 2 ? 'open' : ''}`} size={20} />
+              </button>
+              <div className="faq-answer-content">
+                <p className="faq-answer">
+                  PMI is insurance that protects the lender if you default on your loan. It's typically required when your down payment is less than 20% of the home's purchase price. PMI usually costs 0.5% to 1% of your loan amount annually and can be removed once you reach 20% equity. As your realtor, I'll help you understand your PMI options and when it makes sense to pay it. <strong>Ask me more about PMI and how to minimize or avoid it.</strong>
+                </p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h3 className="faq-question">Can I buy a home if I have student loans or other debt?</h3>
-              <p className="faq-answer">
-                Yes! Having debt doesn't automatically disqualify you. Lenders look at your debt-to-income ratio (DTI), which should typically be below 43% for most loans. As your realtor, I'll connect you with trusted lenders who can help you understand your options and find the right loan program for your situation. <strong>Ask me more about how we can work together to get you approved.</strong>
-              </p>
+            <div className={`faq-bar ${openFaq === 3 ? 'open' : ''}`}>
+              <button className="faq-question-bar" onClick={() => toggleFaq(3)}>
+                <span>Can I buy a home if I have student loans or other debt?</span>
+                <ChevronDown className={`faq-icon ${openFaq === 3 ? 'open' : ''}`} size={20} />
+              </button>
+              <div className="faq-answer-content">
+                <p className="faq-answer">
+                  Yes! Having debt doesn't automatically disqualify you. Lenders look at your debt-to-income ratio (DTI), which should typically be below 43% for most loans. As your realtor, I'll connect you with trusted lenders who can help you understand your options and find the right loan program for your situation. <strong>Ask me more about how we can work together to get you approved.</strong>
+                </p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h3 className="faq-question">Should I get a home inspection?</h3>
-              <p className="faq-answer">
-                Absolutely! A home inspection is one of the most important steps in the buying process. It reveals potential issues with the property's structure, systems (HVAC, plumbing, electrical), and safety concerns. Even in competitive markets, an inspection contingency protects you from buying a home with hidden problems. As your realtor, I'll help you find a qualified inspector and negotiate repairs if issues are found. <strong>Ask me more about home inspections and how they protect you.</strong>
-              </p>
+            <div className={`faq-bar ${openFaq === 4 ? 'open' : ''}`}>
+              <button className="faq-question-bar" onClick={() => toggleFaq(4)}>
+                <span>Should I get a home inspection?</span>
+                <ChevronDown className={`faq-icon ${openFaq === 4 ? 'open' : ''}`} size={20} />
+              </button>
+              <div className="faq-answer-content">
+                <p className="faq-answer">
+                  Absolutely! A home inspection is one of the most important steps in the buying process. It reveals potential issues with the property's structure, systems (HVAC, plumbing, electrical), and safety concerns. Even in competitive markets, an inspection contingency protects you from buying a home with hidden problems. As your realtor, I'll help you find a qualified inspector and negotiate repairs if issues are found. <strong>Ask me more about home inspections and how they protect you.</strong>
+                </p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h3 className="faq-question">What happens if the home doesn't appraise for the purchase price?</h3>
-              <p className="faq-answer">
-                If the appraisal comes in lower than your offer price, you have several options: renegotiate the price with the seller, make up the difference in cash, or walk away from the deal (if you have an appraisal contingency). This is why an appraisal contingency is crucial—it protects you from overpaying. As your realtor, I'll help you navigate this situation and negotiate the best outcome. <strong>Ask me more about appraisal contingencies and how they protect you.</strong>
-              </p>
+            <div className={`faq-bar ${openFaq === 5 ? 'open' : ''}`}>
+              <button className="faq-question-bar" onClick={() => toggleFaq(5)}>
+                <span>What happens if the home doesn't appraise for the purchase price?</span>
+                <ChevronDown className={`faq-icon ${openFaq === 5 ? 'open' : ''}`} size={20} />
+              </button>
+              <div className="faq-answer-content">
+                <p className="faq-answer">
+                  If the appraisal comes in lower than your offer price, you have several options: renegotiate the price with the seller, make up the difference in cash, or walk away from the deal (if you have an appraisal contingency). This is why an appraisal contingency is crucial—it protects you from overpaying. As your realtor, I'll help you navigate this situation and negotiate the best outcome. <strong>Ask me more about appraisal contingencies and how they protect you.</strong>
+                </p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h3 className="faq-question">Can I negotiate the price after the inspection?</h3>
-              <p className="faq-answer">
-                Yes! If the inspection reveals issues, you can negotiate with the seller to either lower the price, have them make repairs, or provide a credit at closing. The key is having an inspection contingency in your offer. As your realtor, I'll help you determine which issues are worth negotiating and craft a strategy that protects your interests while keeping the deal together. <strong>Ask me more about inspection negotiations.</strong>
-              </p>
+            <div className={`faq-bar ${openFaq === 6 ? 'open' : ''}`}>
+              <button className="faq-question-bar" onClick={() => toggleFaq(6)}>
+                <span>Can I negotiate the price after the inspection?</span>
+                <ChevronDown className={`faq-icon ${openFaq === 6 ? 'open' : ''}`} size={20} />
+              </button>
+              <div className="faq-answer-content">
+                <p className="faq-answer">
+                  Yes! If the inspection reveals issues, you can negotiate with the seller to either lower the price, have them make repairs, or provide a credit at closing. The key is having an inspection contingency in your offer. As your realtor, I'll help you determine which issues are worth negotiating and craft a strategy that protects your interests while keeping the deal together. <strong>Ask me more about inspection negotiations.</strong>
+                </p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h3 className="faq-question">What should I look for when viewing homes?</h3>
-              <p className="faq-answer">
-                Focus on the home's condition, layout, location, and potential issues. Look for signs of water damage, foundation problems, outdated systems, and neighborhood factors (noise, traffic, schools). Don't get distracted by staging—focus on the bones of the house. As your realtor, I'll point out red flags and help you evaluate each property objectively. <strong>Ask me more about what to look for during home viewings.</strong>
-              </p>
+            <div className={`faq-bar ${openFaq === 7 ? 'open' : ''}`}>
+              <button className="faq-question-bar" onClick={() => toggleFaq(7)}>
+                <span>What should I look for when viewing homes?</span>
+                <ChevronDown className={`faq-icon ${openFaq === 7 ? 'open' : ''}`} size={20} />
+              </button>
+              <div className="faq-answer-content">
+                <p className="faq-answer">
+                  Focus on the home's condition, layout, location, and potential issues. Look for signs of water damage, foundation problems, outdated systems, and neighborhood factors (noise, traffic, schools). Don't get distracted by staging—focus on the bones of the house. As your realtor, I'll point out red flags and help you evaluate each property objectively. <strong>Ask me more about what to look for during home viewings.</strong>
+                </p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h3 className="faq-question">How many homes should I view before making an offer?</h3>
-              <p className="faq-answer">
-                There's no magic number, but most buyers view 10-15 homes before making an offer. The key is viewing enough homes to understand the market and recognize a good deal when you see it. However, in competitive markets, you may need to act quickly. As your realtor, I'll help you balance thoroughness with speed so you don't miss out on great opportunities. <strong>Let's work together to find your perfect home.</strong>
-              </p>
+            <div className={`faq-bar ${openFaq === 8 ? 'open' : ''}`}>
+              <button className="faq-question-bar" onClick={() => toggleFaq(8)}>
+                <span>How many homes should I view before making an offer?</span>
+                <ChevronDown className={`faq-icon ${openFaq === 8 ? 'open' : ''}`} size={20} />
+              </button>
+              <div className="faq-answer-content">
+                <p className="faq-answer">
+                  There's no magic number, but most buyers view 10-15 homes before making an offer. The key is viewing enough homes to understand the market and recognize a good deal when you see it. However, in competitive markets, you may need to act quickly. As your realtor, I'll help you balance thoroughness with speed so you don't miss out on great opportunities. <strong>Let's work together to find your perfect home.</strong>
+                </p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h3 className="faq-question">What is a home warranty and do I need one?</h3>
-              <p className="faq-answer">
-                A home warranty covers repairs or replacements for major systems (HVAC, plumbing, electrical) and appliances for a set period, typically one year. It's not required, but it can provide peace of mind and save you money on unexpected repairs. Some sellers offer a home warranty as part of the sale. As your realtor, I'll help you understand if a home warranty makes sense for your situation. <strong>Ask me more about home warranties and how they can protect your investment.</strong>
-              </p>
+            <div className={`faq-bar ${openFaq === 9 ? 'open' : ''}`}>
+              <button className="faq-question-bar" onClick={() => toggleFaq(9)}>
+                <span>What is a home warranty and do I need one?</span>
+                <ChevronDown className={`faq-icon ${openFaq === 9 ? 'open' : ''}`} size={20} />
+              </button>
+              <div className="faq-answer-content">
+                <p className="faq-answer">
+                  A home warranty covers repairs or replacements for major systems (HVAC, plumbing, electrical) and appliances for a set period, typically one year. It's not required, but it can provide peace of mind and save you money on unexpected repairs. Some sellers offer a home warranty as part of the sale. As your realtor, I'll help you understand if a home warranty makes sense for your situation. <strong>Ask me more about home warranties and how they can protect your investment.</strong>
+                </p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h3 className="faq-question">Are there any first time home buyer programs?</h3>
-              <p className="faq-answer">
-                Yes! There are several first-time home buyer programs available in Washington DC, Northern Virginia, and Maryland that can help with down payment assistance, lower interest rates, and reduced closing costs. These programs vary by state and locality, and can include options like FHA loans, VA loans (for eligible veterans), and state-specific programs like the Virginia Housing Development Authority (VHDA) programs, DC's HPAP program, and Maryland's first-time home buyer programs. As your realtor, I'll connect you with mortgage lenders who can provide detailed information about first-time home buyer programs you may qualify for. <strong>Ask me more about first-time buyer programs in Washington DC, Northern Virginia, and Maryland.</strong>
-              </p>
+            <div className={`faq-bar ${openFaq === 10 ? 'open' : ''}`}>
+              <button className="faq-question-bar" onClick={() => toggleFaq(10)}>
+                <span>Are there any first time home buyer programs?</span>
+                <ChevronDown className={`faq-icon ${openFaq === 10 ? 'open' : ''}`} size={20} />
+              </button>
+              <div className="faq-answer-content">
+                <p className="faq-answer">
+                  Yes! There are several first-time home buyer programs available in Washington DC, Northern Virginia, and Maryland that can help with down payment assistance, lower interest rates, and reduced closing costs. These programs vary by state and locality, and can include options like FHA loans, VA loans (for eligible veterans), and state-specific programs like the Virginia Housing Development Authority (VHDA) programs, DC's HPAP program, and Maryland's first-time home buyer programs. As your realtor, I'll connect you with mortgage lenders who can provide detailed information about first-time home buyer programs you may qualify for. <strong>Ask me more about first-time buyer programs in Washington DC, Northern Virginia, and Maryland.</strong>
+                </p>
+              </div>
             </div>
-            <div className="faq-item">
-              <h3 className="faq-question">What are the best neighborhoods for home buyers in the DMV area?</h3>
-              <p className="faq-answer">
-                The DMV offers excellent neighborhoods across Northern Virginia, Washington DC, and Maryland. In Northern Virginia, popular areas include Arlington, Alexandria, Falls Church, McLean, Tysons Corner, Reston, and Vienna. In DC, great options include Capitol Hill, Georgetown, Dupont Circle, Adams Morgan, and SW Waterfront. In Maryland, consider Bethesda, Rockville, Gaithersburg, and Silver Spring. Each area has unique character, price points, and amenities. As your realtor, I'll help you find the best neighborhood that fits your budget, lifestyle, and commute needs. <strong>Let's work together to explore the best neighborhoods for you.</strong>
-              </p>
+            <div className={`faq-bar ${openFaq === 11 ? 'open' : ''}`}>
+              <button className="faq-question-bar" onClick={() => toggleFaq(11)}>
+                <span>What are the best neighborhoods for home buyers in the DMV area?</span>
+                <ChevronDown className={`faq-icon ${openFaq === 11 ? 'open' : ''}`} size={20} />
+              </button>
+              <div className="faq-answer-content">
+                <p className="faq-answer">
+                  The DMV offers excellent neighborhoods across Northern Virginia, Washington DC, and Maryland. In Northern Virginia, popular areas include Arlington, Alexandria, Falls Church, McLean, Tysons Corner, Reston, and Vienna. In DC, great options include Capitol Hill, Georgetown, Dupont Circle, Adams Morgan, and SW Waterfront. In Maryland, consider Bethesda, Rockville, Gaithersburg, and Silver Spring. Each area has unique character, price points, and amenities. As your realtor, I'll help you find the best neighborhood that fits your budget, lifestyle, and commute needs. <strong>Let's work together to explore the best neighborhoods for you.</strong>
+                </p>
+              </div>
             </div>
           </div>
         </div>
