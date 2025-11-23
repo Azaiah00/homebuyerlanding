@@ -781,8 +781,8 @@ function App() {
   const chapters = [
     { id: 'game-plan', number: 1, title: 'Process' },
     { id: 'money-talk', number: 2, title: 'Costs' },
-    { id: 'mortgage-calculator', number: 3, title: 'Mortgage\nCalculator' },
-    { id: 'closing-cost-calculator', number: 4, title: 'Closing\nCosts' },
+    { id: 'mortgage-calculator', number: 3, title: 'Mortgage Calculator' },
+    { id: 'closing-cost-calculator', number: 4, title: 'Closing Costs' },
     { id: 'winning-offer', number: 5, title: 'Winning Offer' },
     { id: 'team-advantage', number: 6, title: 'Why Us' },
     { id: 'testimonials', number: 7, title: 'Reviews' },
