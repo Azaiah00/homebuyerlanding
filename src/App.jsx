@@ -147,9 +147,9 @@ function App() {
 
   // Calculate mortgage payment
   useEffect(() => {
-    const homePrice = parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) || 0
-    const downPaymentPercent = parseFloat(calculatorData.downPaymentPercent) || 0
-    const interestRate = parseFloat(calculatorData.interestRate) || 0
+    const homePrice = parseFloat((calculatorData.homePrice?.toString() || '0').replace(/,/g, '')) || 0
+    const downPaymentPercent = parseFloat(calculatorData.downPaymentPercent || 0) || 0
+    const interestRate = parseFloat(calculatorData.interestRate || 0) || 0
     
     const downPaymentAmount = (homePrice * downPaymentPercent) / 100
     const principal = homePrice - downPaymentAmount
@@ -173,8 +173,8 @@ function App() {
 
   // Sync closing cost calculator with mortgage calculator when home price or down payment changes
   useEffect(() => {
-    const mortgageHomePrice = parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) || 0
-    const mortgageDownPayment = parseFloat(calculatorData.downPaymentPercent) || 0
+    const mortgageHomePrice = parseFloat((calculatorData.homePrice?.toString() || '0').replace(/,/g, '')) || 0
+    const mortgageDownPayment = parseFloat(calculatorData.downPaymentPercent || 0) || 0
     
     if (mortgageHomePrice > 0 && (!closingCostData.homePrice || closingCostData.homePrice === '')) {
       setClosingCostData(prev => ({
@@ -188,8 +188,8 @@ function App() {
   // Calculate closing costs
   useEffect(() => {
     const calculateClosingCosts = () => {
-      const homePrice = parseFloat(closingCostData.homePrice.toString().replace(/,/g, '')) || 0
-      const downPaymentPercent = parseFloat(closingCostData.downPaymentPercent) || 0
+      const homePrice = parseFloat((closingCostData.homePrice?.toString() || '0').replace(/,/g, '')) || 0
+      const downPaymentPercent = parseFloat(closingCostData.downPaymentPercent || 0) || 0
       const downPayment = (homePrice * downPaymentPercent) / 100
       const loanAmount = homePrice - downPayment
       
@@ -349,6 +349,12 @@ function App() {
         propertyType: newPropertyType,
         homeInsurance: defaultInsurance
       }))
+    } else if (name === 'state' || name === 'loanType') {
+      // Handle select dropdowns for state and loanType
+      setClosingCostData(prev => ({
+        ...prev,
+        [name]: value
+      }))
     } else if (type === 'checkbox') {
       setClosingCostData(prev => ({ ...prev, [name]: checked }))
     } else {
@@ -377,8 +383,8 @@ function App() {
   }
 
   const exportClosingCosts = () => {
-    const homePrice = parseFloat(closingCostData.homePrice.toString().replace(/,/g, '')) || 0
-    const downPaymentPercent = parseFloat(closingCostData.downPaymentPercent) || 0
+    const homePrice = parseFloat((closingCostData.homePrice?.toString() || '0').replace(/,/g, '')) || 0
+    const downPaymentPercent = parseFloat(closingCostData.downPaymentPercent || 0) || 0
     
     // Create PDF
     const doc = new jsPDF()
@@ -600,18 +606,44 @@ function App() {
       align: 'center'
     })
 
-    // Save PDF
-    const fileName = `closing-cost-estimate-${new Date().toISOString().split('T')[0]}.pdf`
-    doc.save(fileName)
+    // Save PDF - Use blob approach for better mobile compatibility
+    try {
+      const pdfBlob = doc.output('blob')
+      const url = URL.createObjectURL(pdfBlob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `closing-cost-estimate-${new Date().toISOString().split('T')[0]}.pdf`
+      link.style.display = 'none'
+      document.body.appendChild(link)
+      link.click()
+      
+      // Clean up after a delay to ensure download starts
+      setTimeout(() => {
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+      }, 100)
+    } catch (error) {
+      console.error('PDF export error:', error)
+      // Fallback to standard save method
+      try {
+        const fileName = `closing-cost-estimate-${new Date().toISOString().split('T')[0]}.pdf`
+        doc.save(fileName)
+      } catch (fallbackError) {
+        console.error('PDF fallback save error:', fallbackError)
+        alert('Unable to download PDF. Please try again or use the print option.')
+      }
+    }
   }
 
   const formatCurrency = (amount) => {
+    const numAmount = typeof amount === 'number' ? amount : parseFloat(amount || 0) || 0
+    if (isNaN(numAmount)) return '$0'
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
-    }).format(amount)
+    }).format(numAmount)
   }
 
   useEffect(() => {
@@ -1187,7 +1219,7 @@ function App() {
                 </div>
                 <div className="down-payment-amount">
                   {calculatorData.homePrice && calculatorData.downPaymentPercent 
-                    ? formatCurrency((parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) * parseFloat(calculatorData.downPaymentPercent)) / 100) + ' down'
+                    ? formatCurrency((parseFloat((calculatorData.homePrice?.toString() || '0').replace(/,/g, '')) * parseFloat(calculatorData.downPaymentPercent || 0)) / 100) + ' down'
                     : '$0 down'}
                 </div>
               </div>
@@ -1238,7 +1270,7 @@ function App() {
                   <span className="result-label-small">Down Payment</span>
                   <span className="result-value-small">
                     {calculatorData.homePrice && calculatorData.downPaymentPercent 
-                      ? formatCurrency((parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) * parseFloat(calculatorData.downPaymentPercent)) / 100)
+                      ? formatCurrency((parseFloat((calculatorData.homePrice?.toString() || '0').replace(/,/g, '')) * parseFloat(calculatorData.downPaymentPercent || 0)) / 100)
                       : '$0'}
                   </span>
                 </div>
@@ -1246,7 +1278,7 @@ function App() {
                   <span className="result-label-small">Loan Amount</span>
                   <span className="result-value-small">
                     {calculatorData.homePrice && calculatorData.downPaymentPercent 
-                      ? formatCurrency(parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) - ((parseFloat(calculatorData.homePrice.toString().replace(/,/g, '')) * parseFloat(calculatorData.downPaymentPercent)) / 100))
+                      ? formatCurrency(parseFloat((calculatorData.homePrice?.toString() || '0').replace(/,/g, '')) - ((parseFloat((calculatorData.homePrice?.toString() || '0').replace(/,/g, '')) * parseFloat(calculatorData.downPaymentPercent || 0)) / 100))
                       : '$0'}
                   </span>
                 </div>
@@ -1323,47 +1355,56 @@ function App() {
 
               <div className="calc-input-group">
                 <label htmlFor="cc-state">State</label>
-                <select
-                  id="cc-state"
-                  name="state"
-                  value={closingCostData.state}
-                  onChange={handleClosingCostChange}
-                  className="calc-select"
-                >
-                  <option value="VA">Virginia</option>
-                  <option value="DC">Washington DC</option>
-                  <option value="MD">Maryland</option>
-                </select>
+                <div className="select-wrapper">
+                  <select
+                    id="cc-state"
+                    name="state"
+                    value={closingCostData.state}
+                    onChange={handleClosingCostChange}
+                    className="calc-select"
+                  >
+                    <option value="VA">Virginia</option>
+                    <option value="DC">Washington DC</option>
+                    <option value="MD">Maryland</option>
+                  </select>
+                  <ChevronDown className="select-arrow" size={20} />
+                </div>
               </div>
 
               <div className="calc-input-group">
                 <label htmlFor="cc-loanType">Loan Type</label>
-                <select
-                  id="cc-loanType"
-                  name="loanType"
-                  value={closingCostData.loanType}
-                  onChange={handleClosingCostChange}
-                  className="calc-select"
-                >
-                  <option value="conventional">Conventional</option>
-                  <option value="FHA">FHA</option>
-                  <option value="VA">VA Loan</option>
-                </select>
+                <div className="select-wrapper">
+                  <select
+                    id="cc-loanType"
+                    name="loanType"
+                    value={closingCostData.loanType}
+                    onChange={handleClosingCostChange}
+                    className="calc-select"
+                  >
+                    <option value="conventional">Conventional</option>
+                    <option value="FHA">FHA</option>
+                    <option value="VA">VA Loan</option>
+                  </select>
+                  <ChevronDown className="select-arrow" size={20} />
+                </div>
               </div>
 
               <div className="calc-input-group">
                 <label htmlFor="cc-propertyType">Property Type</label>
-                <select
-                  id="cc-propertyType"
-                  name="propertyType"
-                  value={closingCostData.propertyType}
-                  onChange={handleClosingCostChange}
-                  className="calc-select"
-                >
-                  <option value="single-family">Single Family Home</option>
-                  <option value="townhome">Townhome</option>
-                  <option value="condo">Condo</option>
-                </select>
+                <div className="select-wrapper">
+                  <select
+                    id="cc-propertyType"
+                    name="propertyType"
+                    value={closingCostData.propertyType}
+                    onChange={handleClosingCostChange}
+                    className="calc-select"
+                  >
+                    <option value="single-family">Single Family Home</option>
+                    <option value="townhome">Townhome</option>
+                    <option value="condo">Condo</option>
+                  </select>
+                  <ChevronDown className="select-arrow" size={20} />
+                </div>
                 <small className="input-help">Select property type to auto-populate typical insurance range</small>
               </div>
 
@@ -1550,7 +1591,7 @@ function App() {
                     </div>
                     <span className="breakdown-value">
                       {closingCostData.homePrice && closingCostData.downPaymentPercent
-                        ? formatCurrency((parseFloat(closingCostData.homePrice.toString().replace(/,/g, '')) * parseFloat(closingCostData.downPaymentPercent)) / 100)
+                        ? formatCurrency((parseFloat((closingCostData.homePrice?.toString() || '0').replace(/,/g, '')) * parseFloat(closingCostData.downPaymentPercent || 0)) / 100)
                         : '$0'}
                     </span>
                   </div>
