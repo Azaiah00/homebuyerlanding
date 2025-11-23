@@ -1376,11 +1376,47 @@ function App() {
                     className="calc-input"
                   />
                 </div>
-                <small className="input-help">
-                  {closingCostData.propertyType === 'single-family' && 'Typical range: $1,200-$2,000/year'}
-                  {closingCostData.propertyType === 'townhome' && 'Typical range: $800-$1,400/year'}
-                  {closingCostData.propertyType === 'condo' && 'Typical range: $300-$700/year (much cheaper - HOA master policy covers building)'}
-                </small>
+                <div className="insurance-recommendations">
+                  {closingCostData.propertyType === 'single-family' && (
+                    <div className="recommendation-box">
+                      <strong>Single Family Home Recommendations:</strong>
+                      <ul>
+                        <li>Typical range: <strong>$1,200 - $2,000/year</strong></li>
+                        <li>Homes under $500K: ~$1,200-$1,500/year</li>
+                        <li>Homes $500K-$750K: ~$1,500-$1,800/year</li>
+                        <li>Homes over $750K: ~$1,800-$2,000+/year</li>
+                        <li>Covers: Structure, personal property, liability, and dwelling protection</li>
+                      </ul>
+                    </div>
+                  )}
+                  {closingCostData.propertyType === 'townhome' && (
+                    <div className="recommendation-box">
+                      <strong>Townhome Recommendations:</strong>
+                      <ul>
+                        <li>Typical range: <strong>$800 - $1,400/year</strong></li>
+                        <li>Lower cost than single-family due to shared walls</li>
+                        <li>Homes under $500K: ~$800-$1,100/year</li>
+                        <li>Homes $500K-$750K: ~$1,100-$1,300/year</li>
+                        <li>Homes over $750K: ~$1,300-$1,400+/year</li>
+                        <li>Covers: Interior structure, personal property, liability (exterior often covered by HOA)</li>
+                      </ul>
+                    </div>
+                  )}
+                  {closingCostData.propertyType === 'condo' && (
+                    <div className="recommendation-box">
+                      <strong>Condo Recommendations:</strong>
+                      <ul>
+                        <li>Typical range: <strong>$300 - $700/year</strong> (much lower cost)</li>
+                        <li>HOA master policy covers: Building structure, common areas, exterior</li>
+                        <li>Your policy covers: Interior walls, personal property, liability, improvements</li>
+                        <li>Studios/1BR: ~$300-$450/year</li>
+                        <li>2BR: ~$450-$600/year</li>
+                        <li>3BR+: ~$600-$700+/year</li>
+                        <li><em>Note: Condo insurance is significantly cheaper because the HOA master policy covers the building structure.</em></li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="calc-input-group">
