@@ -10,6 +10,9 @@
   -moz-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @media (min-width: 1024px) {
@@ -92,18 +95,21 @@ img, video, iframe {
   background: none;
   border: none;
   cursor: pointer;
-  font-family: inherit;
+  font-family: 'Playfair Display', serif;
 }
 
 @media (min-width: 768px) {
   .nav-logo {
     font-size: 1.75rem;
+    letter-spacing: -0.8px;
   }
 }
 
 @media (min-width: 1024px) {
   .nav-logo {
-    font-size: 2rem;
+    font-size: 2.25rem;
+    letter-spacing: -1px;
+    font-weight: 800;
   }
 }
 
@@ -863,6 +869,7 @@ img, video, iframe {
 
 section {
   padding: 6rem 0;
+  width: 100%;
 }
 
 .section-title {
