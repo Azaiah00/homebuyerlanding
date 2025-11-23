@@ -336,7 +336,7 @@ function App() {
   const chapters = [
     { id: 'game-plan', number: 1, title: 'Process' },
     { id: 'money-talk', number: 2, title: 'Costs' },
-    { id: 'mortgage-calculator', number: 3, title: 'Mortgage Calculator' },
+    { id: 'mortgage-calculator', number: 3, title: 'Mortgage\nCalculator' },
     { id: 'winning-offer', number: 4, title: 'Winning Offer' },
     { id: 'team-advantage', number: 5, title: 'Why Us' },
     { id: 'testimonials', number: 6, title: 'Reviews' },
@@ -356,7 +356,9 @@ function App() {
                   className={`sidebar-button ${activeChapter === chapter.id ? 'active' : ''}`}
                 >
                   <div className={`sidebar-button-text ${activeChapter === chapter.id ? 'active' : ''}`}>
-                    {chapter.title}
+                    {chapter.title.split('\n').map((line, i) => (
+                      <span key={i} style={{ display: 'block' }}>{line}</span>
+                    ))}
                   </div>
                 </button>
                 {index < chapters.length - 1 && (
@@ -1270,12 +1272,6 @@ function App() {
               <h3 className="faq-question">Can I negotiate the price after the inspection?</h3>
               <p className="faq-answer">
                 Yes! If the inspection reveals issues, you can negotiate with the seller to either lower the price, have them make repairs, or provide a credit at closing. The key is having an inspection contingency in your offer. As your realtor, I'll help you determine which issues are worth negotiating and craft a strategy that protects your interests while keeping the deal together. <strong>Ask me more about inspection negotiations.</strong>
-              </p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-question">How do I know if I'm ready to buy a home?</h3>
-              <p className="faq-answer">
-                You're ready if you have stable income, a good credit score, savings for down payment and closing costs, and plan to stay in the area for at least 3-5 years. You should also be comfortable with the ongoing costs of homeownership (maintenance, repairs, property taxes, insurance). As your realtor, I'll help you assess your readiness and create a plan to get you there if you're not quite ready yet. <strong>Let's work together to determine if now is the right time for you.</strong>
               </p>
             </div>
             <div className="faq-item">
