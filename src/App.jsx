@@ -14,6 +14,7 @@ function App() {
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [formErrors, setFormErrors] = useState({})
+  const [activeChapter, setActiveChapter] = useState(null)
   const [calculatorData, setCalculatorData] = useState({
     homePrice: '',
     downPaymentPercent: '',
@@ -175,6 +176,26 @@ function App() {
     }
   }, [])
 
+  // Track active chapter based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['game-plan', 'money-talk', 'mortgage-calculator', 'wealth-building', 'winning-offer', 'team-advantage', 'testimonials', 'faq', 'contact-section']
+      const scrollPosition = window.scrollY + 200
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i])
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveChapter(sections[i])
+          break
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Check on mount
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
@@ -262,6 +283,7 @@ function App() {
   const scrollToSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
     setMobileMenuOpen(false) // Close mobile menu after navigation
+    setActiveChapter(sectionId)
   }
 
   const toggleMobileMenu = () => {
@@ -272,19 +294,61 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const chapters = [
+    { id: 'game-plan', number: 1, title: 'Process' },
+    { id: 'money-talk', number: 2, title: 'Costs' },
+    { id: 'mortgage-calculator', number: 3, title: 'Calculator' },
+    { id: 'winning-offer', number: 4, title: 'Winning Offer' },
+    { id: 'team-advantage', number: 5, title: 'Why Us' },
+    { id: 'testimonials', number: 6, title: 'Reviews' },
+    { id: 'faq', number: 7, title: 'FAQ' }
+  ]
+
   return (
     <div className="landing-page">
+      {/* SIDEBAR NAVIGATION */}
+      <aside className="sidebar-nav-wrapper">
+        <nav className="sidebar-nav">
+          <div className="sidebar-nav-content">
+            {chapters.map((chapter, index) => (
+              <div key={chapter.id}>
+                <button
+                  onClick={() => scrollToSection(chapter.id)}
+                  className={`sidebar-button ${activeChapter === chapter.id ? 'active' : ''}`}
+                >
+                  <div className={`sidebar-button-text ${activeChapter === chapter.id ? 'active' : ''}`}>
+                    {chapter.title}
+                  </div>
+                </button>
+                {index < chapters.length - 1 && (
+                  <div className={`sidebar-divider ${activeChapter === chapter.id || activeChapter === chapters[index + 1]?.id ? 'active' : ''}`} />
+                )}
+              </div>
+            ))}
+          </div>
+        </nav>
+      </aside>
+
       {/* STICKY NAVIGATION */}
       <nav className={`sticky-nav ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
-          <button 
-            className="nav-logo" 
-            onClick={scrollToTop}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit' }}
-            aria-label="Return to top"
-          >
-            Frederick Sales
-          </button>
+          <div className="nav-center">
+            <button 
+              className="nav-logo" 
+              onClick={scrollToTop}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit' }}
+              aria-label="Return to top"
+            >
+              Frederick Sales
+            </button>
+          </div>
+          
+          {/* Desktop CTA Button */}
+          <div className="nav-cta-desktop">
+            <button className="nav-cta" onClick={scrollToContact}>Get Started</button>
+          </div>
+
+          {/* Mobile Menu Toggle */}
           <button className="mobile-menu-toggle" onClick={toggleMobileMenu} aria-label="Toggle menu">
             <span className={`hamburger ${mobileMenuOpen ? 'open' : ''}`}>
               <span></span>
@@ -293,15 +357,27 @@ function App() {
             </span>
             {mobileMenuOpen && <span className="close-text">Close</span>}
           </button>
-          <div className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-            <button onClick={() => scrollToSection('game-plan')}>Process</button>
-            <button onClick={() => scrollToSection('money-talk')}>Costs</button>
-            <button onClick={() => scrollToSection('winning-offer')}>Winning Offer</button>
-            <button onClick={() => scrollToSection('team-advantage')}>Why Us</button>
-            <button onClick={() => scrollToSection('testimonials')}>Reviews</button>
-            <button onClick={() => scrollToSection('faq')}>FAQ</button>
-            <button className="nav-cta" onClick={scrollToContact}>Get Started</button>
-          </div>
+
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <div className="mobile-nav-menu">
+              {chapters.map((chapter) => (
+                <button
+                  key={chapter.id}
+                  onClick={() => scrollToSection(chapter.id)}
+                  className={`mobile-nav-item ${activeChapter === chapter.id ? 'active' : ''}`}
+                >
+                  {chapter.number}. {chapter.title}
+                </button>
+              ))}
+              <button
+                onClick={scrollToContact}
+                className="mobile-nav-cta"
+              >
+                Get Started
+              </button>
+            </div>
+          )}
         </div>
       </nav>
 
