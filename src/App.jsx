@@ -461,7 +461,7 @@ function App() {
           <div className="hero-image-wrapper">
             <img 
               src="/images/frederick-headshot.jpg" 
-              alt="Frederick Sales - Expert Real Estate Agent for Home Buyers (First-Time & Repeat Buyers) in Northern Virginia, DC and Maryland"
+              alt="Frederick Sales - Expert Real Estate Agent for Home Buyers (First-Time & Repeat Buyers) in Washington DC, Northern Virginia, and Maryland"
               className="hero-photo"
               onClick={() => setShowPhotoModal(true)}
               onError={(e) => {
@@ -479,7 +479,7 @@ function App() {
             <span className="trust-badge-icon">✓</span>
             <span>Licensed in VA, DC & MD • 7+ Years Experience</span>
           </div>
-          <h1 className="hero-title">Expert Home Buyer Guide | Northern Virginia, DC & Maryland</h1>
+          <h1 className="hero-title">Home Buying Made Simple | Top Buyer's Agent | DC, NOVA, MD</h1>
           <p className="hero-slogan">Work with a Northern Virginia native who knows the neighborhoods, not just the listings.</p>
           <p className="hero-intro">
             Hi, I'm Frederick Sales! I'm a Northern Virginia native (grew up in Alexandria) and currently live in Washington DC's SW Waterfront neighborhood. As a top real estate agent specializing in home buyers—from first-time buyers to repeat buyers—throughout Northern Virginia (NOVA), Washington DC, and Maryland, I've helped over 5,275 families find their dream homes. 
@@ -1280,7 +1280,7 @@ function App() {
             <div className="faq-item">
               <h3 className="faq-question">Are there any first time home buyer programs?</h3>
               <p className="faq-answer">
-                Yes! There are several first-time home buyer programs available in Northern Virginia, DC, and Maryland that can help with down payment assistance, lower interest rates, and reduced closing costs. These programs vary by state and locality, and can include options like FHA loans, VA loans (for eligible veterans), and state-specific programs like the Virginia Housing Development Authority (VHDA) programs, DC's HPAP program, and Maryland's first-time home buyer programs. As your realtor, I'll connect you with mortgage lenders who can provide detailed information about first-time home buyer programs you may qualify for. <strong>Ask me more about first-time buyer programs in Northern Virginia, DC, and Maryland.</strong>
+                Yes! There are several first-time home buyer programs available in Washington DC, Northern Virginia, and Maryland that can help with down payment assistance, lower interest rates, and reduced closing costs. These programs vary by state and locality, and can include options like FHA loans, VA loans (for eligible veterans), and state-specific programs like the Virginia Housing Development Authority (VHDA) programs, DC's HPAP program, and Maryland's first-time home buyer programs. As your realtor, I'll connect you with mortgage lenders who can provide detailed information about first-time home buyer programs you may qualify for. <strong>Ask me more about first-time buyer programs in Washington DC, Northern Virginia, and Maryland.</strong>
               </p>
             </div>
             <div className="faq-item">
@@ -1452,7 +1452,7 @@ function App() {
           <div className="footer-content">
             <div className="footer-info">
               <p className="footer-name">Frederick Sales | Realtor®</p>
-              <p className="footer-license">Licensed in VA, DC, & MD</p>
+              <p className="footer-license">Washington DC, Northern Virginia, Maryland</p>
               <div className="footer-contact">
                 <a href="mailto:fred@kerishullteam.com" className="footer-email">fred@kerishullteam.com</a>
                 <a href="tel:7033994394" className="footer-phone">(703) 399-4394</a>
