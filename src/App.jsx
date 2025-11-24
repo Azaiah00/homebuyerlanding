@@ -749,7 +749,7 @@ function App() {
     // EmailJS Configuration - Replace these with your EmailJS credentials
     // Get these from: https://dashboard.emailjs.com/admin
     const EMAILJS_SERVICE_ID = 'service_17crd9v' // Replace with your EmailJS Service ID
-    const EMAILJS_TEMPLATE_ID = 'template_4ulb78c' // Replace with your EmailJS Template ID
+    const EMAILJS_TEMPLATE_ID = 'template_2aoyx5e' // Replace with your EmailJS Template ID
     const EMAILJS_PUBLIC_KEY = 'qC2aW4wNHYDdvVBd2' // Replace with your EmailJS Public Key
     
     // Initialize EmailJS (only needed once, but safe to call multiple times)
@@ -797,7 +797,13 @@ function App() {
       }
     } catch (error) {
       console.error('Email sending failed:', error)
-      // Still show success for better UX
+      console.error('Error details:', {
+        message: error.text || error.message,
+        status: error.status,
+        serviceId: EMAILJS_SERVICE_ID,
+        templateId: EMAILJS_TEMPLATE_ID
+      })
+      // Still show success for better UX, but log the error for debugging
       setShowSuccessModal(true)
       setFormData({ name: '', email: '', phone: '', timeline: '' })
       setFormErrors({})
