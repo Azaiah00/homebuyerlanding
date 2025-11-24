@@ -943,7 +943,7 @@ html, body {
   font-family: 'Playfair Display', serif;
   font-size: 3.8rem;
   font-weight: 800;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   line-height: 1.2;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   letter-spacing: -1px;
