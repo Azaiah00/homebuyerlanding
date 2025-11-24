@@ -1930,10 +1930,28 @@ function App() {
               <div className="component-icon"><Handshake size={32} /></div>
               <h3 className="component-title">Seller Subsidy</h3>
               <p className="component-description">
-                Depending on how much competition there is on the property, you may be able to negotiate seller subsidy.
+                Seller subsidy (also called seller concessions or seller contributions) is money the seller agrees to pay toward your closing costs or other expenses. Depending on how much competition there is on the property, you may be able to negotiate seller subsidy to make your offer more attractive while reducing your out-of-pocket costs.
               </p>
               <p className="component-description">
-                This could be closing costs or money to repair something in the property. As your realtor, I'll assess each situation to see if this is a viable strategy for your offer. <strong>Ask me more about when seller subsidy makes sense.</strong>
+                <strong>What Seller Subsidy Can Be Used For:</strong>
+              </p>
+              <p className="component-description">
+                <strong>1. Mortgage Rate Buy-Down:</strong> One of the most powerful uses of seller subsidy is a mortgage rate buy-down. This can be either a <strong>temporary buy-down</strong> (like a 2-1 buydown where your rate is 2% lower in year one, 1% lower in year two, then full rate) or a <strong>permanent buy-down</strong> (where the seller pays points to permanently lower your interest rate for the life of the loan). Rate buy-downs can significantly reduce your monthly payment, making the home more affordable and your offer more competitive.
+              </p>
+              <p className="component-description">
+                <strong>2. Closing Costs:</strong> Seller subsidy can cover all or part of your closing costs, including lender fees, title insurance, recording fees, and prepaid items. This reduces the cash you need at closing, which can be especially helpful for first-time buyers.
+              </p>
+              <p className="component-description">
+                <strong>3. Repairs and Improvements:</strong> The seller can contribute money toward repairs identified during the home inspection, or even toward improvements you want to make after closing. This can help you address issues without reducing your offer price.
+              </p>
+              <p className="component-description">
+                <strong>4. Prepaid Expenses:</strong> Seller subsidy can also be used for prepaid property taxes, homeowners insurance, or HOA fees, further reducing your upfront costs.
+              </p>
+              <p className="component-description">
+                <strong>When Seller Subsidy Makes Sense:</strong> Seller subsidy is most viable in markets with less competition, when a property has been on the market for a while, or when the seller is motivated. In hot markets with multiple offers, sellers may be less willing to provide concessions. However, even in competitive markets, a well-structured offer that includes seller subsidy for a rate buy-down can stand out because it shows you're thinking strategically about affordability.
+              </p>
+              <p className="component-description">
+                <strong>Our Strategy:</strong> As your realtor, I'll assess each situation to determine if seller subsidy is a viable strategy for your offer. We'll consider market conditions, the property's history, and your financial goals. <strong>Ask me more about how we can use seller subsidy strategically, including rate buy-downs, to make your offer more competitive while reducing your costs.</strong>
               </p>
             </div>
 
