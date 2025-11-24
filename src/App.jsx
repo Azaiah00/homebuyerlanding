@@ -54,13 +54,59 @@ function App() {
     homePrice: '',
     downPaymentPercent: '',
     interestRate: 6.26, // Default: Latest Freddie Mac PMMS 30-year rate (6.26%)
-    loanTerm: 30
+    loanTerm: 30,
+    propertyLocation: '', // City/County for tax rate lookup
+    propertyType: 'single-family' // For insurance calculation
   })
   const [monthlyPayment, setMonthlyPayment] = useState(0)
+  const [monthlyPaymentWithTaxesInsurance, setMonthlyPaymentWithTaxesInsurance] = useState(0)
+  const [monthlyTaxes, setMonthlyTaxes] = useState(0)
+  const [monthlyInsurance, setMonthlyInsurance] = useState(0)
   const [totalInterest, setTotalInterest] = useState(0)
   const [totalPayment, setTotalPayment] = useState(0)
   const [rateLastUpdated, setRateLastUpdated] = useState(null)
   const ADMIN_FEE = 495
+
+  // DMV area tax rates by location (annual rate as percentage)
+  const taxRatesByLocation = {
+    // Virginia Counties
+    'Arlington County': 0.96,
+    'Fairfax County': 1.09,
+    'Loudoun County': 1.04,
+    'Alexandria': 1.11,
+    'Falls Church': 1.02,
+    'McLean': 1.09, // Fairfax County
+    'Tysons Corner': 1.09, // Fairfax County
+    'Reston': 1.09, // Fairfax County
+    'Vienna': 1.09, // Fairfax County
+    'Annandale': 1.09, // Fairfax County
+    'Springfield': 1.09, // Fairfax County
+    'Burke': 1.09, // Fairfax County
+    'Centreville': 1.09, // Fairfax County
+    'Manassas': 1.04, // Prince William County
+    'Woodbridge': 1.04, // Prince William County
+    // DC
+    'Washington DC': 0.85,
+    'Capitol Hill': 0.85,
+    'Georgetown': 0.85,
+    'Dupont Circle': 0.85,
+    'Adams Morgan': 0.85,
+    'Logan Circle': 0.85,
+    'Shaw': 0.85,
+    'U Street': 0.85,
+    'SW Waterfront': 0.85,
+    // Maryland Counties
+    'Montgomery County': 0.94,
+    'Prince George\'s County': 1.08,
+    'Bethesda': 0.94, // Montgomery County
+    'Rockville': 0.94, // Montgomery County
+    'Gaithersburg': 0.94, // Montgomery County
+    'Silver Spring': 0.94, // Montgomery County
+    'College Park': 1.08, // Prince George's County
+    'Hyattsville': 1.08, // Prince George's County
+    // Default average for DMV
+    'default': 1.0
+  }
 
   // Closing Cost Calculator State
   const [closingCostData, setClosingCostData] = useState({
@@ -147,7 +193,7 @@ function App() {
     fetchCurrentRate()
   }, [calculatorData.loanTerm])
 
-  // Calculate mortgage payment
+  // Calculate mortgage payment with taxes and insurance
   useEffect(() => {
     const homePrice = parseFloat((calculatorData.homePrice?.toString() || '0').replace(/,/g, '')) || 0
     const downPaymentPercent = parseFloat(calculatorData.downPaymentPercent || 0) || 0
@@ -158,19 +204,53 @@ function App() {
     const monthlyRate = (interestRate / 100) / 12
     const numberOfPayments = calculatorData.loanTerm * 12
 
+    // Calculate base mortgage payment
+    let basePayment = 0
     if (principal > 0 && monthlyRate > 0 && numberOfPayments > 0) {
-      const payment = principal * 
+      basePayment = principal * 
         (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
         (Math.pow(1 + monthlyRate, numberOfPayments) - 1)
       
-      setMonthlyPayment(payment)
-      setTotalPayment(payment * numberOfPayments)
-      setTotalInterest((payment * numberOfPayments) - principal)
+      setMonthlyPayment(basePayment)
+      setTotalPayment(basePayment * numberOfPayments)
+      setTotalInterest((basePayment * numberOfPayments) - principal)
     } else {
       setMonthlyPayment(0)
       setTotalPayment(0)
       setTotalInterest(0)
+      setMonthlyPaymentWithTaxesInsurance(0)
+      setMonthlyTaxes(0)
+      setMonthlyInsurance(0)
+      return
     }
+
+    // Calculate property taxes based on location
+    let taxRate = taxRatesByLocation.default
+    if (calculatorData.propertyLocation) {
+      const locationKey = Object.keys(taxRatesByLocation).find(key => 
+        calculatorData.propertyLocation.toLowerCase().includes(key.toLowerCase())
+      )
+      if (locationKey) {
+        taxRate = taxRatesByLocation[locationKey]
+      }
+    }
+    const annualTaxes = (homePrice * taxRate) / 100
+    const monthlyTax = annualTaxes / 12
+    setMonthlyTaxes(monthlyTax)
+
+    // Calculate monthly insurance based on property type (from closing cost calculator defaults)
+    const propertyInsuranceDefaults = {
+      'single-family': 1500, // Annual
+      'townhome': 1000, // Annual
+      'condo': 500 // Annual
+    }
+    const annualInsurance = propertyInsuranceDefaults[calculatorData.propertyType] || propertyInsuranceDefaults['single-family']
+    const monthlyInsuranceAmount = annualInsurance / 12
+    setMonthlyInsurance(monthlyInsuranceAmount)
+
+    // Total monthly payment including taxes and insurance
+    const totalMonthlyPayment = basePayment + monthlyTax + monthlyInsuranceAmount
+    setMonthlyPaymentWithTaxesInsurance(totalMonthlyPayment)
   }, [calculatorData])
 
   // Sync closing cost calculator with mortgage calculator when home price or down payment changes
@@ -325,6 +405,12 @@ function App() {
         ...prev,
         [name]: term,
         interestRate: newRate
+      }))
+    } else if (name === 'propertyLocation' || name === 'propertyType') {
+      // Handle text/select fields for property location and type
+      setCalculatorData(prev => ({
+        ...prev,
+        [name]: value
       }))
     } else {
       setCalculatorData(prev => ({
@@ -692,7 +778,7 @@ function App() {
       // Track active chapter based on scroll position
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['game-plan', 'money-talk', 'mortgage-calculator', 'closing-cost-calculator', 'wealth-building', 'winning-offer', 'team-advantage', 'faq', 'contact-section']
+      const sections = ['game-plan', 'money-talk', 'mortgage-calculator', 'closing-cost-calculator', 'wealth-building', 'winning-offer', 'team-advantage', 'faq', 'glossary', 'contact-section']
       const scrollPosition = window.scrollY + 200
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -841,12 +927,13 @@ function App() {
 
   const chapters = [
     { id: 'game-plan', number: 1, title: 'Process' },
-    { id: 'money-talk', number: 2, title: 'Costs' },
+    { id: 'money-talk', number: 2, title: 'Budget' },
     { id: 'mortgage-calculator', number: 3, title: 'Mortgage Calculator' },
     { id: 'closing-cost-calculator', number: 4, title: 'Closing Costs' },
     { id: 'winning-offer', number: 5, title: 'Winning Offer' },
     { id: 'team-advantage', number: 6, title: 'Why Us' },
-    { id: 'faq', number: 7, title: 'FAQ' }
+    { id: 'faq', number: 7, title: 'FAQ' },
+    { id: 'glossary', number: 8, title: 'Glossary' }
   ]
 
   return (
@@ -1256,16 +1343,62 @@ function App() {
                   <option value="30">30 years</option>
                 </select>
               </div>
+
+              <div className="calc-input-group">
+                <label htmlFor="propertyLocation">Property Location (City/County)</label>
+                <input
+                  type="text"
+                  id="propertyLocation"
+                  name="propertyLocation"
+                  value={calculatorData.propertyLocation}
+                  onChange={handleCalculatorChange}
+                  placeholder="e.g., Arlington, Fairfax County, Bethesda"
+                  className="calc-input"
+                />
+                <div className="input-help-text">Enter city or county for accurate tax rate calculation</div>
+              </div>
+
+              <div className="calc-input-group">
+                <label htmlFor="propertyType">Property Type</label>
+                <select
+                  id="propertyType"
+                  name="propertyType"
+                  value={calculatorData.propertyType}
+                  onChange={handleCalculatorChange}
+                  className="calc-select"
+                >
+                  <option value="single-family">Single Family Home</option>
+                  <option value="townhome">Townhome</option>
+                  <option value="condo">Condo</option>
+                </select>
+                <div className="input-help-text">Used to estimate home insurance costs</div>
+              </div>
             </div>
 
             <div className="calculator-results">
               <div className="result-card primary">
-                <div className="result-label">Monthly Payment</div>
-                <div className="result-value">{formatCurrency(monthlyPayment)}</div>
-                <div className="result-note">Principal & Interest (does not include taxes, insurance, or HOA/Condo fees)</div>
+                <div className="result-label">Total Monthly Payment</div>
+                <div className="result-value">{formatCurrency(monthlyPaymentWithTaxesInsurance || monthlyPayment)}</div>
+                <div className="result-note">Includes Principal, Interest, Taxes & Insurance</div>
               </div>
 
               <div className="result-details">
+                <div className="result-row">
+                  <span className="result-label-small">Principal & Interest</span>
+                  <span className="result-value-small">{formatCurrency(monthlyPayment)}</span>
+                </div>
+                {monthlyTaxes > 0 && (
+                  <div className="result-row">
+                    <span className="result-label-small">Property Taxes (Monthly)</span>
+                    <span className="result-value-small">{formatCurrency(monthlyTaxes)}</span>
+                  </div>
+                )}
+                {monthlyInsurance > 0 && (
+                  <div className="result-row">
+                    <span className="result-label-small">Home Insurance (Monthly)</span>
+                    <span className="result-value-small">{formatCurrency(monthlyInsurance)}</span>
+                  </div>
+                )}
                 <div className="result-row">
                   <span className="result-label-small">Down Payment</span>
                   <span className="result-value-small">
@@ -1285,7 +1418,7 @@ function App() {
               </div>
 
               <div className="calculator-cta">
-                <p>Ready to get pre-approved? As your realtor, I'll connect you with our trusted lenders. <strong>Ask me more about the pre-approval process.</strong></p>
+                <p><strong>Keep in mind:</strong> The mortgage payment calculations above are just estimates. If you'd like real deal numbers, you need to get a pre-approval from a mortgage lender. As your realtor, I'll connect you with our trusted lenders who can provide accurate, personalized numbers based on your specific financial situation. <strong>Ask me more about the pre-approval process.</strong></p>
                 <button className="cta-button primary" onClick={scrollToContact}>
                   Get Pre-Approved Today
                 </button>
@@ -2259,6 +2392,64 @@ function App() {
                   The DMV offers excellent neighborhoods across Northern Virginia, Washington DC, and Maryland. In Northern Virginia, popular areas include Arlington, Alexandria, Falls Church, McLean, Tysons Corner, Reston, and Vienna. In DC, great options include Capitol Hill, Georgetown, Dupont Circle, Adams Morgan, and SW Waterfront. In Maryland, consider Bethesda, Rockville, Gaithersburg, and Silver Spring. Each area has unique character, price points, and amenities. As your realtor, I'll help you find the best neighborhood that fits your budget, lifestyle, and commute needs. <strong>Let's work together to explore the best neighborhoods for you.</strong>
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* GLOSSARY SECTION */}
+      <section id="glossary" className="glossary fade-in-section">
+        <div className="container">
+          <h2 className="section-title">Real Estate Glossary</h2>
+          <p className="section-subtitle">Common terms you'll encounter during your home buying journey</p>
+          <div className="glossary-grid">
+            <div className="glossary-item">
+              <h3 className="glossary-term">Appraisal</h3>
+              <p className="glossary-definition">A professional assessment of a property's value conducted by a licensed appraiser. Lenders require this to ensure the property is worth the loan amount.</p>
+            </div>
+            <div className="glossary-item">
+              <h3 className="glossary-term">Contingency</h3>
+              <p className="glossary-definition">A condition in your offer that must be met for the sale to proceed. Common contingencies include inspection, appraisal, and financing. If not met, you can withdraw without penalty.</p>
+            </div>
+            <div className="glossary-item">
+              <h3 className="glossary-term">Down Payment</h3>
+              <p className="glossary-definition">The initial cash amount you pay toward the purchase price of the home. Typically 3-20% of the home price, depending on your loan type.</p>
+            </div>
+            <div className="glossary-item">
+              <h3 className="glossary-term">EMD (Earnest Money Deposit)</h3>
+              <p className="glossary-definition">A good-faith deposit showing you're serious about buying. Held in escrow and credited back at closing. Typically 1-5% of purchase price in the DMV.</p>
+            </div>
+            <div className="glossary-item">
+              <h3 className="glossary-term">Escrow</h3>
+              <p className="glossary-definition">A neutral third party (usually a title company) that holds funds and documents until all conditions of the sale are met and closing is complete.</p>
+            </div>
+            <div className="glossary-item">
+              <h3 className="glossary-term">Home Inspection</h3>
+              <p className="glossary-definition">A professional evaluation of a property's condition, including structural elements, systems (HVAC, plumbing, electrical), and safety concerns. Protects you from hidden problems.</p>
+            </div>
+            <div className="glossary-item">
+              <h3 className="glossary-term">PMI (Private Mortgage Insurance)</h3>
+              <p className="glossary-definition">Insurance that protects the lender if you default. Typically required when your down payment is less than 20%. Can be removed once you reach 20% equity.</p>
+            </div>
+            <div className="glossary-item">
+              <h3 className="glossary-term">Pre-Approval</h3>
+              <p className="glossary-definition">A thorough qualification with document verification from a lender. This makes you a serious buyer and lets you act fast. Required to be competitive in today's market.</p>
+            </div>
+            <div className="glossary-item">
+              <h3 className="glossary-term">Pre-Qualified</h3>
+              <p className="glossary-definition">A quick estimate based on basic information you provide. Not verified by a lender. Less reliable than pre-approval.</p>
+            </div>
+            <div className="glossary-item">
+              <h3 className="glossary-term">Seller Subsidy</h3>
+              <p className="glossary-definition">Money the seller agrees to pay toward your closing costs or other expenses. Can be used for rate buy-downs, closing costs, or repairs.</p>
+            </div>
+            <div className="glossary-item">
+              <h3 className="glossary-term">Title Insurance</h3>
+              <p className="glossary-definition">Insurance that protects you and the lender from ownership disputes, liens, or other title issues. Required by lenders and protects your investment.</p>
+            </div>
+            <div className="glossary-item">
+              <h3 className="glossary-term">Transfer Tax</h3>
+              <p className="glossary-definition">A tax paid when property ownership is transferred. Rates vary by state and locality in the DMV. In Virginia, typically paid by seller; in DC and MD, often split between buyer and seller.</p>
             </div>
           </div>
         </div>

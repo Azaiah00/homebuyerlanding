@@ -1731,6 +1731,13 @@ section {
   font-size: 1rem;
 }
 
+.input-help-text {
+  font-size: 0.85rem;
+  color: #718096;
+  font-style: italic;
+  margin-top: -0.5rem;
+}
+
 .input-wrapper {
   position: relative;
   display: flex;
@@ -2321,20 +2328,43 @@ section {
     font-size: 0.8rem;
   }
 
+  .closing-cost-breakdown {
+    padding: 1.5rem 1rem;
+    overflow-x: visible;
+    max-width: 100%;
+  }
+
+  .breakdown-list {
+    max-width: 100%;
+    overflow-x: visible;
+  }
+
   .breakdown-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .breakdown-item-label {
     width: 100%;
+    min-width: 0;
+    word-wrap: break-word;
+  }
+
+  .breakdown-item-label span:first-child {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .breakdown-value {
     font-size: 1.2rem;
     width: 100%;
     text-align: right;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .breakdown-item.total {
@@ -4180,6 +4210,70 @@ section {
   font-size: 0.95rem;
   margin: 0;
   padding-top: 0.5rem;
+}
+
+/* ============================================
+   GLOSSARY SECTION
+   ============================================ */
+
+.glossary {
+  background: linear-gradient(to bottom, #ffffff 0%, #f8fafc 100%);
+  padding: 6rem 0;
+}
+
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 3rem auto 0;
+  max-width: 1200px;
+}
+
+.glossary-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.glossary-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(201, 169, 97, 0.15), 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-color: rgba(201, 169, 97, 0.3);
+}
+
+.glossary-term {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.3px;
+  color: #c9a961;
+}
+
+.glossary-definition {
+  color: #64748b;
+  line-height: 1.7;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .glossary-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 0 1rem;
+  }
+
+  .glossary-item {
+    padding: 1.25rem;
+  }
+
+  .glossary-term {
+    font-size: 1.15rem;
+  }
 }
 
 /* ============================================
