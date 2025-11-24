@@ -926,11 +926,6 @@ function App() {
       <section className="hero">
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <h1 className="hero-title">
-            <span className="hero-title-line-1">Home Buying Made Simple</span>
-            <span className="hero-title-line-2">Top Buyer's Agent</span>
-            <span className="hero-title-line-3">DC, NOVA, MD</span>
-          </h1>
           <div className="hero-image-wrapper">
             <img 
               src="/images/frederick-headshot.jpg" 
@@ -952,6 +947,11 @@ function App() {
             <span className="trust-badge-icon">✓</span>
             <span>Licensed in VA, DC & MD • 7+ Years Experience</span>
           </div>
+          <h1 className="hero-title">
+            <span className="hero-title-line-1">Home Buying Made Simple</span>
+            <span className="hero-title-line-2">Top Buyer's Agent</span>
+            <span className="hero-title-line-3">DC, NOVA, MD</span>
+          </h1>
           <p className="hero-slogan">Work with a Northern Virginia native who knows the neighborhoods, not just the listings.</p>
           <p className="hero-intro">
             Hi, I'm Frederick Sales! I'm a Northern Virginia native (grew up in Alexandria) and currently live in Washington DC's SW Waterfront neighborhood. As a top real estate agent specializing in home buyers—from first-time buyers to repeat buyers—throughout Northern Virginia (NOVA), Washington DC, and Maryland, I'm passionate about helping you find the perfect home. 
