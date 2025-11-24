@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   Camera, 
   DollarSign, 
@@ -54,115 +54,13 @@ function App() {
     homePrice: '',
     downPaymentPercent: '',
     interestRate: 6.26, // Default: Latest Freddie Mac PMMS 30-year rate (6.26%)
-    loanTerm: 30,
-    propertyAddress: '', // Full property address
-    propertyLocation: '', // Parsed location for display
-    propertyType: 'single-family' // For insurance calculation
+    loanTerm: 30
   })
-  const [addressAutocomplete, setAddressAutocomplete] = useState(null)
-  const [addressSuggestions, setAddressSuggestions] = useState([])
-  const [showSuggestions, setShowSuggestions] = useState(false)
-  const [addressDetails, setAddressDetails] = useState(null) // Stores parsed address components
-  const addressInputRef = useRef(null)
   const [monthlyPayment, setMonthlyPayment] = useState(0)
-  const [monthlyPaymentWithTaxesInsurance, setMonthlyPaymentWithTaxesInsurance] = useState(0)
-  const [monthlyTaxes, setMonthlyTaxes] = useState(0)
-  const [monthlyInsurance, setMonthlyInsurance] = useState(0)
   const [totalInterest, setTotalInterest] = useState(0)
   const [totalPayment, setTotalPayment] = useState(0)
   const [rateLastUpdated, setRateLastUpdated] = useState(null)
   const ADMIN_FEE = 495
-
-  // DMV area tax rates by location (annual rate as percentage)
-  // Enhanced lookup function that uses address components
-  const getTaxRateFromAddress = (addressComponents) => {
-    if (!addressComponents) return 1.0 // Default
-
-    const taxRatesByLocation = {
-      // Virginia Counties
-      'Arlington County': 0.96,
-      'Arlington': 0.96,
-      'Fairfax County': 1.09,
-      'Fairfax': 1.09,
-      'Loudoun County': 1.04,
-      'Loudoun': 1.04,
-      'Alexandria': 1.11,
-      'Falls Church': 1.02,
-      'McLean': 1.09, // Fairfax County
-      'Tysons Corner': 1.09, // Fairfax County
-      'Reston': 1.09, // Fairfax County
-      'Vienna': 1.09, // Fairfax County
-      'Annandale': 1.09, // Fairfax County
-      'Springfield': 1.09, // Fairfax County
-      'Burke': 1.09, // Fairfax County
-      'Centreville': 1.09, // Fairfax County
-      'Manassas': 1.04, // Prince William County
-      'Woodbridge': 1.04, // Prince William County
-      'Prince William County': 1.04,
-      // DC
-      'Washington': 0.85,
-      'Washington DC': 0.85,
-      'District of Columbia': 0.85,
-      'Capitol Hill': 0.85,
-      'Georgetown': 0.85,
-      'Dupont Circle': 0.85,
-      'Adams Morgan': 0.85,
-      'Logan Circle': 0.85,
-      'Shaw': 0.85,
-      'U Street': 0.85,
-      'SW Waterfront': 0.85,
-      // Maryland Counties
-      'Montgomery County': 0.94,
-      'Montgomery': 0.94,
-      'Prince George\'s County': 1.08,
-      'Prince George\'s': 1.08,
-      'Bethesda': 0.94, // Montgomery County
-      'Rockville': 0.94, // Montgomery County
-      'Gaithersburg': 0.94, // Montgomery County
-      'Silver Spring': 0.94, // Montgomery County
-      'College Park': 1.08, // Prince George's County
-      'Hyattsville': 1.08, // Prince George's County
-    }
-
-    // Extract location info from address components
-    let locationKey = null
-    
-    // Check administrative_area_level_2 (county)
-    const county = addressComponents.find(comp => 
-      comp.types.includes('administrative_area_level_2')
-    )?.long_name
-    
-    // Check locality (city)
-    const city = addressComponents.find(comp => 
-      comp.types.includes('locality')
-    )?.long_name
-    
-    // Check sublocality (neighborhood)
-    const neighborhood = addressComponents.find(comp => 
-      comp.types.includes('sublocality') || comp.types.includes('sublocality_level_1')
-    )?.long_name
-
-    // Try to match county first, then city, then neighborhood
-    if (county) {
-      locationKey = Object.keys(taxRatesByLocation).find(key => 
-        county.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(county.toLowerCase())
-      )
-    }
-    
-    if (!locationKey && city) {
-      locationKey = Object.keys(taxRatesByLocation).find(key => 
-        city.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(city.toLowerCase())
-      )
-    }
-    
-    if (!locationKey && neighborhood) {
-      locationKey = Object.keys(taxRatesByLocation).find(key => 
-        neighborhood.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(neighborhood.toLowerCase())
-      )
-    }
-
-    return locationKey ? taxRatesByLocation[locationKey] : 1.0 // Default to 1.0% if not found
-  }
 
   // Closing Cost Calculator State
   const [closingCostData, setClosingCostData] = useState({
@@ -249,7 +147,7 @@ function App() {
     fetchCurrentRate()
   }, [calculatorData.loanTerm])
 
-  // Calculate mortgage payment with taxes and insurance
+  // Calculate mortgage payment
   useEffect(() => {
     const homePrice = parseFloat((calculatorData.homePrice?.toString() || '0').replace(/,/g, '')) || 0
     const downPaymentPercent = parseFloat(calculatorData.downPaymentPercent || 0) || 0
@@ -260,72 +158,19 @@ function App() {
     const monthlyRate = (interestRate / 100) / 12
     const numberOfPayments = calculatorData.loanTerm * 12
 
-    // Calculate base mortgage payment
-    let basePayment = 0
     if (principal > 0 && monthlyRate > 0 && numberOfPayments > 0) {
-      basePayment = principal * 
+      const payment = principal * 
         (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
         (Math.pow(1 + monthlyRate, numberOfPayments) - 1)
       
-      setMonthlyPayment(basePayment)
-      setTotalPayment(basePayment * numberOfPayments)
-      setTotalInterest((basePayment * numberOfPayments) - principal)
+      setMonthlyPayment(payment)
+      setTotalPayment(payment * numberOfPayments)
+      setTotalInterest((payment * numberOfPayments) - principal)
     } else {
       setMonthlyPayment(0)
       setTotalPayment(0)
       setTotalInterest(0)
-      setMonthlyPaymentWithTaxesInsurance(0)
-      setMonthlyTaxes(0)
-      setMonthlyInsurance(0)
-      return
     }
-
-    // Calculate property taxes based on address
-    let taxRate = 1.0 // Default
-    if (addressDetails && addressDetails.address_components) {
-      taxRate = getTaxRateFromAddress(addressDetails.address_components)
-    } else if (calculatorData.propertyLocation) {
-      // Fallback to text-based lookup if address details not available
-      const locationKey = Object.keys({
-        'Arlington County': 0.96,
-        'Fairfax County': 1.09,
-        'Loudoun County': 1.04,
-        'Alexandria': 1.11,
-        'Washington DC': 0.85,
-        'Montgomery County': 0.94,
-        'Prince George\'s County': 1.08
-      }).find(key => 
-        calculatorData.propertyLocation.toLowerCase().includes(key.toLowerCase())
-      )
-      if (locationKey) {
-        taxRate = {
-          'Arlington County': 0.96,
-          'Fairfax County': 1.09,
-          'Loudoun County': 1.04,
-          'Alexandria': 1.11,
-          'Washington DC': 0.85,
-          'Montgomery County': 0.94,
-          'Prince George\'s County': 1.08
-        }[locationKey] || 1.0
-      }
-    }
-    const annualTaxes = (homePrice * taxRate) / 100
-    const monthlyTax = annualTaxes / 12
-    setMonthlyTaxes(monthlyTax)
-
-    // Calculate monthly insurance based on property type (from closing cost calculator defaults)
-    const propertyInsuranceDefaults = {
-      'single-family': 1500, // Annual
-      'townhome': 1000, // Annual
-      'condo': 500 // Annual
-    }
-    const annualInsurance = propertyInsuranceDefaults[calculatorData.propertyType] || propertyInsuranceDefaults['single-family']
-    const monthlyInsuranceAmount = annualInsurance / 12
-    setMonthlyInsurance(monthlyInsuranceAmount)
-
-    // Total monthly payment including taxes and insurance
-    const totalMonthlyPayment = basePayment + monthlyTax + monthlyInsuranceAmount
-    setMonthlyPaymentWithTaxesInsurance(totalMonthlyPayment)
   }, [calculatorData])
 
   // Sync closing cost calculator with mortgage calculator when home price or down payment changes
@@ -480,12 +325,6 @@ function App() {
         ...prev,
         [name]: term,
         interestRate: newRate
-      }))
-    } else if (name === 'propertyLocation' || name === 'propertyType') {
-      // Handle text/select fields for property location and type
-      setCalculatorData(prev => ({
-        ...prev,
-        [name]: value
       }))
     } else {
       setCalculatorData(prev => ({
@@ -982,114 +821,6 @@ function App() {
     setMobileMenuOpen(false) // Close mobile menu after navigation
   }
 
-  // Initialize Google Places Autocomplete
-  useEffect(() => {
-    const initAutocomplete = () => {
-      if (window.google && window.google.maps && window.google.maps.places && addressInputRef.current) {
-        const autocomplete = new window.google.maps.places.Autocomplete(
-          addressInputRef.current,
-          {
-            types: ['address'],
-            componentRestrictions: { country: ['us'] },
-            fields: ['address_components', 'formatted_address', 'geometry']
-          }
-        )
-
-        autocomplete.addListener('place_changed', () => {
-          const place = autocomplete.getPlace()
-          if (place.address_components) {
-            setAddressDetails(place)
-            setCalculatorData(prev => ({
-              ...prev,
-              propertyAddress: place.formatted_address,
-              propertyLocation: place.formatted_address
-            }))
-            setShowSuggestions(false)
-            setAddressSuggestions([])
-          }
-        })
-
-        setAddressAutocomplete(autocomplete)
-      }
-    }
-
-    // Check if Google Places is already loaded
-    if (window.google && window.google.maps && window.google.maps.places) {
-      initAutocomplete()
-    } else {
-      // Wait for Google Places to load
-      const checkGooglePlaces = setInterval(() => {
-        if (window.google && window.google.maps && window.google.maps.places) {
-          clearInterval(checkGooglePlaces)
-          initAutocomplete()
-        }
-      }, 100)
-
-      // Cleanup after 10 seconds if not loaded
-      setTimeout(() => clearInterval(checkGooglePlaces), 10000)
-    }
-
-    return () => {
-      if (addressAutocomplete) {
-        window.google?.maps?.event?.clearInstanceListeners?.(addressAutocomplete)
-      }
-    }
-  }, [])
-
-  // Handle address input changes
-  const handleAddressInput = (e) => {
-    const value = e.target.value
-    setCalculatorData(prev => ({
-      ...prev,
-      propertyAddress: value,
-      propertyLocation: value
-    }))
-    setShowSuggestions(value.length > 2)
-    
-    // If Google Places is available, let it handle autocomplete
-    if (window.google && window.google.maps && window.google.maps.places && value.length > 2) {
-      const service = new window.google.maps.places.AutocompleteService()
-      service.getPlacePredictions(
-        {
-          input: value,
-          componentRestrictions: { country: 'us' },
-          types: ['address']
-        },
-        (predictions, status) => {
-          if (status === window.google.maps.places.PlacesServiceStatus.OK && predictions) {
-            setAddressSuggestions(predictions.slice(0, 5)) // Limit to 5 suggestions
-          } else {
-            setAddressSuggestions([])
-          }
-        }
-      )
-    }
-  }
-
-  // Handle address suggestion selection
-  const handleAddressSelect = (suggestion) => {
-    if (window.google && window.google.maps && window.google.maps.places) {
-      const service = new window.google.maps.places.PlacesService(document.createElement('div'))
-      service.getDetails(
-        {
-          placeId: suggestion.place_id,
-          fields: ['address_components', 'formatted_address', 'geometry']
-        },
-        (place, status) => {
-          if (status === window.google.maps.places.PlacesServiceStatus.OK && place) {
-            setAddressDetails(place)
-            setCalculatorData(prev => ({
-              ...prev,
-              propertyAddress: place.formatted_address,
-              propertyLocation: place.formatted_address
-            }))
-            setShowSuggestions(false)
-            setAddressSuggestions([])
-          }
-        }
-      )
-    }
-  }
 
   const scrollToSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
@@ -1528,89 +1259,16 @@ function App() {
                 </select>
               </div>
 
-              <div className="calc-input-group">
-                <label htmlFor="propertyAddress">Property Address</label>
-                <div className="address-autocomplete-wrapper">
-                  <input
-                    ref={addressInputRef}
-                    type="text"
-                    id="propertyAddress"
-                    name="propertyAddress"
-                    value={calculatorData.propertyAddress}
-                    onChange={handleAddressInput}
-                    onFocus={() => calculatorData.propertyAddress.length > 2 && setShowSuggestions(true)}
-                    onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-                    placeholder="Enter property address (e.g., 123 Main St, Arlington, VA)"
-                    className="calc-input"
-                    autoComplete="off"
-                  />
-                  {showSuggestions && addressSuggestions.length > 0 && (
-                    <div className="address-suggestions">
-                      {addressSuggestions.map((suggestion, index) => (
-                        <button
-                          key={suggestion.place_id || index}
-                          type="button"
-                          className="address-suggestion-item"
-                          onClick={() => handleAddressSelect(suggestion)}
-                          onMouseDown={(e) => e.preventDefault()}
-                        >
-                          <Home size={16} />
-                          <span>{suggestion.description}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <div className="input-help-text">Enter the full property address for accurate tax rate calculation based on location</div>
-                {addressDetails && (
-                  <div className="address-confirmed">
-                    <CheckCircle size={16} />
-                    <span>Address confirmed - Tax rate calculated for this location</span>
-                  </div>
-                )}
-              </div>
-
-              <div className="calc-input-group">
-                <label htmlFor="propertyType">Property Type</label>
-                <select
-                  id="propertyType"
-                  name="propertyType"
-                  value={calculatorData.propertyType}
-                  onChange={handleCalculatorChange}
-                  className="calc-select"
-                >
-                  <option value="single-family">Single Family Home</option>
-                  <option value="townhome">Townhome</option>
-                  <option value="condo">Condo</option>
-                </select>
-                <div className="input-help-text">Used to estimate home insurance costs</div>
-              </div>
             </div>
 
             <div className="calculator-results">
               <div className="result-card primary">
-                <div className="result-label">Total Monthly Payment</div>
-                <div className="result-value">{formatCurrency(monthlyPaymentWithTaxesInsurance || monthlyPayment)}</div>
-                <div className="result-note">Includes Principal, Interest, Taxes & Insurance</div>
+                <div className="result-label">Monthly Payment</div>
+                <div className="result-value">{formatCurrency(monthlyPayment)}</div>
+                <div className="result-note">Principal & Interest (does not include taxes, insurance, or HOA/Condo fees)</div>
               </div>
 
               <div className="result-details">
-                <div className="result-row">
-                  <span className="result-label-small">Principal & Interest</span>
-                  <span className="result-value-small">{formatCurrency(monthlyPayment)}</span>
-                </div>
-                {monthlyTaxes > 0 && (
-                  <div className="result-row">
-                    <span className="result-label-small">Property Taxes (Monthly)</span>
-                    <span className="result-value-small">{formatCurrency(monthlyTaxes)}</span>
-                  </div>
-                )}
-                {monthlyInsurance > 0 && (
-                  <div className="result-row">
-                    <span className="result-label-small">Home Insurance (Monthly)</span>
-                    <span className="result-value-small">{formatCurrency(monthlyInsurance)}</span>
-                  </div>
-                )}
                 <div className="result-row">
                   <span className="result-label-small">Down Payment</span>
                   <span className="result-value-small">
@@ -1914,6 +1572,7 @@ function App() {
                       aria-label="Print closing costs"
                     >
                       <Printer size={18} />
+                      <span>Print</span>
                     </button>
                     <button
                       type="button"
@@ -1923,6 +1582,7 @@ function App() {
                       aria-label="Export closing costs"
                     >
                       <Download size={18} />
+                      <span>Download</span>
                     </button>
                   </div>
                 </div>
