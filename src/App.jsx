@@ -748,9 +748,9 @@ function App() {
     
     // EmailJS Configuration - Replace these with your EmailJS credentials
     // Get these from: https://dashboard.emailjs.com/admin
-    const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID' // Replace with your EmailJS Service ID
-    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID' // Replace with your EmailJS Template ID
-    const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY' // Replace with your EmailJS Public Key
+    const EMAILJS_SERVICE_ID = 'service_17crd9v' // Replace with your EmailJS Service ID
+    const EMAILJS_TEMPLATE_ID = 'template_4ulb78c' // Replace with your EmailJS Template ID
+    const EMAILJS_PUBLIC_KEY = 'qC2aW4wNHYDdvVBd2' // Replace with your EmailJS Public Key
     
     // Initialize EmailJS (only needed once, but safe to call multiple times)
     emailjs.init(EMAILJS_PUBLIC_KEY)
