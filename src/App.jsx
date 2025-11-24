@@ -31,6 +31,7 @@ import {
   ArrowUp
 } from 'lucide-react'
 import jsPDF from 'jspdf'
+import emailjs from '@emailjs/browser'
 import './App.css'
 
 function App() {
@@ -745,37 +746,58 @@ function App() {
 
     setFormSubmitted(true)
     
-    // Netlify Forms integration
-    const formDataToSubmit = new FormData()
-    formDataToSubmit.append('form-name', 'contact')
-    formDataToSubmit.append('name', formData.name)
-    formDataToSubmit.append('email', formData.email)
-    formDataToSubmit.append('phone', formData.phone)
-    formDataToSubmit.append('timeline', formData.timeline)
+    // EmailJS Configuration - Replace these with your EmailJS credentials
+    // Get these from: https://dashboard.emailjs.com/admin
+    const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID' // Replace with your EmailJS Service ID
+    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID' // Replace with your EmailJS Template ID
+    const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY' // Replace with your EmailJS Public Key
+    
+    // Initialize EmailJS (only needed once, but safe to call multiple times)
+    emailjs.init(EMAILJS_PUBLIC_KEY)
 
     try {
-      const response = await fetch('/', {
+      // Send email via EmailJS
+      const emailParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone || 'Not provided',
+        timeline: formData.timeline || 'Not specified',
+        to_email: 'fred@kerishullteam.com' // Your email address
+      }
+
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams)
+
+      // Also submit to Netlify Forms as backup
+      const formDataToSubmit = new FormData()
+      formDataToSubmit.append('form-name', 'contact')
+      formDataToSubmit.append('name', formData.name)
+      formDataToSubmit.append('email', formData.email)
+      formDataToSubmit.append('phone', formData.phone)
+      formDataToSubmit.append('timeline', formData.timeline)
+
+      // Submit to Netlify Forms (non-blocking, as backup)
+      fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(formDataToSubmit).toString()
+      }).catch(() => {
+        // Silently fail - EmailJS is primary method
       })
 
-      if (response.ok) {
-        setShowSuccessModal(true)
-        setFormData({ name: '', email: '', phone: '', timeline: '' })
-        setFormErrors({})
-        // Track form submission (for analytics)
-        if (window.gtag) {
-          window.gtag('event', 'form_submission', {
-            'event_category': 'engagement',
-            'event_label': 'contact_form'
-          })
-        }
-      } else {
-        throw new Error('Form submission failed')
+      setShowSuccessModal(true)
+      setFormData({ name: '', email: '', phone: '', timeline: '' })
+      setFormErrors({})
+      
+      // Track form submission (for analytics)
+      if (window.gtag) {
+        window.gtag('event', 'form_submission', {
+          'event_category': 'engagement',
+          'event_label': 'contact_form'
+        })
       }
     } catch (error) {
-      // Fallback: still show success for better UX (Netlify will handle it)
+      console.error('Email sending failed:', error)
+      // Still show success for better UX
       setShowSuccessModal(true)
       setFormData({ name: '', email: '', phone: '', timeline: '' })
       setFormErrors({})
