@@ -3429,21 +3429,42 @@ section {
 }
 
 .locations-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
   margin: 3rem auto 0;
   max-width: 100%;
   width: 100%;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: #c9a961 #f7fafc;
+}
+
+.locations-grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.locations-grid::-webkit-scrollbar-track {
+  background: #f7fafc;
+  border-radius: 4px;
+}
+
+.locations-grid::-webkit-scrollbar-thumb {
+  background: #c9a961;
+  border-radius: 4px;
 }
 
 .location-card {
   background: white;
-  padding: 2.5rem;
+  padding: 2rem;
   border-radius: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(0, 0, 0, 0.04);
+  flex: 1;
+  min-width: 280px;
+  max-width: 100%;
 }
 
 .location-card:hover {
@@ -3492,21 +3513,24 @@ section {
 
 @media (max-width: 768px) {
   .locations-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
     padding: 0 1rem;
+    -webkit-overflow-scrolling: touch;
   }
 
   .location-card {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem;
+    min-width: 260px;
   }
 
   .location-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
   }
 
   .location-list li {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    padding: 0.6rem 0;
   }
 }
 
@@ -5955,7 +5979,7 @@ section {
   }
 
   .locations-grid {
-    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
   }
 
   .steps-grid {
@@ -6001,7 +6025,7 @@ section {
   }
 
   .locations-grid {
-    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
   }
 
   .calculator-wrapper {
