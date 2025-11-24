@@ -1854,168 +1854,171 @@ function App() {
           <div className="offer-components-grid">
             <div className="offer-component-card">
               <div className="component-icon"><Calendar size={32} /></div>
-              <h3 className="component-title">Closing Date</h3>
-              <p className="component-subtitle">Also called Settlement date</p>
-              <p className="component-description">
-                We'll find out what timeframe the seller prefers before submitting your offer. This ensures you get a closing date that works for you while keeping the seller happy.
-              </p>
-              <p className="component-description">
-                <strong>Typical timeframe:</strong> 21-30 days is most common in the DMV, though it can range from 15-90 days depending on the seller's needs. <strong>As your realtor, I'll help you negotiate the best closing date for your situation.</strong>
-              </p>
+              <div className="component-content">
+                <h3 className="component-title">Closing Date</h3>
+                <p className="component-subtitle">Also called Settlement date</p>
+                <p className="component-description">
+                  We'll find out what timeframe the seller prefers before submitting your offer. This ensures you get a closing date that works for you while keeping the seller happy.
+                </p>
+                <p className="component-description">
+                  <strong>Typical timeframe:</strong> 21-30 days is most common in the DMV, though it can range from 15-90 days depending on the seller's needs. <strong>As your realtor, I'll help you negotiate the best closing date for your situation.</strong>
+                </p>
+              </div>
             </div>
 
             <div className="offer-component-card">
               <div className="component-icon"><Home size={32} /></div>
-              <h3 className="component-title">Post Settlement Occupancy</h3>
-              <p className="component-description">
-                Sometimes a seller will request a "rent back"—allowing them to stay in the home after closing. This can be a very compelling tactic that sets your offer apart.
-              </p>
-              <p className="component-description">
-                <strong>Why it works:</strong> If the seller needs to buy another home, they get a window to use the sale proceeds without the stress of timing two closings perfectly. Many agents don't ask about this, but we do.
-              </p>
-              <p className="component-description">
-                Lenders typically allow Post Settlement Occupancy for up to 60 days, making this a powerful negotiation tool.
-              </p>
+              <div className="component-content">
+                <h3 className="component-title">Post Settlement Occupancy</h3>
+                <p className="component-description">
+                  Sometimes a seller will request a "rent back"—allowing them to stay in the home after closing. This can be a very compelling tactic that sets your offer apart.
+                </p>
+                <p className="component-description">
+                  <strong>Why it works:</strong> If the seller needs to buy another home, they get a window to use the sale proceeds without the stress of timing two closings perfectly. Many agents don't ask about this, but we do.
+                </p>
+                <p className="component-description">
+                  Lenders typically allow Post Settlement Occupancy for up to 60 days, making this a powerful negotiation tool.
+                </p>
+              </div>
             </div>
 
             <div className="offer-component-card">
               <div className="component-icon"><DollarSign size={32} /></div>
-              <h3 className="component-title">EMD (<span className="tooltip-trigger" data-tooltip="Earnest Money Deposit: A good-faith deposit showing you're serious about buying. Held in escrow and credited back at closing.">Earnest Money Deposit</span>)</h3>
-              <p className="component-description">
-                The EMD (earnest money deposit) goes into an escrow account at the title company until settlement. At closing, it's credited back to you and can be used toward your down payment or refunded.
-              </p>
-              <p className="component-description">
-                <strong>Market average in DMV:</strong> 1-5% of purchase price. 3% EMD is the standard. The larger the EMD, the more security the seller has that you'll move forward to settlement.
-              </p>
-              <p className="component-description">
-                <strong>Our strategy:</strong> If you have liquidity, a larger EMD is an easy way to make your offer stand out—at no extra cost to you. <strong>Ask me more about how we can use EMD strategically in your offer.</strong>
-              </p>
+              <div className="component-content">
+                <h3 className="component-title">EMD (<span className="tooltip-trigger" data-tooltip="Earnest Money Deposit: A good-faith deposit showing you're serious about buying. Held in escrow and credited back at closing.">Earnest Money Deposit</span>)</h3>
+                <p className="component-description">
+                  The EMD (earnest money deposit) goes into an escrow account at the title company until settlement. At closing, it's credited back to you and can be used toward your down payment or refunded.
+                </p>
+                <p className="component-description">
+                  <strong>Market average in DMV:</strong> 1-5% of purchase price. 3% EMD is the standard. The larger the EMD, the more security the seller has that you'll move forward to settlement.
+                </p>
+                <p className="component-description">
+                  <strong>Our strategy:</strong> If you have liquidity, a larger EMD is an easy way to make your offer stand out—at no extra cost to you. <strong>Ask me more about how we can use EMD strategically in your offer.</strong>
+                </p>
+              </div>
             </div>
 
             <div className="offer-component-card">
               <div className="component-icon"><Coins size={32} /></div>
-              <h3 className="component-title">Down Payment</h3>
-              <p className="component-description">
-                The down payment is the initial cash amount you pay toward the purchase price of the home. It's your equity stake in the property from day one.
-              </p>
-              <p className="component-description">
-                <strong>Minimum down payment:</strong> Typically 3% for conventional loans (though some programs allow less), and can go up to 20% or more.
-              </p>
-              <p className="component-description">
-                <strong>Benefits of a larger down payment:</strong> Better loan terms, lower monthly payments, and may eliminate the need for private mortgage insurance (<span className="tooltip-trigger" data-tooltip="Private Mortgage Insurance: Insurance that protects the lender if you default. Typically required when your down payment is less than 20%.">PMI</span>).
-              </p>
-              <p className="component-description">
-                The amount you put down will depend on your financial situation, the type of loan you're using, and your long-term financial goals. <strong>As your realtor, I'll help you understand your options and make the best decision for your situation.</strong>
-              </p>
-            </div>
-
-            <div className="offer-component-card">
-              <div className="component-icon"><Building size={32} /></div>
-              <h3 className="component-title">Lender/Title Company</h3>
-              <p className="component-description">
-                <strong>The Lender</strong> provides your mortgage financing, reviews your financial documents, and approves your loan. They handle all the financial aspects of the transaction.
-              </p>
-              <p className="component-description">
-                <strong>The Title Company</strong> conducts a title search to ensure the property has a clear title (no liens or ownership disputes), handles the closing process, and ensures the legal transfer of ownership. They also hold your earnest money deposit in escrow.
-              </p>
-              <p className="component-description">
-                <strong>How They Work Together:</strong> The lender provides financing, while the title company ensures the legal transfer is clean and handles closing. They coordinate to ensure all funds are properly transferred and documents are correctly executed.
-              </p>
-              <p className="component-description">
-                As your realtor, I have preferred vendors for both, but we'll always confirm who you decide to work with. <strong>Ask me more about our trusted lender and title company network.</strong>
-              </p>
-            </div>
-
-            <div className="offer-component-card">
-              <div className="component-icon"><Handshake size={32} /></div>
-              <h3 className="component-title">Seller Subsidy</h3>
-              <p className="component-description">
-                Seller subsidy (also called seller concessions or seller contributions) is money the seller agrees to pay toward your closing costs or other expenses. Depending on how much competition there is on the property, you may be able to negotiate seller subsidy to make your offer more attractive while reducing your out-of-pocket costs.
-              </p>
-              <p className="component-description">
-                <strong>What Seller Subsidy Can Be Used For:</strong>
-              </p>
-              <p className="component-description">
-                <strong>1. Mortgage Rate Buy-Down:</strong> One of the most powerful uses of seller subsidy is a mortgage rate buy-down. This can be either a <strong>temporary buy-down</strong> (like a 2-1 buydown where your rate is 2% lower in year one, 1% lower in year two, then full rate) or a <strong>permanent buy-down</strong> (where the seller pays points to permanently lower your interest rate for the life of the loan). Rate buy-downs can significantly reduce your monthly payment, making the home more affordable and your offer more competitive.
-              </p>
-              <p className="component-description">
-                <strong>2. Closing Costs:</strong> Seller subsidy can cover all or part of your closing costs, including lender fees, title insurance, recording fees, and prepaid items. This reduces the cash you need at closing, which can be especially helpful for first-time buyers.
-              </p>
-              <p className="component-description">
-                <strong>3. Repairs and Improvements:</strong> The seller can contribute money toward repairs identified during the home inspection, or even toward improvements you want to make after closing. This can help you address issues without reducing your offer price.
-              </p>
-              <p className="component-description">
-                <strong>4. Prepaid Expenses:</strong> Seller subsidy can also be used for prepaid property taxes, homeowners insurance, or HOA fees, further reducing your upfront costs.
-              </p>
-              <p className="component-description">
-                <strong>When Seller Subsidy Makes Sense:</strong> Seller subsidy is most viable in markets with less competition, when a property has been on the market for a while, or when the seller is motivated. In hot markets with multiple offers, sellers may be less willing to provide concessions. However, even in competitive markets, a well-structured offer that includes seller subsidy for a rate buy-down can stand out because it shows you're thinking strategically about affordability.
-              </p>
-              <p className="component-description">
-                <strong>Our Strategy:</strong> As your realtor, I'll assess each situation to determine if seller subsidy is a viable strategy for your offer. We'll consider market conditions, the property's history, and your financial goals. <strong>Ask me more about how we can use seller subsidy strategically, including rate buy-downs, to make your offer more competitive while reducing your costs.</strong>
-              </p>
-            </div>
-
-            <div className="offer-component-card">
-              <div className="component-icon"><Search size={32} /></div>
-              <h3 className="component-title">Home Inspection <span className="tooltip-trigger" data-tooltip="Contingency: A condition in your offer that must be met for the sale to proceed. If not met, you can withdraw without penalty.">Contingency</span> & Appraisal <span className="tooltip-trigger" data-tooltip="Contingency: A condition in your offer that must be met for the sale to proceed. If not met, you can withdraw without penalty.">Contingency</span></h3>
-              <p className="component-description">
-                <strong>Home Inspection Contingency:</strong> This gives you the right to have the property professionally inspected and to negotiate repairs or withdraw from the contract if major issues are found.
-              </p>
-              <p className="component-description">
-                The inspection typically covers structural elements, systems (HVAC, plumbing, electrical), and safety concerns. This contingency protects you from buying a home with hidden problems.
-              </p>
-              <p className="component-description">
-                <strong>Appraisal Contingency:</strong> This protects you if the home appraises for less than your offer price. The lender requires an appraisal to ensure the property is worth the loan amount.
-              </p>
-              <p className="component-description">
-                If the appraisal comes in low, you can renegotiate the price, make up the difference in cash, or walk away from the deal. This ensures you're not overpaying for the property.
-              </p>
-              <p className="component-description">
-                <strong>Strategy:</strong> Both contingencies are crucial protections, but shorter contingency periods can make your offer more competitive in hot markets. <strong>As your realtor, I'll help you balance protection with competitiveness.</strong>
-              </p>
-              <p className="component-note">
-                <strong>Bonus: Home Warranty</strong> - A home warranty provides extra protection for your investment and can save you money in case of future emergencies. It typically covers major systems and appliances, giving you peace of mind after closing.
-              </p>
-              <p className="component-description" style={{ marginTop: '1rem', fontStyle: 'italic', color: '#c9a961', fontWeight: '600' }}>
-                Ask me more about home warranties and how they can protect your investment.
-              </p>
-            </div>
-
-            <div className="offer-component-card">
-              <div className="component-icon"><CheckCircle size={32} /></div>
-              <h3 className="component-title">Financing Contingency</h3>
-              <p className="component-description">
-                Adding a financing contingency to your contract can cause pause for many sellers, and can make or break an offer.
-              </p>
-              <p className="component-description">
-                As your realtor, I'll work with your lender to get you fully approved—with all documents and credit reviewed—prior to submitting your offer.
-              </p>
-              <p className="component-description">
-                <strong>Strategy:</strong> If you need to add a financing contingency, the shorter the contingency period, the more compelling your offer will be. <strong>Work with me to structure the strongest offer possible.</strong>
-              </p>
-              <div className="component-note">
-                <strong>Note:</strong> Oftentimes, larger banks need more time to work through loan approval, as they work with several 3rd party vendors throughout the lending process. This can be detrimental in the offer process since the seller is looking for the most concrete offer and extended contingencies can make them very nervous. Additionally, the lack of speed can be extremely stressful for the purchaser as we work through the waiting game of approval. This is why we recommend using our preferred lenders. If you do not have a financing contingency and cannot qualify for the loan, your deposit is at risk, so make sure you discuss your options with your lender and your agent as you navigate this decision.
+              <div className="component-content">
+                <h3 className="component-title">Down Payment</h3>
+                <p className="component-description">
+                  The down payment is the initial cash amount you pay toward the purchase price of the home. It's your equity stake in the property from day one.
+                </p>
+                <p className="component-description">
+                  <strong>Minimum down payment:</strong> Typically 3% for conventional loans (though some programs allow less), and can go up to 20% or more.
+                </p>
+                <p className="component-description">
+                  <strong>Benefits of a larger down payment:</strong> Better loan terms, lower monthly payments, and may eliminate the need for private mortgage insurance (<span className="tooltip-trigger" data-tooltip="Private Mortgage Insurance: Insurance that protects the lender if you default. Typically required when your down payment is less than 20%.">PMI</span>).
+                </p>
+                <p className="component-description">
+                  The amount you put down will depend on your financial situation, the type of loan you're using, and your long-term financial goals. <strong>As your realtor, I'll help you understand your options and make the best decision for your situation.</strong>
+                </p>
               </div>
             </div>
 
             <div className="offer-component-card">
               <div className="component-icon"><Building size={32} /></div>
-              <h3 className="component-title">HOA/Condo Association</h3>
-              <p className="component-description">
-                If you're buying a condominium or a home in a community with a Homeowners Association (HOA), understanding the association and its fees is crucial to your home buying decision.
-              </p>
-              <p className="component-description">
-                <strong>HOA/Condo Fees:</strong> These monthly or annual fees cover shared expenses like maintenance of common areas, amenities (pools, gyms, landscaping), insurance for common areas, and reserve funds for future repairs. Fees can range from a few hundred to over a thousand dollars per month, depending on the community and amenities offered.
-              </p>
-              <p className="component-description">
-                <strong>Why It Matters:</strong> HOA fees directly impact your monthly housing costs and affordability. They also govern what you can and cannot do with your property through rules, regulations, and covenants. Understanding these fees and rules upfront helps you make an informed decision and avoid surprises after closing.
-              </p>
-              <p className="component-description">
-                <strong>Document Review Period/Contingency:</strong> When you're under contract, you have a specific period to review all HOA/Condo association documents, including bylaws, rules, financial statements, and meeting minutes. This review period is a critical contingency that allows you to understand the association's financial health, rules, and any pending special assessments.
-              </p>
-              <p className="component-description">
-                <strong>Review Periods by State:</strong> In DC and MD, you have <strong>3 business days</strong> to review HOA/Condo documents. In Virginia, you have <strong>3 days</strong> (calendar days) for both HOA and Condo document review periods when under contract. During this time, you can review the documents and decide if you want to proceed with the purchase or withdraw from the contract.
-              </p>
+              <div className="component-content">
+                <h3 className="component-title">Lender/Title Company</h3>
+                <p className="component-description">
+                  <strong>The Lender</strong> provides your mortgage financing, reviews your financial documents, and approves your loan. They handle all the financial aspects of the transaction.
+                </p>
+                <p className="component-description">
+                  <strong>The Title Company</strong> conducts a title search to ensure the property has a clear title (no liens or ownership disputes), handles the closing process, and ensures the legal transfer of ownership. They also hold your earnest money deposit in escrow.
+                </p>
+                <p className="component-description">
+                  <strong>How They Work Together:</strong> The lender provides financing, while the title company ensures the legal transfer is clean and handles closing. They coordinate to ensure all funds are properly transferred and documents are correctly executed.
+                </p>
+                <p className="component-description">
+                  As your realtor, I have preferred vendors for both, but we'll always confirm who you decide to work with. <strong>Ask me more about our trusted lender and title company network.</strong>
+                </p>
+              </div>
+            </div>
+
+            <div className="offer-component-card">
+              <div className="component-icon"><Handshake size={32} /></div>
+              <div className="component-content">
+                <h3 className="component-title">Seller Subsidy</h3>
+                <p className="component-description">
+                  Seller subsidy (also called seller concessions) is money the seller agrees to pay toward your expenses. Depending on market conditions, you may be able to negotiate seller subsidy to make your offer more attractive while reducing your out-of-pocket costs.
+                </p>
+                <p className="component-description">
+                  <strong>What Seller Subsidy Can Be Used For:</strong> <strong>Mortgage rate buy-downs</strong> (temporary like a 2-1 buydown or permanent points), <strong>closing costs</strong> (lender fees, title insurance, recording fees), <strong>repairs</strong> identified during inspection, or <strong>prepaid expenses</strong> (property taxes, insurance, HOA fees). Rate buy-downs are particularly powerful as they can significantly reduce your monthly payment.
+                </p>
+                <p className="component-description">
+                  <strong>When It Makes Sense:</strong> Seller subsidy is most viable in markets with less competition, when a property has been on the market for a while, or when the seller is motivated. Even in competitive markets, a well-structured offer with a rate buy-down can stand out. <strong>As your realtor, I'll assess each situation to determine if seller subsidy is a viable strategy for your offer.</strong>
+                </p>
+              </div>
+            </div>
+
+            <div className="offer-component-card">
+              <div className="component-icon"><Search size={32} /></div>
+              <div className="component-content">
+                <h3 className="component-title">Home Inspection <span className="tooltip-trigger" data-tooltip="Contingency: A condition in your offer that must be met for the sale to proceed. If not met, you can withdraw without penalty.">Contingency</span> & Appraisal <span className="tooltip-trigger" data-tooltip="Contingency: A condition in your offer that must be met for the sale to proceed. If not met, you can withdraw without penalty.">Contingency</span></h3>
+                <p className="component-description">
+                  <strong>Home Inspection Contingency:</strong> This gives you the right to have the property professionally inspected and to negotiate repairs or withdraw from the contract if major issues are found.
+                </p>
+                <p className="component-description">
+                  The inspection typically covers structural elements, systems (HVAC, plumbing, electrical), and safety concerns. This contingency protects you from buying a home with hidden problems.
+                </p>
+                <p className="component-description">
+                  <strong>Appraisal Contingency:</strong> This protects you if the home appraises for less than your offer price. The lender requires an appraisal to ensure the property is worth the loan amount.
+                </p>
+                <p className="component-description">
+                  If the appraisal comes in low, you can renegotiate the price, make up the difference in cash, or walk away from the deal. This ensures you're not overpaying for the property.
+                </p>
+                <p className="component-description">
+                  <strong>Strategy:</strong> Both contingencies are crucial protections, but shorter contingency periods can make your offer more competitive in hot markets. <strong>As your realtor, I'll help you balance protection with competitiveness.</strong>
+                </p>
+                <p className="component-note">
+                  <strong>Bonus: Home Warranty</strong> - A home warranty provides extra protection for your investment and can save you money in case of future emergencies. It typically covers major systems and appliances, giving you peace of mind after closing.
+                </p>
+                <p className="component-description" style={{ marginTop: '1rem', fontStyle: 'italic', color: '#c9a961', fontWeight: '600' }}>
+                  Ask me more about home warranties and how they can protect your investment.
+                </p>
+              </div>
+            </div>
+
+            <div className="offer-component-card">
+              <div className="component-icon"><CheckCircle size={32} /></div>
+              <div className="component-content">
+                <h3 className="component-title">Financing Contingency</h3>
+                <p className="component-description">
+                  Adding a financing contingency to your contract can cause pause for many sellers, and can make or break an offer.
+                </p>
+                <p className="component-description">
+                  As your realtor, I'll work with your lender to get you fully approved—with all documents and credit reviewed—prior to submitting your offer.
+                </p>
+                <p className="component-description">
+                  <strong>Strategy:</strong> If you need to add a financing contingency, the shorter the contingency period, the more compelling your offer will be. <strong>Work with me to structure the strongest offer possible.</strong>
+                </p>
+                <div className="component-note">
+                  <strong>Note:</strong> Oftentimes, larger banks need more time to work through loan approval, as they work with several 3rd party vendors throughout the lending process. This can be detrimental in the offer process since the seller is looking for the most concrete offer and extended contingencies can make them very nervous. Additionally, the lack of speed can be extremely stressful for the purchaser as we work through the waiting game of approval. This is why we recommend using our preferred lenders. If you do not have a financing contingency and cannot qualify for the loan, your deposit is at risk, so make sure you discuss your options with your lender and your agent as you navigate this decision.
+                </div>
+              </div>
+            </div>
+
+            <div className="offer-component-card">
+              <div className="component-icon"><Building size={32} /></div>
+              <div className="component-content">
+                <h3 className="component-title">HOA/Condo Association</h3>
+                <p className="component-description">
+                  If you're buying a condominium or a home in a community with a Homeowners Association (HOA), understanding the association and its fees is crucial to your home buying decision.
+                </p>
+                <p className="component-description">
+                  <strong>HOA/Condo Fees:</strong> These monthly or annual fees cover shared expenses like maintenance of common areas, amenities (pools, gyms, landscaping), insurance for common areas, and reserve funds for future repairs. Fees can range from a few hundred to over a thousand dollars per month, depending on the community and amenities offered.
+                </p>
+                <p className="component-description">
+                  <strong>Why It Matters:</strong> HOA fees directly impact your monthly housing costs and affordability. They also govern what you can and cannot do with your property through rules, regulations, and covenants. Understanding these fees and rules upfront helps you make an informed decision and avoid surprises after closing.
+                </p>
+                <p className="component-description">
+                  <strong>Document Review Period/Contingency:</strong> When you're under contract, you have a specific period to review all HOA/Condo association documents, including bylaws, rules, financial statements, and meeting minutes. This review period is a critical contingency that allows you to understand the association's financial health, rules, and any pending special assessments.
+                </p>
+                <p className="component-description">
+                  <strong>Review Periods by State:</strong> In DC and MD, you have <strong>3 business days</strong> to review HOA/Condo documents. In Virginia, you have <strong>3 days</strong> (calendar days) for both HOA and Condo document review periods when under contract. During this time, you can review the documents and decide if you want to proceed with the purchase or withdraw from the contract.
+                </p>
+              </div>
             </div>
           </div>
 
