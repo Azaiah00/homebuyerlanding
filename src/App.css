@@ -3429,59 +3429,78 @@ section {
 }
 
 .locations-grid {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 1.5rem;
   margin: 3rem auto 0;
   max-width: 100%;
   width: 100%;
-  overflow-x: auto;
-  padding-bottom: 1rem;
-  scrollbar-width: thin;
-  scrollbar-color: #c9a961 #f7fafc;
-}
-
-.locations-grid::-webkit-scrollbar {
-  height: 8px;
-}
-
-.locations-grid::-webkit-scrollbar-track {
-  background: #f7fafc;
-  border-radius: 4px;
-}
-
-.locations-grid::-webkit-scrollbar-thumb {
-  background: #c9a961;
-  border-radius: 4px;
 }
 
 .location-card {
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: visible;
   border: 1px solid rgba(0, 0, 0, 0.04);
-  flex: 1;
-  min-width: 280px;
-  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.location-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #c9a961, #d4af37, #e8c547);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s ease;
+}
+
+.location-card:hover::before {
+  transform: scaleY(1);
 }
 
 .location-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   box-shadow: 0 12px 40px rgba(201, 169, 97, 0.15), 0 4px 16px rgba(0, 0, 0, 0.08);
   border-color: rgba(201, 169, 97, 0.3);
 }
 
+.location-icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #c9a961;
+  margin-top: 0.25rem;
+}
+
+.location-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.location-content {
+  flex: 1;
+  min-width: 0;
+}
+
 .location-title {
-  font-size: 1.75rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: #1a202c;
   letter-spacing: -0.3px;
   line-height: 1.3;
-  border-bottom: 2px solid #c9a961;
-  padding-bottom: 0.75rem;
 }
 
 .location-list {
@@ -3513,23 +3532,26 @@ section {
 
 @media (max-width: 768px) {
   .locations-grid {
-    gap: 1rem;
+    gap: 1.5rem;
     padding: 0 1rem;
-    -webkit-overflow-scrolling: touch;
   }
 
   .location-card {
+    flex-direction: column;
     padding: 1.5rem;
-    min-width: 260px;
+  }
+
+  .location-icon {
+    margin-top: 0;
   }
 
   .location-title {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     margin-bottom: 1rem;
   }
 
   .location-list li {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     padding: 0.6rem 0;
   }
 }

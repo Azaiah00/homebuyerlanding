@@ -1000,53 +1000,62 @@ function App() {
           <p className="section-subtitle">Licensed in Virginia, Washington DC, and Maryland - serving the entire DMV area</p>
           <div className="locations-grid">
             <div className="location-card">
-              <h3 className="location-title">Northern Virginia (NOVA)</h3>
-              <ul className="location-list">
-                <li>Arlington County</li>
-                <li>Fairfax County</li>
-                <li>Loudoun County</li>
-                <li>Alexandria</li>
-                <li>Falls Church</li>
-                <li>McLean</li>
-                <li>Tysons Corner</li>
-                <li>Reston</li>
-                <li>Vienna</li>
-                <li>Annandale</li>
-                <li>Springfield</li>
-                <li>Burke</li>
-                <li>Centreville</li>
-                <li>Manassas</li>
-                <li>Woodbridge</li>
-                <li>And all Northern Virginia areas</li>
-              </ul>
+              <div className="location-icon"><Building size={32} /></div>
+              <div className="location-content">
+                <h3 className="location-title">Northern Virginia (NOVA)</h3>
+                <ul className="location-list">
+                  <li>Arlington County</li>
+                  <li>Fairfax County</li>
+                  <li>Loudoun County</li>
+                  <li>Alexandria</li>
+                  <li>Falls Church</li>
+                  <li>McLean</li>
+                  <li>Tysons Corner</li>
+                  <li>Reston</li>
+                  <li>Vienna</li>
+                  <li>Annandale</li>
+                  <li>Springfield</li>
+                  <li>Burke</li>
+                  <li>Centreville</li>
+                  <li>Manassas</li>
+                  <li>Woodbridge</li>
+                  <li>And all Northern Virginia areas</li>
+                </ul>
+              </div>
             </div>
             <div className="location-card">
-              <h3 className="location-title">Washington DC</h3>
-              <ul className="location-list">
-                <li>Capitol Hill</li>
-                <li>Georgetown</li>
-                <li>Dupont Circle</li>
-                <li>Adams Morgan</li>
-                <li>Logan Circle</li>
-                <li>Shaw</li>
-                <li>U Street</li>
-                <li>SW Waterfront</li>
-                <li>And all DC neighborhoods</li>
-              </ul>
+              <div className="location-icon"><Building size={32} /></div>
+              <div className="location-content">
+                <h3 className="location-title">Washington DC</h3>
+                <ul className="location-list">
+                  <li>Capitol Hill</li>
+                  <li>Georgetown</li>
+                  <li>Dupont Circle</li>
+                  <li>Adams Morgan</li>
+                  <li>Logan Circle</li>
+                  <li>Shaw</li>
+                  <li>U Street</li>
+                  <li>SW Waterfront</li>
+                  <li>And all DC neighborhoods</li>
+                </ul>
+              </div>
             </div>
             <div className="location-card">
-              <h3 className="location-title">Maryland</h3>
-              <ul className="location-list">
-                <li>Montgomery County</li>
-                <li>Prince George's County</li>
-                <li>Bethesda</li>
-                <li>Rockville</li>
-                <li>Gaithersburg</li>
-                <li>Silver Spring</li>
-                <li>College Park</li>
-                <li>Hyattsville</li>
-                <li>And all Maryland areas</li>
-              </ul>
+              <div className="location-icon"><Building size={32} /></div>
+              <div className="location-content">
+                <h3 className="location-title">Maryland</h3>
+                <ul className="location-list">
+                  <li>Montgomery County</li>
+                  <li>Prince George's County</li>
+                  <li>Bethesda</li>
+                  <li>Rockville</li>
+                  <li>Gaithersburg</li>
+                  <li>Silver Spring</li>
+                  <li>College Park</li>
+                  <li>Hyattsville</li>
+                  <li>And all Maryland areas</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
