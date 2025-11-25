@@ -984,10 +984,12 @@ This email was sent from your website contact form via Brevo.
         }
 
         // Add phone if provided and properly formatted (standard Brevo attributes)
+        // Note: Only use PHONE, not SMS, to avoid conflicts with existing contacts
+        // Brevo doesn't allow the same SMS number on multiple contacts
         const formattedPhone = formatPhoneForBrevo(formData.phone)
         if (formattedPhone) {
-          contactAttributes.SMS = formattedPhone
           contactAttributes.PHONE = formattedPhone
+          // Don't use SMS attribute to avoid "already associated with another Contact" errors
         }
 
         // Add custom attributes (will be created automatically if they don't exist)
@@ -1029,16 +1031,19 @@ This email was sent from your website contact form via Brevo.
           
           // Try to create contact with minimal attributes if custom attributes failed
           if (contactResponse.status === 400) {
+            const errorMessage = contactResponseData?.message || ''
+            const isPhoneConflict = errorMessage.includes('SMS is already associated') || errorMessage.includes('already associated with another Contact')
+            
             console.log('🔄 Retrying with minimal attributes...')
             try {
-              // Format phone for retry attempt
-              const retryFormattedPhone = formatPhoneForBrevo(formData.phone)
+              // If phone number conflict, retry without phone
+              const retryFormattedPhone = isPhoneConflict ? null : formatPhoneForBrevo(formData.phone)
               const minimalPayload = {
                 email: formData.email.trim(),
                 attributes: {
                   FIRSTNAME: firstName,
                   LASTNAME: lastName || firstName,
-                  ...(retryFormattedPhone ? { SMS: retryFormattedPhone, PHONE: retryFormattedPhone } : {})
+                  ...(retryFormattedPhone ? { PHONE: retryFormattedPhone } : {})
                 },
                 updateEnabled: true
               }
