@@ -91,9 +91,24 @@ The contact form automatically saves these fields to Brevo. You can view and man
    - Click **"Attributes"** tab
 
 2. **You'll see these attributes** (created automatically when contacts are added):
-   - `TIMELINE` - The timeline selected by the contact
+
+   **Standard Attributes (Built-in):**
+   - `FIRSTNAME` - Contact's first name (split from full name)
+   - `LASTNAME` - Contact's last name (split from full name)
+   - `FULLNAME` - Contact's full name
+   - `EMAIL` - Contact's email (primary identifier)
+   - `PHONE` - Contact's phone number
+   - `SMS` - Phone number for SMS (same as PHONE)
+
+   **Custom Attributes (Created Automatically):**
+   - `TIMELINE` - The timeline selected (e.g., "1-3 Months", "ASAP - Ready to buy now")
+   - `TIMELINE_VALUE` - Raw timeline value (e.g., "1-3", "asap") for filtering
    - `SOURCE` - Always set to "Contact Form"
-   - `CONTACT_DATE` - Date when they submitted the form
+   - `SOURCE_URL` - Set to "Website Contact Form"
+   - `CONTACT_DATE` - Date when they submitted the form (ISO format)
+   - `CONTACT_METHOD` - Set to "Website Form"
+   - `FORM_SUBMITTED` - Always set to "Yes"
+   - `SUBMISSION_DATE` - Date when form was submitted (ISO format)
 
 ### Step 2: Customize Attributes (Optional)
 
@@ -106,17 +121,26 @@ The contact form automatically saves these fields to Brevo. You can view and man
 
 2. **Recommended Settings**:
    - `TIMELINE`: Type = **Text**
+   - `TIMELINE_VALUE`: Type = **Text**
    - `SOURCE`: Type = **Text**
+   - `SOURCE_URL`: Type = **Text**
    - `CONTACT_DATE`: Type = **Date**
+   - `SUBMISSION_DATE`: Type = **Date**
+   - `CONTACT_METHOD`: Type = **Text**
+   - `FORM_SUBMITTED`: Type = **Text**
 
-### Step 3: Standard Attributes Used
+### Step 3: Understanding Timeline Values
 
-These are built-in Brevo attributes (no setup needed):
-- `FIRSTNAME` - Contact's first name
-- `LASTNAME` - Contact's last name
-- `EMAIL` - Contact's email (primary identifier)
-- `SMS` - Phone number for SMS
-- `PHONE` - Phone number
+The form saves timeline in two formats:
+- **TIMELINE**: Human-readable format (e.g., "1-3 Months", "ASAP - Ready to buy now")
+- **TIMELINE_VALUE**: Raw value for filtering (e.g., "1-3", "asap", "browsing")
+
+**Timeline Options:**
+- `asap` → "ASAP - Ready to buy now"
+- `1-3` → "1-3 Months"
+- `3-6` → "3-6 Months"
+- `6-12` → "6-12 Months"
+- `browsing` → "Just Browsing - Exploring options"
 
 ---
 
@@ -375,12 +399,22 @@ You can create different workflows based on timeline:
 
 ### Contact Form Data Saved:
 
+**Standard Fields:**
 - ✅ Email (primary identifier)
-- ✅ First Name & Last Name
-- ✅ Phone Number
-- ✅ Timeline (custom attribute)
-- ✅ Source: "Contact Form" (custom attribute)
-- ✅ Contact Date (custom attribute)
+- ✅ First Name (split from full name)
+- ✅ Last Name (split from full name)
+- ✅ Full Name (complete name)
+- ✅ Phone Number (saved to both PHONE and SMS attributes)
+
+**Custom Attributes:**
+- ✅ Timeline (human-readable: "1-3 Months", "ASAP - Ready to buy now", etc.)
+- ✅ Timeline Value (raw value: "1-3", "asap", "browsing", etc. - for filtering)
+- ✅ Source: "Contact Form"
+- ✅ Source URL: "Website Contact Form"
+- ✅ Contact Date (ISO format timestamp)
+- ✅ Contact Method: "Website Form"
+- ✅ Form Submitted: "Yes"
+- ✅ Submission Date (ISO format timestamp)
 
 ---
 

@@ -931,23 +931,44 @@ This email was sent from your contact form.
       // Create/Update contact in Brevo CRM
       // This saves all form data to your Brevo contacts list
       try {
+        // Split name into first and last name
+        const nameParts = formData.name.trim().split(' ')
+        const firstName = nameParts[0] || formData.name
+        const lastName = nameParts.slice(1).join(' ') || ''
+        
+        // Format timeline for better readability
+        const timelineLabels = {
+          'asap': 'ASAP - Ready to buy now',
+          '1-3': '1-3 Months',
+          '3-6': '3-6 Months',
+          '6-12': '6-12 Months',
+          'browsing': 'Just Browsing - Exploring options'
+        }
+        const timelineDisplay = timelineLabels[formData.timeline] || formData.timeline || 'Not specified'
+
         const contactPayload = {
-          email: formData.email,
+          email: formData.email.trim(),
           attributes: {
-            FIRSTNAME: formData.name.split(' ')[0] || formData.name,
-            LASTNAME: formData.name.split(' ').slice(1).join(' ') || '',
-            SMS: formData.phone || '',
+            // Standard Brevo attributes
+            FIRSTNAME: firstName,
+            LASTNAME: lastName,
+            FULLNAME: formData.name.trim(), // Full name as well
+            SMS: formData.phone.trim() || '',
+            PHONE: formData.phone.trim() || '',
+            
             // Custom attributes for form-specific data
-            TIMELINE: formData.timeline || 'Not specified',
+            TIMELINE: timelineDisplay,
+            TIMELINE_VALUE: formData.timeline || '', // Raw value for filtering
             SOURCE: 'Contact Form',
-            CONTACT_DATE: new Date().toISOString()
+            SOURCE_URL: 'Website Contact Form',
+            CONTACT_DATE: new Date().toISOString(),
+            CONTACT_METHOD: 'Website Form',
+            
+            // Additional metadata
+            FORM_SUBMITTED: 'Yes',
+            SUBMISSION_DATE: new Date().toISOString()
           },
           updateEnabled: true // Update contact if email already exists
-        }
-
-        // Add phone number if provided
-        if (formData.phone) {
-          contactPayload.attributes.PHONE = formData.phone
         }
 
         const contactResponse = await fetch('https://api.brevo.com/v3/contacts', {
