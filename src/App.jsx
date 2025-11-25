@@ -943,6 +943,38 @@ This email was sent from your website contact form via Brevo.
         }
         const timelineDisplay = timelineLabels[formData.timeline] || formData.timeline || 'Not specified'
 
+        // Format phone number for Brevo (E.164 format: +1234567890)
+        // Brevo requires phone numbers in a specific format
+        const formatPhoneForBrevo = (phone) => {
+          if (!phone) return null
+          
+          // Remove all non-digit characters
+          const digitsOnly = phone.replace(/\D/g, '')
+          
+          // If it's a US number (10 digits), add +1
+          if (digitsOnly.length === 10) {
+            return `+1${digitsOnly}`
+          }
+          
+          // If it already starts with +, return as is (assuming it's already formatted)
+          if (phone.trim().startsWith('+')) {
+            return phone.trim()
+          }
+          
+          // If it's 11 digits and starts with 1, add +
+          if (digitsOnly.length === 11 && digitsOnly.startsWith('1')) {
+            return `+${digitsOnly}`
+          }
+          
+          // If we can't format it properly, return null (we'll skip phone in contact)
+          // Phone will still be in the email notification
+          if (digitsOnly.length >= 10 && digitsOnly.length <= 15) {
+            return `+${digitsOnly}`
+          }
+          
+          return null
+        }
+
         // Build attributes object - start with only standard Brevo attributes
         // Custom attributes will be created automatically by Brevo on first use
         const contactAttributes = {
@@ -951,10 +983,11 @@ This email was sent from your website contact form via Brevo.
           LASTNAME: lastName || firstName, // Use first name if no last name
         }
 
-        // Add phone if provided (standard Brevo attributes)
-        if (formData.phone && formData.phone.trim()) {
-          contactAttributes.SMS = formData.phone.trim()
-          contactAttributes.PHONE = formData.phone.trim()
+        // Add phone if provided and properly formatted (standard Brevo attributes)
+        const formattedPhone = formatPhoneForBrevo(formData.phone)
+        if (formattedPhone) {
+          contactAttributes.SMS = formattedPhone
+          contactAttributes.PHONE = formattedPhone
         }
 
         // Add custom attributes (will be created automatically if they don't exist)
@@ -998,12 +1031,14 @@ This email was sent from your website contact form via Brevo.
           if (contactResponse.status === 400) {
             console.log('🔄 Retrying with minimal attributes...')
             try {
+              // Format phone for retry attempt
+              const retryFormattedPhone = formatPhoneForBrevo(formData.phone)
               const minimalPayload = {
                 email: formData.email.trim(),
                 attributes: {
                   FIRSTNAME: firstName,
                   LASTNAME: lastName || firstName,
-                  ...(formData.phone && formData.phone.trim() ? { SMS: formData.phone.trim(), PHONE: formData.phone.trim() } : {})
+                  ...(retryFormattedPhone ? { SMS: retryFormattedPhone, PHONE: retryFormattedPhone } : {})
                 },
                 updateEnabled: true
               }
