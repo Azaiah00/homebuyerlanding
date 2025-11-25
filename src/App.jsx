@@ -840,8 +840,11 @@ function App() {
 
     // Check if API key is configured
     if (!BREVO_API_KEY) {
-      console.error('❌ Brevo API key is not configured. Please add VITE_BREVO_API_KEY to your .env file.')
-      alert('Form submission is not configured. Please contact the site administrator.')
+      console.error('❌ Brevo API key is not configured.')
+      console.error('For local development: Add VITE_BREVO_API_KEY to your .env file')
+      console.error('For production: Add VITE_BREVO_API_KEY in Netlify Dashboard → Site Settings → Environment Variables')
+      console.error('See NETLIFY_ENV_SETUP.md for detailed instructions')
+      alert('Form submission is not configured. Please add the Brevo API key in Netlify environment variables. See NETLIFY_ENV_SETUP.md for instructions.')
       setFormSubmitted(false)
       return
     }
