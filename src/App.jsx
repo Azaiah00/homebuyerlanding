@@ -834,7 +834,9 @@ function App() {
     // See BREVO_SETUP.md for detailed instructions
     // IMPORTANT: Add your API key to .env file: VITE_BREVO_API_KEY=your_key_here
     const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY
-    const BREVO_SENDER_EMAIL = 'noreply@sendinblue.com' // Must be a verified sender in Brevo
+    // IMPORTANT: Sender email must be verified in Brevo Dashboard → Settings → SMTP & API → Senders
+    // Use your own verified email address for better deliverability
+    const BREVO_SENDER_EMAIL = 'fredsaleshomes@gmail.com' // Must be verified in Brevo
     const BREVO_RECIPIENT_EMAIL = 'fredsaleshomes@gmail.com' // Your email to receive submissions
     const BREVO_TEMPLATE_ID = null // Optional: Your Brevo template ID, or null for plain text
 
