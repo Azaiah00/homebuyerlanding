@@ -39,6 +39,36 @@ This guide will help you connect your Brevo account with the contact form.
    ```
 4. **Save the template** and note the **Template ID** (you'll see it in the URL or template settings)
 
+## Step 2.5: Set Up Custom Attributes for Contact Data (Recommended)
+
+The form automatically saves all form data to Brevo contacts. To ensure all fields are captured properly:
+
+1. **Go to Contacts**:
+   - In Brevo dashboard, go to **"Contacts"** → **"Attributes"**
+2. **Verify/Create Custom Attributes**:
+   The form uses these attributes:
+   - `TIMELINE` - Contact's timeline (already created automatically)
+   - `SOURCE` - Where the contact came from (already created automatically)
+   - `CONTACT_DATE` - Date of contact (already created automatically)
+   
+   **Note**: Brevo automatically creates these attributes when the contact is created, so you don't need to manually create them. However, you can customize them:
+   - Click on an attribute to edit its name or type
+   - Set `TIMELINE` as a text attribute
+   - Set `SOURCE` as a text attribute
+   - Set `CONTACT_DATE` as a date attribute
+
+3. **Standard Attributes Used**:
+   - `FIRSTNAME` - Contact's first name (built-in)
+   - `LASTNAME` - Contact's last name (built-in)
+   - `SMS` - Phone number for SMS (built-in)
+   - `PHONE` - Phone number (built-in)
+
+**All form submissions will automatically:**
+- Create a new contact in your Brevo CRM
+- Update existing contacts if the email already exists
+- Save all form fields (name, email, phone, timeline) as contact attributes
+- Tag the contact with source information
+
 ## Step 3: Update Your Code
 
 The code has been updated to use Brevo's API. You just need to:

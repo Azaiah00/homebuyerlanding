@@ -928,6 +928,48 @@ This email was sent from your contact form.
         throw new Error(`Brevo API error: ${response.status} - ${errorData.message || response.statusText}`)
       }
 
+      // Create/Update contact in Brevo CRM
+      // This saves all form data to your Brevo contacts list
+      try {
+        const contactPayload = {
+          email: formData.email,
+          attributes: {
+            FIRSTNAME: formData.name.split(' ')[0] || formData.name,
+            LASTNAME: formData.name.split(' ').slice(1).join(' ') || '',
+            SMS: formData.phone || '',
+            // Custom attributes for form-specific data
+            TIMELINE: formData.timeline || 'Not specified',
+            SOURCE: 'Contact Form',
+            CONTACT_DATE: new Date().toISOString()
+          },
+          updateEnabled: true // Update contact if email already exists
+        }
+
+        // Add phone number if provided
+        if (formData.phone) {
+          contactPayload.attributes.PHONE = formData.phone
+        }
+
+        const contactResponse = await fetch('https://api.brevo.com/v3/contacts', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'api-key': BREVO_API_KEY
+          },
+          body: JSON.stringify(contactPayload)
+        })
+
+        if (!contactResponse.ok) {
+          // Log error but don't fail the form submission
+          const contactError = await contactResponse.json().catch(() => ({}))
+          console.warn('Contact creation/update failed:', contactError)
+        }
+      } catch (contactError) {
+        // Log error but don't fail the form submission
+        console.warn('Error creating/updating contact in Brevo:', contactError)
+      }
+
       // Also submit to Netlify Forms as backup (non-blocking)
       const formDataToSubmit = new FormData()
       formDataToSubmit.append('form-name', 'contact')
