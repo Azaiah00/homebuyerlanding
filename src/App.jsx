@@ -840,24 +840,8 @@ function App() {
 
     // Check if API key is configured
     if (!BREVO_API_KEY) {
-      console.error('Brevo API key is not configured. Please add VITE_BREVO_API_KEY to your .env file.')
-      // Still submit to Netlify Forms as backup
-      const formDataToSubmit = new FormData()
-      formDataToSubmit.append('form-name', 'contact')
-      formDataToSubmit.append('name', formData.name)
-      formDataToSubmit.append('email', formData.email)
-      formDataToSubmit.append('phone', formData.phone)
-      formDataToSubmit.append('timeline', formData.timeline)
-      
-      fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formDataToSubmit).toString()
-      }).catch(() => {})
-      
-      setShowSuccessModal(true)
-      setFormData({ name: '', email: '', phone: '', timeline: '' })
-      setFormErrors({})
+      console.error('❌ Brevo API key is not configured. Please add VITE_BREVO_API_KEY to your .env file.')
+      alert('Form submission is not configured. Please contact the site administrator.')
       setFormSubmitted(false)
       return
     }
