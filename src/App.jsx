@@ -31,7 +31,6 @@ import {
   ArrowUp
 } from 'lucide-react'
 import jsPDF from 'jspdf'
-import emailjs from '@emailjs/browser'
 import './App.css'
 
 function App() {
@@ -830,62 +829,112 @@ function App() {
 
     setFormSubmitted(true)
     
-    // EmailJS Configuration - Replace these with your EmailJS credentials
-    // Get these from: https://dashboard.emailjs.com/admin
-    const EMAILJS_SERVICE_ID = 'service_17crd9v' // Replace with your EmailJS Service ID
-    const EMAILJS_TEMPLATE_ID = 'template_2aoyx5e' // Replace with your EmailJS Template ID
-    const EMAILJS_PUBLIC_KEY = 'qC2aW4wNHYDdvVBd2' // Replace with your EmailJS Public Key
-    
-    // Initialize EmailJS (only needed once, but safe to call multiple times)
-    emailjs.init(EMAILJS_PUBLIC_KEY)
+    // Brevo (Sendinblue) Configuration
+    // Get your API key from: https://app.brevo.com/settings/keys/api
+    // See BREVO_SETUP.md for detailed instructions
+    const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY || 'YOUR_BREVO_API_KEY_HERE'
+    const BREVO_SENDER_EMAIL = 'noreply@sendinblue.com' // Must be a verified sender in Brevo
+    const BREVO_RECIPIENT_EMAIL = 'fred@kerishullteam.com' // Your email to receive submissions
+    const BREVO_TEMPLATE_ID = null // Optional: Your Brevo template ID, or null for plain text
 
     try {
-      // Send email via EmailJS
-      const emailParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone || 'Not provided',
-        timeline: formData.timeline || 'Not specified',
-        to_email: 'fred@kerishullteam.com' // Your email address
+      // Prepare email content
+      const emailSubject = 'New Contact Form Submission'
+      const emailContent = `
+New contact form submission received:
+
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone || 'Not provided'}
+Timeline: ${formData.timeline || 'Not specified'}
+
+---
+This email was sent from your contact form.
+      `.trim()
+
+      // Prepare Brevo API request
+      const brevoPayload = {
+        sender: {
+          name: 'Contact Form',
+          email: BREVO_SENDER_EMAIL
+        },
+        to: [
+          {
+            email: BREVO_RECIPIENT_EMAIL,
+            name: 'Frederick Sales'
+          }
+        ],
+        replyTo: {
+          email: formData.email,
+          name: formData.name
+        },
+        subject: emailSubject,
+        htmlContent: emailContent.replace(/\n/g, '<br>'),
+        textContent: emailContent
       }
 
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams)
+      // If using a template, add template ID and params
+      if (BREVO_TEMPLATE_ID) {
+        brevoPayload.templateId = parseInt(BREVO_TEMPLATE_ID)
+        brevoPayload.params = {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || 'Not provided',
+          timeline: formData.timeline || 'Not specified'
+        }
+        // Remove htmlContent and textContent when using template
+        delete brevoPayload.htmlContent
+        delete brevoPayload.textContent
+      }
 
-      // Also submit to Netlify Forms as backup
-    const formDataToSubmit = new FormData()
-    formDataToSubmit.append('form-name', 'contact')
-    formDataToSubmit.append('name', formData.name)
-    formDataToSubmit.append('email', formData.email)
-    formDataToSubmit.append('phone', formData.phone)
-    formDataToSubmit.append('timeline', formData.timeline)
+      // Send email via Brevo API
+      const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'api-key': BREVO_API_KEY
+        },
+        body: JSON.stringify(brevoPayload)
+      })
 
-      // Submit to Netlify Forms (non-blocking, as backup)
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(`Brevo API error: ${response.status} - ${errorData.message || response.statusText}`)
+      }
+
+      // Also submit to Netlify Forms as backup (non-blocking)
+      const formDataToSubmit = new FormData()
+      formDataToSubmit.append('form-name', 'contact')
+      formDataToSubmit.append('name', formData.name)
+      formDataToSubmit.append('email', formData.email)
+      formDataToSubmit.append('phone', formData.phone)
+      formDataToSubmit.append('timeline', formData.timeline)
+
       fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(formDataToSubmit).toString()
       }).catch(() => {
-        // Silently fail - EmailJS is primary method
+        // Silently fail - Brevo is primary method
       })
 
-        setShowSuccessModal(true)
-        setFormData({ name: '', email: '', phone: '', timeline: '' })
-        setFormErrors({})
+      setShowSuccessModal(true)
+      setFormData({ name: '', email: '', phone: '', timeline: '' })
+      setFormErrors({})
       
-        // Track form submission (for analytics)
-        if (window.gtag) {
-          window.gtag('event', 'form_submission', {
-            'event_category': 'engagement',
-            'event_label': 'contact_form'
-          })
+      // Track form submission (for analytics)
+      if (window.gtag) {
+        window.gtag('event', 'form_submission', {
+          'event_category': 'engagement',
+          'event_label': 'contact_form'
+        })
       }
     } catch (error) {
       console.error('Email sending failed:', error)
       console.error('Error details:', {
-        message: error.text || error.message,
-        status: error.status,
-        serviceId: EMAILJS_SERVICE_ID,
-        templateId: EMAILJS_TEMPLATE_ID
+        message: error.message,
+        apiKey: BREVO_API_KEY ? 'Set' : 'Missing'
       })
       // Still show success for better UX, but log the error for debugging
       setShowSuccessModal(true)
