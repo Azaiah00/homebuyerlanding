@@ -71,34 +71,6 @@
       gtag('config', 'GA_MEASUREMENT_ID');
     </script> -->
     
-    <!-- Google Places API - Replace YOUR_GOOGLE_PLACES_API_KEY with your actual Google Places API key -->
-    <!-- Get your API key from: https://console.cloud.google.com/google/maps-apis/credentials -->
-    <!-- Make sure to enable "Places API" in your Google Cloud Console -->
-    <!-- For setup instructions, see GOOGLE_PLACES_SETUP.md -->
-    <script>
-      // Only load Google Places API if API key is provided
-      const googlePlacesApiKey = 'YOUR_GOOGLE_PLACES_API_KEY';
-      if (googlePlacesApiKey && googlePlacesApiKey !== 'YOUR_GOOGLE_PLACES_API_KEY') {
-        const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${googlePlacesApiKey}&libraries=places&callback=initGooglePlaces`;
-        script.async = true;
-        script.defer = true;
-        script.onerror = function() {
-          console.warn('Google Places API failed to load. Address autocomplete will use fallback mode.');
-        };
-        document.head.appendChild(script);
-        
-        window.googlePlacesReady = false;
-        window.initGooglePlaces = function() {
-          window.googlePlacesReady = true;
-          if (window.onGooglePlacesReady) {
-            window.onGooglePlacesReady();
-          }
-        };
-      } else {
-        console.warn('Google Places API key not configured. See GOOGLE_PLACES_SETUP.md for setup instructions.');
-      }
-    </script>
   </head>
   <body>
     <div id="root"></div>
