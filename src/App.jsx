@@ -832,10 +832,35 @@ function App() {
     // Brevo (Sendinblue) Configuration
     // Get your API key from: https://app.brevo.com/settings/keys/api
     // See BREVO_SETUP.md for detailed instructions
-    const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY || 'YOUR_BREVO_API_KEY_HERE'
+    // IMPORTANT: Add your API key to .env file: VITE_BREVO_API_KEY=your_key_here
+    const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY
     const BREVO_SENDER_EMAIL = 'noreply@sendinblue.com' // Must be a verified sender in Brevo
-    const BREVO_RECIPIENT_EMAIL = 'fred@kerishullteam.com' // Your email to receive submissions
+    const BREVO_RECIPIENT_EMAIL = 'fredsaleshomes@gmail.com' // Your email to receive submissions
     const BREVO_TEMPLATE_ID = null // Optional: Your Brevo template ID, or null for plain text
+
+    // Check if API key is configured
+    if (!BREVO_API_KEY) {
+      console.error('Brevo API key is not configured. Please add VITE_BREVO_API_KEY to your .env file.')
+      // Still submit to Netlify Forms as backup
+      const formDataToSubmit = new FormData()
+      formDataToSubmit.append('form-name', 'contact')
+      formDataToSubmit.append('name', formData.name)
+      formDataToSubmit.append('email', formData.email)
+      formDataToSubmit.append('phone', formData.phone)
+      formDataToSubmit.append('timeline', formData.timeline)
+      
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formDataToSubmit).toString()
+      }).catch(() => {})
+      
+      setShowSuccessModal(true)
+      setFormData({ name: '', email: '', phone: '', timeline: '' })
+      setFormErrors({})
+      setFormSubmitted(false)
+      return
+    }
 
     try {
       // Prepare email content
