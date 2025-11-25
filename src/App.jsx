@@ -946,35 +946,28 @@ This email was sent from your contact form.
         }
         const timelineDisplay = timelineLabels[formData.timeline] || formData.timeline || 'Not specified'
 
-        // Build attributes object - only include non-empty values
+        // Build attributes object - start with only standard Brevo attributes
+        // Custom attributes will be created automatically by Brevo on first use
         const contactAttributes = {
-          // Standard Brevo attributes
+          // Standard Brevo attributes (always recognized)
           FIRSTNAME: firstName,
           LASTNAME: lastName || firstName, // Use first name if no last name
-          FULLNAME: formData.name.trim()
         }
 
-        // Add phone if provided
+        // Add phone if provided (standard Brevo attributes)
         if (formData.phone && formData.phone.trim()) {
           contactAttributes.SMS = formData.phone.trim()
           contactAttributes.PHONE = formData.phone.trim()
         }
 
-        // Custom attributes for form-specific data
+        // Add custom attributes (will be created automatically if they don't exist)
+        // Using simpler attribute names to avoid issues
         contactAttributes.TIMELINE = timelineDisplay
         if (formData.timeline) {
           contactAttributes.TIMELINE_VALUE = formData.timeline
         }
         contactAttributes.SOURCE = 'Contact Form'
-        contactAttributes.SOURCE_URL = 'Website Contact Form'
         contactAttributes.CONTACT_METHOD = 'Website Form'
-        contactAttributes.FORM_SUBMITTED = 'Yes'
-        
-        // Format dates properly for Brevo (YYYY-MM-DD format)
-        const today = new Date()
-        const dateString = today.toISOString().split('T')[0] // YYYY-MM-DD format
-        contactAttributes.CONTACT_DATE = dateString
-        contactAttributes.SUBMISSION_DATE = dateString
 
         const contactPayload = {
           email: formData.email.trim(),
@@ -992,7 +985,7 @@ This email was sent from your contact form.
           body: JSON.stringify(contactPayload)
         })
 
-        const contactResponseData = await contactResponse.json().catch(() => null)
+        const contactResponseData = await contactResponse.json().catch(() => ({ message: 'Failed to parse error response' }))
 
         if (!contactResponse.ok) {
           // Log detailed error for debugging
@@ -1000,8 +993,44 @@ This email was sent from your contact form.
             status: contactResponse.status,
             statusText: contactResponse.statusText,
             error: contactResponseData,
+            errorMessage: contactResponseData?.message || contactResponseData?.error || 'Unknown error',
             payload: contactPayload
           })
+          
+          // Try to create contact with minimal attributes if custom attributes failed
+          if (contactResponse.status === 400) {
+            console.log('🔄 Retrying with minimal attributes...')
+            try {
+              const minimalPayload = {
+                email: formData.email.trim(),
+                attributes: {
+                  FIRSTNAME: firstName,
+                  LASTNAME: lastName || firstName,
+                  ...(formData.phone && formData.phone.trim() ? { SMS: formData.phone.trim(), PHONE: formData.phone.trim() } : {})
+                },
+                updateEnabled: true
+              }
+              
+              const retryResponse = await fetch('https://api.brevo.com/v3/contacts', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                  'api-key': BREVO_API_KEY
+                },
+                body: JSON.stringify(minimalPayload)
+              })
+              
+              if (retryResponse.ok) {
+                console.log('✅ Contact created with minimal attributes')
+              } else {
+                const retryError = await retryResponse.json().catch(() => ({}))
+                console.error('❌ Retry also failed:', retryError)
+              }
+            } catch (retryError) {
+              console.error('❌ Retry error:', retryError)
+            }
+          }
           // Still show success to user, but log error for debugging
         } else {
           // Success - log for confirmation
