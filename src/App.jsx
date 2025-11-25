@@ -1049,24 +1049,8 @@ This email was sent from your contact form.
         })
       }
 
-      // Also submit to Netlify Forms as backup (non-blocking)
-      // Note: This only works on the deployed Netlify site, not in local development
-      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-        const formDataToSubmit = new FormData()
-        formDataToSubmit.append('form-name', 'contact')
-        formDataToSubmit.append('name', formData.name)
-        formDataToSubmit.append('email', formData.email)
-        formDataToSubmit.append('phone', formData.phone)
-        formDataToSubmit.append('timeline', formData.timeline)
-
-        fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(formDataToSubmit).toString()
-        }).catch(() => {
-          // Silently fail - Brevo is primary method, Netlify Forms is backup
-        })
-      }
+      // Netlify Forms submission removed - Brevo is the primary and only method
+      // All form submissions go through Brevo API for email notifications and CRM
 
       setShowSuccessModal(true)
       setFormData({ name: '', email: '', phone: '', timeline: '' })
@@ -2722,12 +2706,10 @@ This email was sent from your contact form.
           <form 
             name="contact" 
             method="POST" 
-            data-netlify="true" 
-            netlify-honeypot="bot-field"
             className={`contact-form ${formSubmitted ? 'submitted' : ''}`} 
             onSubmit={handleSubmit}
           >
-            <input type="hidden" name="form-name" value="contact" />
+            {/* Honeypot field for spam protection */}
             <p style={{ display: 'none' }}>
               <label>
                 Don't fill this out if you're human: <input name="bot-field" />
