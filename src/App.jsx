@@ -67,10 +67,11 @@ function App() {
     homePrice: '',
     downPaymentPercent: '',
     state: 'VA', // VA, DC, or MD for state-specific calculations
+    county: '', // County/City for accurate tax rate
     loanType: 'conventional', // conventional, FHA, VA
     propertyType: 'single-family', // single-family, townhome, condo
     includePrepaids: true,
-    propertyTaxRate: 1.0, // Annual property tax rate (DMV average ~1%)
+    propertyTaxRate: 1.05, // Annual property tax rate (VA default)
     homeInsurance: 1500, // Annual home insurance estimate (defaults to single-family)
     hoaFee: 0, // Monthly HOA/Condo fee
     sellerPaysClosing: false, // Whether seller is paying some closing costs
@@ -82,6 +83,50 @@ function App() {
     'single-family': 1500, // $1,200-$2,000/year
     'townhome': 1000, // $800-$1,400/year
     'condo': 500 // $300-$700/year (much cheaper, HOA master policy covers building)
+  }
+
+  // State default tax rates
+  const stateDefaultTaxRates = {
+    'VA': 1.05, // Virginia average
+    'DC': 0.85, // Washington DC
+    'MD': 0.98  // Maryland average
+  }
+
+  // County-specific tax rates
+  const countyTaxRates = {
+    'VA': {
+      'Fairfax County': 1.09,
+      'Arlington County': 0.96,
+      'Alexandria City': 1.11,
+      'Loudoun County': 1.04,
+      'Prince William County': 1.12,
+      'Falls Church City': 0.98,
+      'Fairfax City': 1.05,
+      'Manassas City': 1.08,
+      'Manassas Park City': 1.10,
+      'Stafford County': 1.06,
+      'Fauquier County': 0.95,
+      'Prince George County': 1.15,
+      'Spotsylvania County': 1.03,
+      'Fredericksburg City': 1.02,
+      'Other': 1.05 // VA default
+    },
+    'DC': {
+      'District of Columbia': 0.85
+    },
+    'MD': {
+      'Montgomery County': 0.92,
+      'Prince George\'s County': 1.08,
+      'Howard County': 1.01,
+      'Anne Arundel County': 0.90,
+      'Frederick County': 0.99,
+      'Charles County': 1.05,
+      'Calvert County': 0.88,
+      'St. Mary\'s County': 0.94,
+      'Baltimore County': 1.10,
+      'Baltimore City': 2.25, // Note: Much higher due to city taxes
+      'Other': 0.98 // MD default
+    }
   }
 
   const [closingCostBreakdown, setClosingCostBreakdown] = useState({
@@ -296,6 +341,19 @@ function App() {
     calculateClosingCosts()
   }, [closingCostData, calculatorData.interestRate])
 
+  // Set initial tax rate based on default state on component mount
+  useEffect(() => {
+    if (!closingCostData.county && closingCostData.state) {
+      const defaultRate = stateDefaultTaxRates[closingCostData.state]
+      if (defaultRate && closingCostData.propertyTaxRate !== defaultRate) {
+        setClosingCostData(prev => ({
+          ...prev,
+          propertyTaxRate: defaultRate
+        }))
+      }
+    }
+  }, []) // Run once on mount
+
   const handleCalculatorChange = (e) => {
     const { name, value } = e.target
     if (name === 'homePrice') {
@@ -351,11 +409,31 @@ function App() {
         propertyType: newPropertyType,
         homeInsurance: defaultInsurance
       }))
-    } else if (name === 'state' || name === 'loanType') {
-      // Handle select dropdowns for state and loanType
+    } else if (name === 'state') {
+      // When state changes, reset county and update tax rate to state default
+      const newState = value
+      const stateDefaultRate = stateDefaultTaxRates[newState]
       setClosingCostData(prev => ({
         ...prev,
-        [name]: value
+        state: newState,
+        county: '', // Reset county when state changes
+        propertyTaxRate: stateDefaultRate
+      }))
+    } else if (name === 'county') {
+      // When county changes, update tax rate to county-specific rate
+      const selectedCounty = value
+      const state = closingCostData.state
+      const countyRate = countyTaxRates[state]?.[selectedCounty] || stateDefaultTaxRates[state]
+      setClosingCostData(prev => ({
+        ...prev,
+        county: selectedCounty,
+        propertyTaxRate: countyRate
+      }))
+    } else if (name === 'loanType') {
+      // Handle loanType dropdown
+      setClosingCostData(prev => ({
+        ...prev,
+        loanType: value
       }))
     } else if (type === 'checkbox') {
       setClosingCostData(prev => ({ ...prev, [name]: checked }))
@@ -1375,6 +1453,64 @@ function App() {
               </div>
 
               <div className="calc-input-group">
+                <label htmlFor="cc-county">County/City (for accurate tax rate)</label>
+                <div className="select-wrapper">
+                  <select
+                    id="cc-county"
+                    name="county"
+                    value={closingCostData.county}
+                    onChange={handleClosingCostChange}
+                    className="calc-select"
+                  >
+                    <option value="">Select County/City</option>
+                    {closingCostData.state === 'VA' && (
+                      <>
+                        <option value="Fairfax County">Fairfax County</option>
+                        <option value="Arlington County">Arlington County</option>
+                        <option value="Alexandria City">Alexandria City</option>
+                        <option value="Loudoun County">Loudoun County</option>
+                        <option value="Prince William County">Prince William County</option>
+                        <option value="Falls Church City">Falls Church City</option>
+                        <option value="Fairfax City">Fairfax City</option>
+                        <option value="Manassas City">Manassas City</option>
+                        <option value="Manassas Park City">Manassas Park City</option>
+                        <option value="Stafford County">Stafford County</option>
+                        <option value="Fauquier County">Fauquier County</option>
+                        <option value="Prince George County">Prince George County</option>
+                        <option value="Spotsylvania County">Spotsylvania County</option>
+                        <option value="Fredericksburg City">Fredericksburg City</option>
+                        <option value="Other">Other (VA Default Rate)</option>
+                      </>
+                    )}
+                    {closingCostData.state === 'DC' && (
+                      <option value="District of Columbia">District of Columbia</option>
+                    )}
+                    {closingCostData.state === 'MD' && (
+                      <>
+                        <option value="Montgomery County">Montgomery County</option>
+                        <option value="Prince George's County">Prince George's County</option>
+                        <option value="Howard County">Howard County</option>
+                        <option value="Anne Arundel County">Anne Arundel County</option>
+                        <option value="Frederick County">Frederick County</option>
+                        <option value="Charles County">Charles County</option>
+                        <option value="Calvert County">Calvert County</option>
+                        <option value="St. Mary's County">St. Mary's County</option>
+                        <option value="Baltimore County">Baltimore County</option>
+                        <option value="Baltimore City">Baltimore City</option>
+                        <option value="Other">Other (MD Default Rate)</option>
+                      </>
+                    )}
+                  </select>
+                  <ChevronDown className="select-arrow" size={20} />
+                </div>
+                <small className="input-help">
+                  {closingCostData.county 
+                    ? `Tax rate set to ${closingCostData.propertyTaxRate}% for ${closingCostData.county}`
+                    : `Select county for accurate rate, or use state default: ${stateDefaultTaxRates[closingCostData.state]}%`}
+                </small>
+              </div>
+
+              <div className="calc-input-group">
                 <label htmlFor="cc-loanType">Loan Type</label>
                 <div className="select-wrapper">
                   <select
@@ -1422,12 +1558,20 @@ function App() {
                     onChange={handleClosingCostChange}
                     min="0"
                     max="5"
-                    step="0.1"
+                    step="0.01"
                     className="calc-input"
                   />
                   <span className="input-suffix">%</span>
                 </div>
-                <small className="input-help">DMV average: ~1.0% annually</small>
+                <small className="input-help">
+                  {closingCostData.county 
+                    ? `Auto-set for ${closingCostData.county}. You can adjust manually if needed.`
+                    : closingCostData.state === 'VA' 
+                      ? 'VA default: 1.05%. Select county above for accurate rate.'
+                      : closingCostData.state === 'DC'
+                        ? 'DC default: 0.85%. Select county above for accurate rate.'
+                        : 'MD default: 0.98%. Select county above for accurate rate.'}
+                </small>
               </div>
 
               <div className="calc-input-group">
