@@ -946,28 +946,39 @@ This email was sent from your contact form.
         }
         const timelineDisplay = timelineLabels[formData.timeline] || formData.timeline || 'Not specified'
 
+        // Build attributes object - only include non-empty values
+        const contactAttributes = {
+          // Standard Brevo attributes
+          FIRSTNAME: firstName,
+          LASTNAME: lastName || firstName, // Use first name if no last name
+          FULLNAME: formData.name.trim()
+        }
+
+        // Add phone if provided
+        if (formData.phone && formData.phone.trim()) {
+          contactAttributes.SMS = formData.phone.trim()
+          contactAttributes.PHONE = formData.phone.trim()
+        }
+
+        // Custom attributes for form-specific data
+        contactAttributes.TIMELINE = timelineDisplay
+        if (formData.timeline) {
+          contactAttributes.TIMELINE_VALUE = formData.timeline
+        }
+        contactAttributes.SOURCE = 'Contact Form'
+        contactAttributes.SOURCE_URL = 'Website Contact Form'
+        contactAttributes.CONTACT_METHOD = 'Website Form'
+        contactAttributes.FORM_SUBMITTED = 'Yes'
+        
+        // Format dates properly for Brevo (YYYY-MM-DD format)
+        const today = new Date()
+        const dateString = today.toISOString().split('T')[0] // YYYY-MM-DD format
+        contactAttributes.CONTACT_DATE = dateString
+        contactAttributes.SUBMISSION_DATE = dateString
+
         const contactPayload = {
           email: formData.email.trim(),
-          attributes: {
-            // Standard Brevo attributes
-            FIRSTNAME: firstName,
-            LASTNAME: lastName,
-            FULLNAME: formData.name.trim(), // Full name as well
-            SMS: formData.phone.trim() || '',
-            PHONE: formData.phone.trim() || '',
-            
-            // Custom attributes for form-specific data
-            TIMELINE: timelineDisplay,
-            TIMELINE_VALUE: formData.timeline || '', // Raw value for filtering
-            SOURCE: 'Contact Form',
-            SOURCE_URL: 'Website Contact Form',
-            CONTACT_DATE: new Date().toISOString(),
-            CONTACT_METHOD: 'Website Form',
-            
-            // Additional metadata
-            FORM_SUBMITTED: 'Yes',
-            SUBMISSION_DATE: new Date().toISOString()
-          },
+          attributes: contactAttributes,
           updateEnabled: true // Update contact if email already exists
         }
 
@@ -981,14 +992,32 @@ This email was sent from your contact form.
           body: JSON.stringify(contactPayload)
         })
 
+        const contactResponseData = await contactResponse.json().catch(() => null)
+
         if (!contactResponse.ok) {
-          // Log error but don't fail the form submission
-          const contactError = await contactResponse.json().catch(() => ({}))
-          console.warn('Contact creation/update failed:', contactError)
+          // Log detailed error for debugging
+          console.error('❌ Brevo Contact Creation Failed:', {
+            status: contactResponse.status,
+            statusText: contactResponse.statusText,
+            error: contactResponseData,
+            payload: contactPayload
+          })
+          // Still show success to user, but log error for debugging
+        } else {
+          // Success - log for confirmation
+          console.log('✅ Contact created/updated in Brevo:', {
+            email: formData.email,
+            contactId: contactResponseData?.id,
+            response: contactResponseData
+          })
         }
       } catch (contactError) {
-        // Log error but don't fail the form submission
-        console.warn('Error creating/updating contact in Brevo:', contactError)
+        // Log detailed error for debugging
+        console.error('❌ Error creating/updating contact in Brevo:', {
+          error: contactError,
+          message: contactError.message,
+          stack: contactError.stack
+        })
       }
 
       // Also submit to Netlify Forms as backup (non-blocking)
@@ -1069,7 +1098,7 @@ This email was sent from your contact form.
     { id: 'winning-offer', number: 5, title: 'Winning Offer' },
     { id: 'faq', number: 6, title: 'FAQ' },
     { id: 'glossary', number: 7, title: 'Glossary' },
-    { id: 'contact-section', number: 8, title: 'Consultation' }
+    { id: 'contact-section', number: 8, title: 'Contact Me' }
   ]
 
   return (
