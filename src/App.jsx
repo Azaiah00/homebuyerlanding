@@ -920,9 +920,25 @@ This email was sent from your website contact form via Brevo.
         body: JSON.stringify(brevoPayload)
       })
 
+      const emailResponseData = await response.json().catch(() => null)
+
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}))
-        throw new Error(`Brevo API error: ${response.status} - ${errorData.message || response.statusText}`)
+        const errorData = emailResponseData || {}
+        console.error('❌ Brevo Email Sending Failed:', {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorData,
+          errorMessage: errorData?.message || errorData?.error || 'Unknown error',
+          sender: BREVO_SENDER_EMAIL,
+          recipient: BREVO_RECIPIENT_EMAIL
+        })
+        // Don't throw error - still create contact even if email fails
+        // throw new Error(`Brevo API error: ${response.status} - ${errorData.message || response.statusText}`)
+      } else {
+        console.log('✅ Email sent successfully via Brevo:', {
+          messageId: emailResponseData?.messageId,
+          to: BREVO_RECIPIENT_EMAIL
+        })
       }
 
       // Create/Update contact in Brevo CRM
