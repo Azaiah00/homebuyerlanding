@@ -848,7 +848,7 @@ function App() {
 
     try {
       // Prepare email content
-      const emailSubject = 'New Contact Form Submission'
+      const emailSubject = `New Contact Form Submission from ${formData.name}`
       const emailContent = `
 New contact form submission received:
 
@@ -858,7 +858,7 @@ Phone: ${formData.phone || 'Not provided'}
 Timeline: ${formData.timeline || 'Not specified'}
 
 ---
-This email was sent from your contact form.
+This email was sent from your website contact form via Brevo.
       `.trim()
 
       // Prepare Brevo API request
@@ -878,7 +878,17 @@ This email was sent from your contact form.
           name: formData.name
         },
         subject: emailSubject,
-        htmlContent: emailContent.replace(/\n/g, '<br>'),
+        htmlContent: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #333;">New Contact Form Submission</h2>
+            <p><strong>Name:</strong> ${formData.name}</p>
+            <p><strong>Email:</strong> <a href="mailto:${formData.email}">${formData.email}</a></p>
+            <p><strong>Phone:</strong> ${formData.phone || 'Not provided'}</p>
+            <p><strong>Timeline:</strong> ${formData.timeline || 'Not specified'}</p>
+            <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+            <p style="color: #666; font-size: 12px;">This email was sent from your website contact form.</p>
+          </div>
+        `,
         textContent: emailContent
       }
 
