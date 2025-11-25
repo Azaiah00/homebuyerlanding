@@ -1021,20 +1021,23 @@ This email was sent from your contact form.
       }
 
       // Also submit to Netlify Forms as backup (non-blocking)
-      const formDataToSubmit = new FormData()
-      formDataToSubmit.append('form-name', 'contact')
-      formDataToSubmit.append('name', formData.name)
-      formDataToSubmit.append('email', formData.email)
-      formDataToSubmit.append('phone', formData.phone)
-      formDataToSubmit.append('timeline', formData.timeline)
+      // Note: This only works on the deployed Netlify site, not in local development
+      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        const formDataToSubmit = new FormData()
+        formDataToSubmit.append('form-name', 'contact')
+        formDataToSubmit.append('name', formData.name)
+        formDataToSubmit.append('email', formData.email)
+        formDataToSubmit.append('phone', formData.phone)
+        formDataToSubmit.append('timeline', formData.timeline)
 
-      fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formDataToSubmit).toString()
-      }).catch(() => {
-        // Silently fail - Brevo is primary method
-      })
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formDataToSubmit).toString()
+        }).catch(() => {
+          // Silently fail - Brevo is primary method, Netlify Forms is backup
+        })
+      }
 
       setShowSuccessModal(true)
       setFormData({ name: '', email: '', phone: '', timeline: '' })
