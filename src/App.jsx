@@ -846,9 +846,9 @@ function App() {
     { id: 'mortgage-calculator', number: 3, title: 'Mortgage Calculator' },
     { id: 'closing-cost-calculator', number: 4, title: 'Closing Costs' },
     { id: 'winning-offer', number: 5, title: 'Winning Offer' },
-    { id: 'team-advantage', number: 6, title: 'Why Us' },
-    { id: 'faq', number: 7, title: 'FAQ' },
-    { id: 'glossary', number: 8, title: 'Glossary' }
+    { id: 'faq', number: 6, title: 'FAQ' },
+    { id: 'glossary', number: 7, title: 'Glossary' },
+    { id: 'contact-section', number: 8, title: 'Consultation' }
   ]
 
   return (
