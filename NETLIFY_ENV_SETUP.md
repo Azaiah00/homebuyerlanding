@@ -35,7 +35,7 @@ xkeysib-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxx
 
 5. **Add New Variable**:
    - Click **"Add a variable"** or **"Add variable"** button
-   - **Key**: `VITE_BREVO_API_KEY`
+   - **Key**: `NEXT_PUBLIC_BREVO_API_KEY`
    - **Value**: Paste your Brevo API key (the one you copied in Step 1)
    - **Scopes**: Select **"All scopes"** (or at least "Production" and "Deploy previews")
    - Click **"Save"** or **"Create variable"**
@@ -71,13 +71,13 @@ After adding the environment variable, you need to trigger a new deployment:
 ### Still Getting "Form submission is not configured" Error?
 
 1. **Check Environment Variable Name**:
-   - Must be exactly: `VITE_BREVO_API_KEY`
+   - Must be exactly: `NEXT_PUBLIC_BREVO_API_KEY`
    - Case-sensitive!
    - No spaces or extra characters
 
 2. **Verify Variable is Set**:
    - Go to Netlify → Site settings → Environment variables
-   - Make sure `VITE_BREVO_API_KEY` is listed
+   - Make sure `NEXT_PUBLIC_BREVO_API_KEY` is listed
    - Check that the value is correct (starts with `xkeysib-`)
 
 3. **Check Variable Scopes**:
@@ -121,7 +121,7 @@ After adding the environment variable, you need to trigger a new deployment:
 
 ## Quick Reference
 
-- **Environment Variable Name**: `VITE_BREVO_API_KEY`
+- **Environment Variable Name**: `NEXT_PUBLIC_BREVO_API_KEY`
 - **Where to Set**: Netlify Dashboard → Site Settings → Environment Variables
 - **After Setting**: Must trigger a new deployment
 - **Your Brevo API Key**: Get it from Brevo Dashboard → Settings → SMTP & API → API Keys
