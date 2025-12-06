@@ -1571,6 +1571,8 @@ section {
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   transition: all 0.3s ease;
+  overflow: visible;
+  position: relative;
 }
 
 .money-card:hover {
@@ -1643,6 +1645,8 @@ section {
 
 .cost-list {
   list-style: none;
+  overflow: visible;
+  position: relative;
 }
 
 .cost-list li {
@@ -1655,6 +1659,8 @@ section {
   margin-bottom: 1rem;
   border: 2px solid #e2e8f0;
   transition: all 0.2s ease;
+  position: relative;
+  overflow: visible;
 }
 
 .cost-list li:hover {
@@ -5493,6 +5499,8 @@ section {
   text-decoration-style: dotted;
   text-underline-offset: 3px;
   transition: color 0.2s ease;
+  z-index: 1;
+  display: inline-block;
 }
 
 .tooltip-trigger:hover {
@@ -5514,7 +5522,7 @@ section {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  z-index: 10000;
+  z-index: 99999;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
   width: 320px;
   max-width: 90vw;
@@ -5523,7 +5531,8 @@ section {
   line-height: 1.6;
   visibility: hidden;
   border: 2px solid #c9a961;
-  backdrop-filter: blur(10px);
+  backdrop-filter: none;
+  isolation: isolate;
 }
 
 .tooltip-trigger::before {
@@ -5537,7 +5546,7 @@ section {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 10001;
+  z-index: 100000;
   visibility: hidden;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
