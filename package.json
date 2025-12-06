@@ -27,8 +27,6 @@
     "@netlify/plugin-nextjs": "^5.15.1",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "@vitejs/plugin-react": "^5.1.1",
-    "netlify-cli": "^23.11.0",
-    "vite": "^7.2.6"
+    "netlify-cli": "^23.11.0"
   }
 }
