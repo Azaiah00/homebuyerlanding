@@ -1448,6 +1448,8 @@ section {
 .component-content {
   flex: 1;
   min-width: 0;
+  overflow: visible;
+  position: relative;
 }
 
 .component-subtitle {
@@ -1464,6 +1466,8 @@ section {
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: 0.75rem;
+  overflow: visible;
+  position: relative;
 }
 
 .component-description:last-child {
@@ -5513,7 +5517,8 @@ section {
   top: calc(100% + 12px);
   left: 50%;
   transform: translateX(-50%);
-  background: #1a202c;
+  background: #1a202c !important;
+  background-color: #1a202c !important;
   color: white;
   padding: 1.25rem 1.5rem;
   border-radius: 12px;
@@ -5533,6 +5538,8 @@ section {
   border: 2px solid #c9a961;
   backdrop-filter: none;
   isolation: isolate;
+  mix-blend-mode: normal;
+  will-change: opacity, transform;
 }
 
 .tooltip-trigger::before {
@@ -5549,6 +5556,7 @@ section {
   z-index: 100000;
   visibility: hidden;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  mix-blend-mode: normal;
 }
 
 .tooltip-trigger:hover::after,
