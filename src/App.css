@@ -1522,6 +1522,7 @@ section {
 .money-talk {
   background: #ffffff;
   position: relative;
+  overflow: visible;
 }
 
 .money-talk::before {
@@ -1541,6 +1542,8 @@ section {
   margin: 3rem auto 0;
   max-width: 100%;
   width: 100%;
+  overflow: visible;
+  position: relative;
 }
 
 @media (max-width: 768px) {
@@ -2314,7 +2317,8 @@ section {
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(-8px);
-  background: #2d3748;
+  background: #2d3748 !important;
+  background-color: #2d3748 !important;
   color: white;
   padding: 0.75rem 1rem;
   border-radius: 8px;
@@ -2324,11 +2328,16 @@ section {
   width: 280px;
   max-width: 90vw;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  z-index: 1000;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  z-index: 99999;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   line-height: 1.5;
+  backdrop-filter: none;
+  isolation: isolate;
+  mix-blend-mode: normal;
+  will-change: opacity, transform;
 }
 
 .tooltip-icon::before {
@@ -2342,12 +2351,15 @@ section {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  z-index: 1001;
+  z-index: 100000;
+  mix-blend-mode: normal;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .tooltip-icon:hover::after,
 .tooltip-icon:hover::before {
   opacity: 1;
+  visibility: visible;
   transform: translateX(-50%) translateY(-12px);
 }
 
@@ -2481,19 +2493,28 @@ section {
     font-size: 0.8rem;
     left: 0;
     transform: translateY(-8px);
+    background: #2d3748 !important;
+    background-color: #2d3748 !important;
+    backdrop-filter: none;
+    isolation: isolate;
+    mix-blend-mode: normal;
+    visibility: hidden;
   }
 
   .tooltip-icon:hover::after {
     transform: translateY(-12px);
+    visibility: visible;
   }
 
   .tooltip-icon::before {
     left: 20px;
     transform: translateY(-2px);
+    mix-blend-mode: normal;
   }
 
   .tooltip-icon:hover::before {
     transform: translateY(-6px);
+    visibility: visible;
   }
 }
 
@@ -3446,9 +3467,11 @@ section {
   max-width: 100%;
   width: 100%;
   overflow-x: auto;
+  overflow-y: visible;
   padding-bottom: 1rem;
   scrollbar-width: thin;
   scrollbar-color: #c9a961 #f7fafc;
+  position: relative;
 }
 
 .locations-grid::-webkit-scrollbar {
@@ -3475,6 +3498,8 @@ section {
   flex: 1;
   min-width: 280px;
   max-width: 100%;
+  overflow: visible;
+  position: relative;
 }
 
 .location-card:hover {
@@ -5529,9 +5554,12 @@ section {
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
   z-index: 99999;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
-  width: 320px;
-  max-width: 90vw;
+  width: auto;
+  min-width: 280px;
+  max-width: 450px;
   white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   text-align: left;
   line-height: 1.6;
   visibility: hidden;
@@ -5576,7 +5604,11 @@ section {
   top: 50%;
   bottom: auto;
   transform: translateY(-50%);
-  width: 300px;
+  width: auto;
+  min-width: 280px;
+  max-width: 450px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .tooltip-trigger[data-tooltip-position="right"]::before {
@@ -5596,18 +5628,25 @@ section {
 
 @media (max-width: 768px) {
   .tooltip-trigger::after {
-    width: 280px;
+    width: auto;
+    min-width: 250px;
     max-width: calc(100vw - 2rem);
     font-size: 0.9rem;
     padding: 1rem 1.25rem;
     line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .tooltip-trigger[data-tooltip-position="right"]::after {
-    width: 260px;
+    width: auto;
+    min-width: 250px;
+    max-width: calc(100vw - 2rem);
     left: auto;
     right: calc(100% + 12px);
     transform: translateY(-50%);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .tooltip-trigger[data-tooltip-position="right"]:hover::after {
@@ -5617,10 +5656,14 @@ section {
 
 @media (max-width: 480px) {
   .tooltip-trigger::after {
-    width: 250px;
+    width: auto;
+    min-width: 220px;
+    max-width: calc(100vw - 1.5rem);
     font-size: 0.85rem;
     padding: 0.875rem 1.125rem;
     line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }
 
