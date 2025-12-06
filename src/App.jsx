@@ -134,6 +134,45 @@ function App() {
     }
   }
 
+  // Location descriptions for SEO-optimized tooltips
+  // Each description includes high-ranking keywords to help the page rank for neighborhood searches
+  const locationDescriptions = {
+    // Northern Virginia
+    'Arlington County': 'Arlington County, Virginia is one of the most sought-after areas in Northern Virginia for home buyers. Known for its excellent public schools, walkable neighborhoods, and easy access to Washington DC via Metro, Arlington offers a mix of single-family homes, condos, and townhouses. The housing market here is competitive with median home prices reflecting the area\'s desirability. Residents enjoy proximity to major employers, shopping at Pentagon City and Ballston, and numerous parks and recreational facilities. The county\'s strong job market and high quality of life make it a top choice for families and professionals working in the DC area.',
+    'Fairfax County': 'Fairfax County, Virginia is the largest and most diverse county in Northern Virginia, offering exceptional schools and a wide range of housing options for home buyers. From luxury estates in Great Falls to affordable condos in Reston, Fairfax County has something for every budget. The county boasts top-rated public schools, extensive park systems, and excellent shopping and dining options. With easy access to major employment centers, Metro stations, and Dulles International Airport, Fairfax County is ideal for families and professionals. The real estate market here is robust, with strong appreciation potential and a variety of neighborhoods to choose from.',
+    'Loudoun County': 'Loudoun County, Virginia is one of the fastest-growing areas in the DMV, known for its excellent schools, new construction homes, and family-friendly communities. Located in the heart of Northern Virginia\'s technology corridor, Loudoun offers a perfect blend of suburban living with modern amenities. The county features top-rated public schools, beautiful parks, wineries, and a strong sense of community. Home buyers will find a mix of new developments, established neighborhoods, and rural properties. With proximity to Dulles Airport and major tech employers, Loudoun County is ideal for families seeking excellent schools and a high quality of life.',
+    'Alexandria': 'Alexandria, Virginia is a historic city on the Potomac River, offering a unique blend of colonial charm and modern amenities for home buyers. The Old Town area features cobblestone streets, waterfront dining, and boutique shopping, while newer neighborhoods offer contemporary housing options. Alexandria boasts excellent public schools, easy Metro access to DC, and a vibrant community atmosphere. The housing market includes historic townhomes, modern condos, and single-family homes. With its walkable neighborhoods, strong job market, and rich history, Alexandria is a top choice for professionals and families seeking an urban-suburban lifestyle.',
+    'Falls Church': 'Falls Church, Virginia is a small, independent city known for its excellent schools, tight-knit community, and convenient location in Northern Virginia. This charming city offers a mix of historic homes, modern townhouses, and single-family residences. Falls Church City Public Schools are consistently ranked among the best in the state, making it highly desirable for families. The area features local farmers markets, community events, and easy access to major employment centers. Home buyers appreciate the city\'s walkability, strong sense of community, and proximity to Washington DC, Arlington, and Fairfax County amenities.',
+    'McLean': 'McLean, Virginia is one of the most prestigious and affluent communities in Northern Virginia, known for its luxury homes, excellent schools, and proximity to Washington DC. This sought-after area offers estate properties, custom-built homes, and upscale condominiums. McLean is home to top-rated Fairfax County schools and is located near major employers, shopping at Tysons Corner, and cultural attractions. The real estate market here features some of the highest home values in the region, reflecting the area\'s desirability. Home buyers choose McLean for its prestigious address, excellent schools, and convenient access to both DC and Dulles Airport.',
+    'Tysons Corner': 'Tysons Corner, Virginia is a major business and retail hub in Northern Virginia, offering a mix of high-rise condos, townhouses, and single-family homes. This rapidly developing area is transforming into a walkable urban center with Metro access, shopping malls, and corporate headquarters. Home buyers will find modern condominiums, luxury townhomes, and established single-family neighborhoods. Tysons Corner provides excellent access to employment centers, shopping, dining, and entertainment options. The area\'s ongoing development and proximity to major employers make it attractive for professionals seeking a convenient, modern lifestyle in Northern Virginia.',
+    'Reston': 'Reston, Virginia is a planned community known for its innovative design, excellent schools, and abundance of parks and recreational facilities. This master-planned community offers a mix of single-family homes, townhouses, condos, and apartments across various price points. Reston features top-rated Fairfax County schools, extensive walking trails, community centers, and a strong sense of community. The area includes Reston Town Center, a vibrant mixed-use development with shopping, dining, and entertainment. Home buyers choose Reston for its excellent schools, recreational amenities, and convenient location near Dulles Airport and major employment centers.',
+    'Vienna': 'Vienna, Virginia is a charming town in Fairfax County, known for its excellent schools, family-friendly atmosphere, and strong community spirit. This desirable area offers a mix of historic homes, newer construction, and established neighborhoods with mature trees and well-maintained properties. Vienna is home to top-rated Fairfax County Public Schools and features local shops, restaurants, and community events. The area provides easy access to Tysons Corner, Washington DC, and major employment centers. Home buyers appreciate Vienna\'s small-town feel, excellent schools, and convenient location in the heart of Northern Virginia.',
+    'Annandale': 'Annandale, Virginia is a diverse, established community in Fairfax County, offering affordable housing options and excellent access to major employment centers. This area features a mix of single-family homes, townhouses, and condos at various price points, making it accessible for first-time home buyers. Annandale boasts good schools, diverse dining options, and convenient shopping centers. The community is known for its cultural diversity, strong sense of community, and proximity to major highways and Metro stations. Home buyers choose Annandale for its affordability, convenience, and family-friendly neighborhoods in the heart of Northern Virginia.',
+    'Springfield': 'Springfield, Virginia is a well-established community in Fairfax County, known for its affordable housing, excellent schools, and convenient location near major transportation hubs. This area offers a mix of single-family homes, townhouses, and condominiums across various price ranges. Springfield features good schools, shopping centers, parks, and easy access to I-95, the Beltway, and Metro stations. The area is home to the Springfield Town Center and provides convenient access to Washington DC, Tysons Corner, and major employment centers. Home buyers appreciate Springfield\'s affordability, good schools, and strategic location in Northern Virginia.',
+    'Burke': 'Burke, Virginia is a family-friendly community in Fairfax County, known for its excellent schools, safe neighborhoods, and strong sense of community. This established area offers a mix of single-family homes, townhouses, and condos in well-maintained neighborhoods. Burke features top-rated Fairfax County Public Schools, numerous parks, community centers, and local shopping areas. The area provides easy access to major highways, Metro stations, and employment centers while maintaining a suburban, family-oriented atmosphere. Home buyers choose Burke for its excellent schools, safe neighborhoods, and family-friendly environment in Northern Virginia.',
+    'Centreville': 'Centreville, Virginia is a growing community in Fairfax County, offering affordable housing options and excellent schools for home buyers. This area features a mix of newer construction homes, established neighborhoods, and townhouse communities. Centreville boasts good schools, shopping centers, parks, and recreational facilities. The area provides convenient access to major employment centers, Dulles Airport, and major highways. Home buyers appreciate Centreville\'s affordability, good schools, and convenient location in Western Fairfax County, making it an attractive option for families and first-time buyers.',
+    'Manassas': 'Manassas, Virginia is a historic city in Prince William County, offering affordable housing and a growing real estate market for home buyers. This area features a mix of historic homes, newer construction, and established neighborhoods at various price points. Manassas boasts good schools, historic downtown area, shopping centers, and community events. The city provides convenient access to major employment centers, I-66, and is located near major employers in Northern Virginia. Home buyers choose Manassas for its affordability, growing community, and convenient location in the Northern Virginia region.',
+    'Woodbridge': 'Woodbridge, Virginia is a diverse community in Prince William County, offering affordable housing options and convenient access to major employment centers. This area features a mix of single-family homes, townhouses, and condos across various price ranges. Woodbridge boasts good schools, shopping centers, parks, and recreational facilities. The area provides easy access to I-95, the VRE commuter rail, and major employment centers in Northern Virginia and Washington DC. Home buyers appreciate Woodbridge\'s affordability, diverse community, and convenient location for commuters.',
+    // Washington DC
+    'Capitol Hill': 'Capitol Hill is one of Washington DC\'s most historic and desirable neighborhoods, known for its charming rowhouses, tree-lined streets, and proximity to the U.S. Capitol. This vibrant neighborhood offers a mix of historic homes, renovated townhouses, and modern condos. Capitol Hill features excellent schools, local parks, farmers markets, and a strong sense of community. The area is home to Eastern Market, one of DC\'s oldest public markets, and provides easy access to Metro stations and major employment centers. Home buyers choose Capitol Hill for its historic charm, strong community, and convenient location in the heart of Washington DC.',
+    'Georgetown': 'Georgetown is one of Washington DC\'s most prestigious neighborhoods, known for its historic architecture, upscale shopping, and vibrant dining scene. This exclusive area offers historic townhouses, luxury condos, and elegant single-family homes. Georgetown features excellent private schools, beautiful waterfront parks, and world-class shopping and dining along M Street and Wisconsin Avenue. The neighborhood provides easy access to downtown DC, major universities, and employment centers. Home buyers choose Georgetown for its prestigious address, historic charm, and vibrant urban lifestyle in the heart of Washington DC.',
+    'Dupont Circle': 'Dupont Circle is a vibrant, cosmopolitan neighborhood in Washington DC, known for its diverse community, excellent restaurants, and historic architecture. This walkable area offers a mix of historic rowhouses, modern condos, and elegant apartments. Dupont Circle features excellent schools, cultural attractions, art galleries, and a strong LGBTQ+ community. The area is home to the famous Dupont Circle park and provides easy access to Metro stations and major employment centers. Home buyers choose Dupont Circle for its urban energy, cultural diversity, and convenient location in the heart of Washington DC.',
+    'Adams Morgan': 'Adams Morgan is a vibrant, eclectic neighborhood in Washington DC, known for its diverse community, nightlife, and international dining scene. This walkable area offers a mix of historic rowhouses, modern condos, and apartments. Adams Morgan features excellent schools, cultural attractions, local shops, and a strong sense of community. The neighborhood is home to numerous restaurants, bars, and music venues, creating a lively urban atmosphere. Home buyers choose Adams Morgan for its cultural diversity, vibrant nightlife, and convenient location near downtown DC and major employment centers.',
+    'Logan Circle': 'Logan Circle is a trendy, up-and-coming neighborhood in Washington DC, known for its historic architecture, excellent restaurants, and growing real estate market. This walkable area offers a mix of renovated rowhouses, modern condos, and elegant apartments. Logan Circle features excellent schools, local parks, art galleries, and a strong sense of community. The neighborhood is home to numerous restaurants, cafes, and cultural attractions. Home buyers choose Logan Circle for its historic charm, growing popularity, and convenient location near downtown DC and major employment centers.',
+    'Shaw': 'Shaw is a historic neighborhood in Washington DC experiencing rapid revitalization, known for its rich history, excellent restaurants, and growing real estate market. This walkable area offers a mix of historic rowhouses, modern condos, and renovated apartments. Shaw features excellent schools, local parks, cultural attractions, and a strong sense of community. The neighborhood is home to numerous restaurants, music venues, and is near the U Street entertainment corridor. Home buyers choose Shaw for its historic significance, growing popularity, and convenient location in the heart of Washington DC.',
+    'U Street': 'U Street is a historic neighborhood in Washington DC, known for its rich cultural heritage, vibrant nightlife, and excellent restaurants. This walkable area offers a mix of historic rowhouses, modern condos, and renovated apartments. U Street features excellent schools, cultural attractions, music venues, and a strong sense of community. The neighborhood is home to the famous U Street Corridor, known for its jazz history and vibrant entertainment scene. Home buyers choose U Street for its cultural significance, vibrant atmosphere, and convenient location near downtown DC and major employment centers.',
+    'SW Waterfront': 'SW Waterfront is a rapidly developing neighborhood in Washington DC, known for its modern condos, waterfront views, and growing real estate market. This area offers luxury high-rise condominiums, modern townhouses, and waterfront properties. SW Waterfront features excellent schools, beautiful parks, waterfront dining, and easy access to Metro stations. The neighborhood is home to The Wharf, a major mixed-use development with shopping, dining, and entertainment. Home buyers choose SW Waterfront for its modern amenities, waterfront location, and convenient access to downtown DC and major employment centers.',
+    // Maryland
+    'Montgomery County': 'Montgomery County, Maryland is one of the most desirable areas in the DMV, known for its excellent public schools, diverse communities, and strong real estate market. This large county offers everything from luxury estates in Potomac to affordable condos in Silver Spring. Montgomery County boasts some of the best public schools in the nation, extensive park systems, and excellent shopping and dining options. The area provides easy access to Washington DC, major employment centers, and Metro stations. Home buyers choose Montgomery County for its excellent schools, diverse housing options, and high quality of life in the Maryland suburbs.',
+    'Prince George\'s County': 'Prince George\'s County, Maryland is a diverse, growing area offering affordable housing options and excellent access to Washington DC and major employment centers. This large county features a mix of single-family homes, townhouses, and condos across various price points. Prince George\'s County boasts good schools, extensive park systems, shopping centers, and cultural attractions. The area provides easy access to Metro stations, major highways, and employment centers in both Maryland and DC. Home buyers choose Prince George\'s County for its affordability, diverse communities, and convenient location in the Maryland suburbs.',
+    'Bethesda': 'Bethesda, Maryland is one of the most prestigious communities in Montgomery County, known for its excellent schools, luxury homes, and vibrant downtown area. This highly desirable area offers estate properties, custom-built homes, upscale condos, and townhouses. Bethesda features top-rated Montgomery County Public Schools, excellent shopping and dining, and easy Metro access to Washington DC. The area is home to major employers, medical centers, and cultural attractions. Home buyers choose Bethesda for its prestigious address, excellent schools, and convenient location in the heart of Montgomery County.',
+    'Rockville': 'Rockville, Maryland is a thriving city in Montgomery County, known for its excellent schools, diverse housing options, and strong real estate market. This area offers a mix of single-family homes, townhouses, condos, and apartments across various price ranges. Rockville features top-rated Montgomery County Public Schools, extensive parks, shopping centers, and a vibrant downtown area. The city provides easy access to Metro stations, major highways, and employment centers. Home buyers choose Rockville for its excellent schools, diverse community, and convenient location in Montgomery County.',
+    'Gaithersburg': 'Gaithersburg, Maryland is a growing city in Montgomery County, offering affordable housing options and excellent schools for home buyers. This area features a mix of newer construction homes, established neighborhoods, and townhouse communities. Gaithersburg boasts good schools, shopping centers, parks, and recreational facilities. The city provides convenient access to major employment centers, Metro stations, and major highways. Home buyers appreciate Gaithersburg\'s affordability, good schools, and convenient location in Montgomery County, making it an attractive option for families and first-time buyers.',
+    'Silver Spring': 'Silver Spring, Maryland is a diverse, vibrant community in Montgomery County, known for its excellent schools, cultural diversity, and growing real estate market. This area offers a mix of single-family homes, townhouses, condos, and apartments across various price points. Silver Spring features top-rated Montgomery County Public Schools, extensive parks, shopping centers, and a vibrant downtown area. The community provides easy access to Metro stations, major highways, and employment centers. Home buyers choose Silver Spring for its diversity, excellent schools, and convenient location near Washington DC.',
+    'College Park': 'College Park, Maryland is a vibrant college town in Prince George\'s County, known for its proximity to the University of Maryland, excellent schools, and affordable housing options. This area offers a mix of single-family homes, townhouses, condos, and student housing. College Park features good schools, local parks, shopping centers, and a strong sense of community. The city provides easy access to Metro stations, major highways, and employment centers. Home buyers choose College Park for its affordability, proximity to the university, and convenient location in Prince George\'s County.',
+    'Hyattsville': 'Hyattsville, Maryland is a diverse, up-and-coming community in Prince George\'s County, known for its affordable housing, growing real estate market, and convenient location. This area offers a mix of historic homes, newer construction, and townhouse communities. Hyattsville features good schools, local parks, shopping centers, and a strong sense of community. The city provides easy access to Metro stations, major highways, and employment centers in both Maryland and DC. Home buyers choose Hyattsville for its affordability, growing popularity, and convenient location in Prince George\'s County.'
+  }
+
   const [closingCostBreakdown, setClosingCostBreakdown] = useState({
     loanOrigination: 0,
     appraisal: 0,
@@ -1323,49 +1362,173 @@ This email was sent from your website contact form via Brevo.
             <div className="location-card">
               <h3 className="location-title">Northern Virginia (NOVA)</h3>
               <ul className="location-list">
-                <li>Arlington County</li>
-                <li>Fairfax County</li>
-                <li>Loudoun County</li>
-                <li>Alexandria</li>
-                <li>Falls Church</li>
-                <li>McLean</li>
-                <li>Tysons Corner</li>
-                <li>Reston</li>
-                <li>Vienna</li>
-                <li>Annandale</li>
-                <li>Springfield</li>
-                <li>Burke</li>
-                <li>Centreville</li>
-                <li>Manassas</li>
-                <li>Woodbridge</li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Arlington County']}>
+                    Arlington County
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Fairfax County']}>
+                    Fairfax County
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Loudoun County']}>
+                    Loudoun County
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Alexandria']}>
+                    Alexandria
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Falls Church']}>
+                    Falls Church
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['McLean']}>
+                    McLean
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Tysons Corner']}>
+                    Tysons Corner
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Reston']}>
+                    Reston
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Vienna']}>
+                    Vienna
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Annandale']}>
+                    Annandale
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Springfield']}>
+                    Springfield
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Burke']}>
+                    Burke
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Centreville']}>
+                    Centreville
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Manassas']}>
+                    Manassas
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Woodbridge']}>
+                    Woodbridge
+                  </span>
+                </li>
                 <li>And all Northern Virginia areas</li>
               </ul>
             </div>
             <div className="location-card">
               <h3 className="location-title">Washington DC</h3>
               <ul className="location-list">
-                <li>Capitol Hill</li>
-                <li>Georgetown</li>
-                <li>Dupont Circle</li>
-                <li>Adams Morgan</li>
-                <li>Logan Circle</li>
-                <li>Shaw</li>
-                <li>U Street</li>
-                <li>SW Waterfront</li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Capitol Hill']}>
+                    Capitol Hill
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Georgetown']}>
+                    Georgetown
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Dupont Circle']}>
+                    Dupont Circle
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Adams Morgan']}>
+                    Adams Morgan
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Logan Circle']}>
+                    Logan Circle
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Shaw']}>
+                    Shaw
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['U Street']}>
+                    U Street
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['SW Waterfront']}>
+                    SW Waterfront
+                  </span>
+                </li>
                 <li>And all DC neighborhoods</li>
               </ul>
             </div>
             <div className="location-card">
               <h3 className="location-title">Maryland</h3>
               <ul className="location-list">
-                <li>Montgomery County</li>
-                <li>Prince George's County</li>
-                <li>Bethesda</li>
-                <li>Rockville</li>
-                <li>Gaithersburg</li>
-                <li>Silver Spring</li>
-                <li>College Park</li>
-                <li>Hyattsville</li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Montgomery County']}>
+                    Montgomery County
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Prince George\'s County']}>
+                    Prince George's County
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Bethesda']}>
+                    Bethesda
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Rockville']}>
+                    Rockville
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Gaithersburg']}>
+                    Gaithersburg
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Silver Spring']}>
+                    Silver Spring
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['College Park']}>
+                    College Park
+                  </span>
+                </li>
+                <li>
+                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Hyattsville']}>
+                    Hyattsville
+                  </span>
+                </li>
                 <li>And all Maryland areas</li>
               </ul>
             </div>
