@@ -908,101 +908,10 @@ export default function HomePage() {
     }
   }, [mobileMenuOpen])
 
-  // Tooltip positioning handler - fixes tooltips appearing behind cards
+  // Tooltip positioning handler - simplified CSS-based approach (matching seller consultation)
   useEffect(() => {
-    // Measure the rendered tooltip size to position accurately without guesswork
-    const measureTooltip = (text, type) => {
-      const measureEl = document.createElement('div')
-      measureEl.textContent = text
-      measureEl.style.position = 'fixed'
-      measureEl.style.visibility = 'hidden'
-      measureEl.style.pointerEvents = 'none'
-      measureEl.style.zIndex = '-1'
-      measureEl.style.left = '0'
-      measureEl.style.top = '0'
-      measureEl.style.padding = type === 'icon' ? '0.75rem 1rem' : '1.25rem 1.5rem'
-      measureEl.style.maxWidth = type === 'icon' ? '320px' : '500px'
-      measureEl.style.minWidth = type === 'icon' ? '220px' : '280px'
-      measureEl.style.fontSize = type === 'icon' ? '0.85rem' : '0.95rem'
-      measureEl.style.lineHeight = '1.5'
-      measureEl.style.fontFamily = 'inherit'
-      measureEl.style.whiteSpace = 'normal'
-      measureEl.style.fontWeight = '400'
-      measureEl.style.boxSizing = 'border-box'
-      document.body.appendChild(measureEl)
-      const rect = measureEl.getBoundingClientRect()
-      document.body.removeChild(measureEl)
-      return { width: rect.width, height: rect.height }
-    }
-
-    const handleTooltipPosition = (e) => {
-      const trigger = e.currentTarget
-      if (!trigger) return
-
-      const rect = trigger.getBoundingClientRect()
-      const tooltipText = trigger.getAttribute('data-tooltip')
-      if (!tooltipText) return
-
-      const { width: tooltipWidth, height: tooltipHeight } = measureTooltip(tooltipText, 'trigger')
-      const spacing = 12 // Space between trigger and tooltip
-      const arrowHeight = 8 // Arrow height
-      const halfTooltipWidth = tooltipWidth / 2
-      
-      // Viewport dimensions
-      const viewportWidth = window.innerWidth
-      const viewportHeight = window.innerHeight
-      
-      // Calculate initial position (below the trigger by default)
-      let tooltipTop = rect.bottom + spacing
-      let tooltipLeft = rect.left + rect.width / 2
-      let arrowTop = tooltipTop
-      let arrowLeft = rect.left + rect.width / 2
-      let arrowDirection = 'down' // Arrow points up to trigger
-      
-      // Check if tooltip would overflow bottom of viewport
-      if (tooltipTop + tooltipHeight > viewportHeight - 10) {
-        // Check if there's more space above
-        const spaceAbove = rect.top
-        const spaceBelow = viewportHeight - rect.bottom
-        if (spaceAbove > spaceBelow && spaceAbove > tooltipHeight + spacing) {
-          // Position above trigger
-          tooltipTop = rect.top - tooltipHeight - spacing
-          arrowTop = tooltipTop + tooltipHeight // Arrow at bottom of tooltip
-          arrowDirection = 'up' // Arrow points down to trigger
-        } else {
-          // Position at bottom of viewport with margin
-          tooltipTop = viewportHeight - tooltipHeight - 10
-          arrowTop = tooltipTop
-          arrowDirection = 'down'
-        }
-      }
-      
-      // Check if tooltip would overflow left edge
-      if (tooltipLeft - halfTooltipWidth < 10) {
-        tooltipLeft = halfTooltipWidth + 10
-        arrowLeft = Math.min(Math.max(tooltipLeft, 10 + arrowHeight), viewportWidth - 10 - arrowHeight)
-      }
-      
-      // Check if tooltip would overflow right edge
-      if (tooltipLeft + halfTooltipWidth > viewportWidth - 10) {
-        tooltipLeft = viewportWidth - halfTooltipWidth - 10
-        arrowLeft = Math.min(Math.max(tooltipLeft, 10 + arrowHeight), viewportWidth - 10 - arrowHeight)
-      }
-      
-      // Check if tooltip would overflow top of viewport (when positioned above)
-      if (tooltipTop < 10) {
-        tooltipTop = 10
-        arrowTop = tooltipTop + tooltipHeight // Arrow at bottom of tooltip
-        arrowDirection = 'up'
-      }
-
-      // Set CSS custom properties
-      trigger.style.setProperty('--tooltip-top', `${tooltipTop}px`)
-      trigger.style.setProperty('--tooltip-left', `${tooltipLeft}px`)
-      trigger.style.setProperty('--tooltip-arrow-top', `${arrowTop}px`)
-      trigger.style.setProperty('--tooltip-arrow-left', `${arrowLeft}px`)
-      trigger.style.setProperty('--tooltip-arrow-direction', arrowDirection)
-    }
+    // No JavaScript positioning needed for tooltip-trigger - using pure CSS like seller consultation
+    // Only handle tooltip-icon positioning which needs special handling
 
     const handleTooltipIconPosition = (e) => {
       const trigger = e.currentTarget
@@ -1075,86 +984,25 @@ export default function HomePage() {
       trigger.style.setProperty('--tooltip-icon-arrow-left', `${arrowLeft}px`)
     }
 
-    // Helper to hide tooltip
-    const hideTooltip = (element, isIcon = false) => {
-      if (isIcon) {
-        element.style.removeProperty('--tooltip-icon-top')
-        element.style.removeProperty('--tooltip-icon-left')
-        element.style.removeProperty('--tooltip-icon-arrow-top')
-        element.style.removeProperty('--tooltip-icon-arrow-left')
-        element.style.removeProperty('--tooltip-icon-arrow-direction')
-      } else {
-        element.style.removeProperty('--tooltip-top')
-        element.style.removeProperty('--tooltip-left')
-        element.style.removeProperty('--tooltip-arrow-top')
-        element.style.removeProperty('--tooltip-arrow-left')
-        element.style.removeProperty('--tooltip-arrow-direction')
-      }
+    // Helper to hide tooltip-icon (tooltip-triggers use pure CSS)
+    const hideTooltip = (element) => {
+      element.style.removeProperty('--tooltip-icon-top')
+      element.style.removeProperty('--tooltip-icon-left')
+      element.style.removeProperty('--tooltip-icon-arrow-top')
+      element.style.removeProperty('--tooltip-icon-arrow-left')
+      element.style.removeProperty('--tooltip-icon-arrow-direction')
     }
 
-    // Attach event listeners to all tooltip triggers
-    const tooltipTriggers = document.querySelectorAll('.tooltip-trigger')
+    // Attach event listeners only to tooltip-icons (tooltip-triggers use pure CSS)
     const tooltipIcons = document.querySelectorAll('.tooltip-icon')
-
-    // Check if device supports touch
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
-
-    tooltipTriggers.forEach(trigger => {
-      trigger.addEventListener('mouseenter', handleTooltipPosition)
-      trigger.addEventListener('mouseleave', () => hideTooltip(trigger, false))
-      
-      // Add touch support for mobile devices
-      if (isTouchDevice) {
-        let touchTimeout = null
-        trigger.addEventListener('touchstart', (e) => {
-          e.preventDefault()
-          handleTooltipPosition({ currentTarget: trigger })
-          // Hide tooltip after 3 seconds on touch devices
-          clearTimeout(touchTimeout)
-          touchTimeout = setTimeout(() => hideTooltip(trigger, false), 3000)
-        })
-        // Hide on click outside
-        document.addEventListener('touchstart', (e) => {
-          if (!trigger.contains(e.target)) {
-            hideTooltip(trigger, false)
-            clearTimeout(touchTimeout)
-          }
-        }, { passive: true })
-      }
-    })
 
     tooltipIcons.forEach(icon => {
       icon.addEventListener('mouseenter', handleTooltipIconPosition)
-      icon.addEventListener('mouseleave', () => hideTooltip(icon, true))
-      
-      // Add touch support for mobile devices
-      if (isTouchDevice) {
-        let touchTimeout = null
-        icon.addEventListener('touchstart', (e) => {
-          e.preventDefault()
-          handleTooltipIconPosition({ currentTarget: icon })
-          // Hide tooltip after 3 seconds on touch devices
-          clearTimeout(touchTimeout)
-          touchTimeout = setTimeout(() => hideTooltip(icon, true), 3000)
-        })
-        // Hide on click outside
-        document.addEventListener('touchstart', (e) => {
-          if (!icon.contains(e.target)) {
-            hideTooltip(icon, true)
-            clearTimeout(touchTimeout)
-          }
-        }, { passive: true })
-      }
+      icon.addEventListener('mouseleave', () => hideTooltip(icon))
     })
 
-    // Update tooltip positions on scroll/resize for visible tooltips
+    // Update tooltip-icon positions on scroll/resize for visible tooltips
     const updateVisibleTooltips = () => {
-      tooltipTriggers.forEach(trigger => {
-        if (trigger.matches(':hover')) {
-          const event = { currentTarget: trigger }
-          handleTooltipPosition(event)
-        }
-      })
       tooltipIcons.forEach(icon => {
         if (icon.matches(':hover')) {
           const event = { currentTarget: icon }
@@ -1168,9 +1016,6 @@ export default function HomePage() {
 
     // Cleanup
     return () => {
-      tooltipTriggers.forEach(trigger => {
-        trigger.removeEventListener('mouseenter', handleTooltipPosition)
-      })
       tooltipIcons.forEach(icon => {
         icon.removeEventListener('mouseenter', handleTooltipIconPosition)
       })
