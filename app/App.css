@@ -2317,6 +2317,11 @@ section {
   cursor: help;
   transition: color 0.2s ease;
   z-index: 2147483646;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-left: 0.25rem;
+  vertical-align: middle;
 }
 
 .tooltip-icon:hover {
@@ -2326,10 +2331,10 @@ section {
 .tooltip-icon::after {
   content: attr(data-tooltip);
   position: fixed;
-  bottom: var(--tooltip-icon-bottom, auto);
+  bottom: auto;
   top: var(--tooltip-icon-top, auto);
   left: var(--tooltip-icon-left, 0);
-  transform: translateX(-50%) translateY(-8px);
+  transform: translateX(-50%) translateY(-100%) translateY(-12px);
   background: #2d3748 !important;
   background-color: #2d3748 !important;
   color: white !important;
@@ -2361,13 +2366,13 @@ section {
 .tooltip-icon::before {
   content: '';
   position: fixed;
-  bottom: var(--tooltip-icon-arrow-bottom, auto);
+  bottom: auto;
   top: var(--tooltip-icon-arrow-top, auto);
   left: var(--tooltip-icon-arrow-left, 0);
-  transform: translateX(-50%) translateY(-2px);
+  transform: translateX(-50%) translateY(6px);
   border: 6px solid transparent;
-  border-bottom-color: #2d3748;
-  border-top-color: transparent;
+  border-top-color: #2d3748;
+  border-bottom-color: transparent;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -2376,15 +2381,16 @@ section {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-.tooltip-icon:hover::after,
-.tooltip-icon:hover::before {
+.tooltip-icon:hover::after {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(-12px);
+  transform: translateX(-50%) translateY(-100%) translateY(-12px);
 }
 
 .tooltip-icon:hover::before {
-  transform: translateX(-50%) translateY(-6px);
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(6px);
 }
 
 .breakdown-item.discount {
@@ -2513,8 +2519,8 @@ section {
     max-width: calc(100vw - 2rem);
     max-height: none;
     font-size: 0.8rem;
-    left: 0;
-    transform: translateY(-8px);
+    left: var(--tooltip-icon-left, 0);
+    transform: translateX(-50%) translateY(-100%) translateY(-12px);
     background: #2d3748 !important;
     background-color: #2d3748 !important;
     backdrop-filter: none;
@@ -2528,18 +2534,18 @@ section {
   }
 
   .tooltip-icon:hover::after {
-    transform: translateY(-12px);
+    transform: translateX(-50%) translateY(-100%) translateY(-12px);
     visibility: visible;
   }
 
   .tooltip-icon::before {
-    left: 20px;
-    transform: translateY(-2px);
+    left: var(--tooltip-icon-arrow-left, 0);
+    transform: translateX(-50%) translateY(6px);
     mix-blend-mode: normal;
   }
 
   .tooltip-icon:hover::before {
-    transform: translateY(-6px);
+    transform: translateX(-50%) translateY(6px);
     visibility: visible;
   }
 }

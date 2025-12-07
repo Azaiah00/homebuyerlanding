@@ -941,19 +941,17 @@ export default function HomePage() {
       if (!tooltipText) return
 
       // Calculate position for tooltip icon (above the trigger)
-      // Use bottom positioning for tooltip above element
-      const tooltipBottom = window.innerHeight - rect.top + 8
+      // Use top positioning for tooltip above element
+      const tooltipTop = rect.top - 12 // Position above the icon
       const tooltipLeft = rect.left + rect.width / 2
-      const arrowBottom = window.innerHeight - rect.top + 2
+      const arrowTop = rect.top - 6 // Arrow at the bottom of tooltip, pointing down
       const arrowLeft = rect.left + rect.width / 2
 
       // Set CSS custom properties
-      trigger.style.setProperty('--tooltip-icon-bottom', `${tooltipBottom}px`)
+      trigger.style.setProperty('--tooltip-icon-top', `${tooltipTop}px`)
       trigger.style.setProperty('--tooltip-icon-left', `${tooltipLeft}px`)
-      trigger.style.setProperty('--tooltip-icon-arrow-bottom', `${arrowBottom}px`)
+      trigger.style.setProperty('--tooltip-icon-arrow-top', `${arrowTop}px`)
       trigger.style.setProperty('--tooltip-icon-arrow-left', `${arrowLeft}px`)
-      trigger.style.setProperty('--tooltip-icon-top', 'auto')
-      trigger.style.setProperty('--tooltip-icon-arrow-top', 'auto')
     }
 
     // Attach event listeners to all tooltip triggers
@@ -979,8 +977,6 @@ export default function HomePage() {
         icon.style.removeProperty('--tooltip-icon-left')
         icon.style.removeProperty('--tooltip-icon-arrow-top')
         icon.style.removeProperty('--tooltip-icon-arrow-left')
-        icon.style.removeProperty('--tooltip-icon-bottom')
-        icon.style.removeProperty('--tooltip-icon-arrow-bottom')
       })
     })
 
