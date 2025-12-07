@@ -1005,25 +1005,43 @@ export default function HomePage() {
     const tooltipTriggers = document.querySelectorAll('.tooltip-trigger')
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
 
+    const detachments = []
+
     tooltipTriggers.forEach(trigger => {
-      trigger.addEventListener('mouseenter', handleTooltipPosition)
-      trigger.addEventListener('mouseleave', () => hideTooltip(trigger))
+      const handleMouseEnter = (e) => handleTooltipPosition(e)
+      const handleMouseLeave = () => hideTooltip(trigger)
+
+      trigger.addEventListener('mouseenter', handleMouseEnter)
+      trigger.addEventListener('mouseleave', handleMouseLeave)
+
+      let touchTimeout = null
+      const handleTouchStart = (e) => {
+        e.preventDefault()
+        handleTooltipPosition({ currentTarget: trigger })
+        clearTimeout(touchTimeout)
+        touchTimeout = setTimeout(() => hideTooltip(trigger), 3000)
+      }
+
+      const handleDocumentTouch = (e) => {
+        if (!trigger.contains(e.target)) {
+          hideTooltip(trigger)
+          clearTimeout(touchTimeout)
+        }
+      }
 
       if (isTouchDevice) {
-        let touchTimeout = null
-        trigger.addEventListener('touchstart', (e) => {
-          e.preventDefault()
-          handleTooltipPosition({ currentTarget: trigger })
-          clearTimeout(touchTimeout)
-          touchTimeout = setTimeout(() => hideTooltip(trigger), 3000)
-        })
-        document.addEventListener('touchstart', (e) => {
-          if (!trigger.contains(e.target)) {
-            hideTooltip(trigger)
-            clearTimeout(touchTimeout)
-          }
-        }, { passive: true })
+        trigger.addEventListener('touchstart', handleTouchStart)
+        document.addEventListener('touchstart', handleDocumentTouch, { passive: true })
       }
+
+      detachments.push(() => {
+        trigger.removeEventListener('mouseenter', handleMouseEnter)
+        trigger.removeEventListener('mouseleave', handleMouseLeave)
+        if (isTouchDevice) {
+          trigger.removeEventListener('touchstart', handleTouchStart)
+          document.removeEventListener('touchstart', handleDocumentTouch)
+        }
+      })
     })
 
     const updateVisibleTooltips = () => {
@@ -1039,9 +1057,7 @@ export default function HomePage() {
     window.addEventListener('resize', updateVisibleTooltips, { passive: true })
 
     return () => {
-      tooltipTriggers.forEach(trigger => {
-        trigger.removeEventListener('mouseenter', handleTooltipPosition)
-      })
+      detachments.forEach(detach => detach())
       window.removeEventListener('scroll', updateVisibleTooltips)
       window.removeEventListener('resize', updateVisibleTooltips)
     }
