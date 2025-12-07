@@ -1393,7 +1393,6 @@ section {
   flex-direction: row;
   align-items: flex-start;
   gap: 1.5rem;
-  z-index: 1;
 }
 
 /* Stack vertically on very small screens */
@@ -1549,7 +1548,6 @@ section {
   width: 100%;
   overflow: visible;
   position: relative;
-  z-index: 1;
 }
 
 @media (max-width: 768px) {
@@ -1586,7 +1584,6 @@ section {
   transition: all 0.3s ease;
   overflow: visible;
   position: relative;
-  z-index: 1;
 }
 
 .money-card:hover {
@@ -1675,7 +1672,6 @@ section {
   transition: all 0.2s ease;
   position: relative;
   overflow: visible;
-  z-index: 1;
 }
 
 .cost-list li:hover {
@@ -3988,7 +3984,6 @@ section {
   max-width: 100%;
   overflow: visible;
   position: relative;
-  z-index: 1;
 }
 
 .location-card:hover {
