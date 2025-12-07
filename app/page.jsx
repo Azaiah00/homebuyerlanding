@@ -51,6 +51,7 @@ export default function HomePage() {
   const [formErrors, setFormErrors] = useState({})
   const [activeChapter, setActiveChapter] = useState(null)
   const [openFaq, setOpenFaq] = useState(null)
+  const [selectedNeighborhood, setSelectedNeighborhood] = useState(null)
   
   // Quiz State
   const [quizAnswers, setQuizAnswers] = useState([])
@@ -993,88 +994,20 @@ export default function HomePage() {
       trigger.style.setProperty('--tooltip-arrow-direction', arrowDirection)
     }
 
-    const handleTooltipIconPosition = (e) => {
-      const trigger = e.currentTarget
-      if (!trigger) return
-
-      const rect = trigger.getBoundingClientRect()
-      const tooltipText = trigger.getAttribute('data-tooltip')
-      if (!tooltipText) return
-
-      const { width: tooltipWidth, height: tooltipHeight } = measureTooltip(tooltipText, 'icon')
-      const spacing = 12
-      const arrowHeight = 6
-
-      let tooltipTop = rect.top - tooltipHeight - spacing
-      let tooltipLeft = rect.left + rect.width / 2
-      let arrowTop = tooltipTop + tooltipHeight
-      let arrowLeft = tooltipLeft
-      let arrowDirection = 'down'
-
-      const viewportWidth = window.innerWidth
-      const viewportHeight = window.innerHeight
-      const halfTooltipWidth = tooltipWidth / 2
-
-      if (tooltipTop < 10) {
-        tooltipTop = rect.bottom + spacing
-        arrowTop = tooltipTop
-        arrowDirection = 'up'
-      }
-
-      if (tooltipLeft - halfTooltipWidth < 10) {
-        tooltipLeft = halfTooltipWidth + 10
-        arrowLeft = tooltipLeft
-      }
-
-      if (tooltipLeft + halfTooltipWidth > viewportWidth - 10) {
-        tooltipLeft = viewportWidth - halfTooltipWidth - 10
-        arrowLeft = tooltipLeft
-      }
-
-      if (tooltipTop + tooltipHeight > viewportHeight - 10) {
-        const spaceAbove = rect.top
-        const spaceBelow = viewportHeight - rect.bottom
-        if (spaceAbove > spaceBelow && spaceAbove > tooltipHeight + spacing) {
-          tooltipTop = rect.top - tooltipHeight - spacing
-          arrowTop = tooltipTop + tooltipHeight
-          arrowDirection = 'down'
-        } else {
-          tooltipTop = viewportHeight - tooltipHeight - 10
-          arrowTop = tooltipTop
-          arrowDirection = 'up'
-        }
-      }
-
-      trigger.style.setProperty('--tooltip-icon-arrow-direction', arrowDirection)
-      trigger.style.setProperty('--tooltip-icon-top', `${tooltipTop}px`)
-      trigger.style.setProperty('--tooltip-icon-left', `${tooltipLeft}px`)
-      trigger.style.setProperty('--tooltip-icon-arrow-top', `${arrowTop}px`)
-      trigger.style.setProperty('--tooltip-icon-arrow-left', `${arrowLeft}px`)
-    }
-
-    const hideTooltip = (element, isIcon = false) => {
-      if (isIcon) {
-        element.style.removeProperty('--tooltip-icon-top')
-        element.style.removeProperty('--tooltip-icon-left')
-        element.style.removeProperty('--tooltip-icon-arrow-top')
-        element.style.removeProperty('--tooltip-icon-arrow-left')
-        element.style.removeProperty('--tooltip-icon-arrow-direction')
-      } else {
-        element.style.removeProperty('--tooltip-top')
-        element.style.removeProperty('--tooltip-left')
-        element.style.removeProperty('--tooltip-arrow-top')
-        element.style.removeProperty('--tooltip-arrow-left')
-        element.style.removeProperty('--tooltip-arrow-direction')
-      }
+    const hideTooltip = (element) => {
+      element.style.removeProperty('--tooltip-top')
+      element.style.removeProperty('--tooltip-left')
+      element.style.removeProperty('--tooltip-arrow-top')
+      element.style.removeProperty('--tooltip-arrow-left')
+      element.style.removeProperty('--tooltip-arrow-direction')
     }
 
     const tooltipTriggers = document.querySelectorAll('.tooltip-trigger')
-    const tooltipIcons = document.querySelectorAll('.tooltip-icon')
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
 
     tooltipTriggers.forEach(trigger => {
       trigger.addEventListener('mouseenter', handleTooltipPosition)
-      trigger.addEventListener('mouseleave', () => hideTooltip(trigger, false))
+      trigger.addEventListener('mouseleave', () => hideTooltip(trigger))
 
       if (isTouchDevice) {
         let touchTimeout = null
@@ -1082,32 +1015,11 @@ export default function HomePage() {
           e.preventDefault()
           handleTooltipPosition({ currentTarget: trigger })
           clearTimeout(touchTimeout)
-          touchTimeout = setTimeout(() => hideTooltip(trigger, false), 3000)
+          touchTimeout = setTimeout(() => hideTooltip(trigger), 3000)
         })
         document.addEventListener('touchstart', (e) => {
           if (!trigger.contains(e.target)) {
-            hideTooltip(trigger, false)
-            clearTimeout(touchTimeout)
-          }
-        }, { passive: true })
-      }
-    })
-
-    tooltipIcons.forEach(icon => {
-      icon.addEventListener('mouseenter', handleTooltipIconPosition)
-      icon.addEventListener('mouseleave', () => hideTooltip(icon, true))
-
-      if (isTouchDevice) {
-        let touchTimeout = null
-        icon.addEventListener('touchstart', (e) => {
-          e.preventDefault()
-          handleTooltipIconPosition({ currentTarget: icon })
-          clearTimeout(touchTimeout)
-          touchTimeout = setTimeout(() => hideTooltip(icon, true), 3000)
-        })
-        document.addEventListener('touchstart', (e) => {
-          if (!icon.contains(e.target)) {
-            hideTooltip(icon, true)
+            hideTooltip(trigger)
             clearTimeout(touchTimeout)
           }
         }, { passive: true })
@@ -1121,12 +1033,6 @@ export default function HomePage() {
           handleTooltipPosition(event)
         }
       })
-      tooltipIcons.forEach(icon => {
-        if (icon.matches(':hover')) {
-          const event = { currentTarget: icon }
-          handleTooltipIconPosition(event)
-        }
-      })
     }
 
     window.addEventListener('scroll', updateVisibleTooltips, { passive: true })
@@ -1136,13 +1042,21 @@ export default function HomePage() {
       tooltipTriggers.forEach(trigger => {
         trigger.removeEventListener('mouseenter', handleTooltipPosition)
       })
-      tooltipIcons.forEach(icon => {
-        icon.removeEventListener('mouseenter', handleTooltipIconPosition)
-      })
       window.removeEventListener('scroll', updateVisibleTooltips)
       window.removeEventListener('resize', updateVisibleTooltips)
     }
   }, [])
+
+  useEffect(() => {
+    if (!selectedNeighborhood) return
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        setSelectedNeighborhood(null)
+      }
+    }
+    document.addEventListener('keydown', handleEsc)
+    return () => document.removeEventListener('keydown', handleEsc)
+  }, [selectedNeighborhood])
 
       // Track active chapter based on scroll position
   useEffect(() => {
@@ -1696,55 +1610,97 @@ This email was sent from your website contact form via Brevo.
             <div className="location-card">
               <h3 className="location-title">Northern Virginia (NOVA)</h3>
               <ul className="location-list">
-                <li>Arlington County</li>
-                <li>Fairfax County</li>
-                <li>Loudoun County</li>
-                <li>Alexandria</li>
-                <li>Falls Church</li>
-                <li>McLean</li>
-                <li>Tysons Corner</li>
-                <li>Reston</li>
-                <li>Vienna</li>
-                <li>Annandale</li>
-                <li>Springfield</li>
-                <li>Burke</li>
-                <li>Centreville</li>
-                <li>Manassas</li>
-                <li>Woodbridge</li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Arlington County')}>Arlington County</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Fairfax County')}>Fairfax County</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Loudoun County')}>Loudoun County</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Alexandria')}>Alexandria</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Falls Church')}>Falls Church</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('McLean')}>McLean</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Tysons Corner')}>Tysons Corner</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Reston')}>Reston</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Vienna')}>Vienna</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Annandale')}>Annandale</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Springfield')}>Springfield</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Burke')}>Burke</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Centreville')}>Centreville</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Manassas')}>Manassas</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Woodbridge')}>Woodbridge</button></li>
                 <li>And all Northern Virginia areas</li>
               </ul>
             </div>
             <div className="location-card">
               <h3 className="location-title">Washington DC</h3>
               <ul className="location-list">
-                <li>Capitol Hill</li>
-                <li>Georgetown</li>
-                <li>Dupont Circle</li>
-                <li>Adams Morgan</li>
-                <li>Logan Circle</li>
-                <li>Shaw</li>
-                <li>U Street</li>
-                <li>SW Waterfront</li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Capitol Hill')}>Capitol Hill</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Georgetown')}>Georgetown</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Dupont Circle')}>Dupont Circle</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Adams Morgan')}>Adams Morgan</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Logan Circle')}>Logan Circle</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Shaw')}>Shaw</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('U Street')}>U Street</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('SW Waterfront')}>SW Waterfront</button></li>
                 <li>And all DC neighborhoods</li>
               </ul>
             </div>
             <div className="location-card">
               <h3 className="location-title">Maryland</h3>
               <ul className="location-list">
-                <li>Montgomery County</li>
-                <li>Prince George's County</li>
-                <li>Bethesda</li>
-                <li>Rockville</li>
-                <li>Gaithersburg</li>
-                <li>Silver Spring</li>
-                <li>College Park</li>
-                <li>Hyattsville</li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Montgomery County')}>Montgomery County</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Prince George\'s County')}>Prince George's County</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Bethesda')}>Bethesda</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Rockville')}>Rockville</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Gaithersburg')}>Gaithersburg</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Silver Spring')}>Silver Spring</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('College Park')}>College Park</button></li>
+                <li><button className="neighborhood-button" type="button" onClick={() => setSelectedNeighborhood('Hyattsville')}>Hyattsville</button></li>
                 <li>And all Maryland areas</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
+      {selectedNeighborhood && (
+        <div
+          className="neighborhood-modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${selectedNeighborhood} neighborhood details`}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setSelectedNeighborhood(null)
+            }
+          }}
+        >
+          <div className="neighborhood-modal">
+            <div className="neighborhood-modal-header">
+              <h3>{selectedNeighborhood}</h3>
+              <button
+                type="button"
+                className="modal-close-btn"
+                aria-label="Close neighborhood details"
+                onClick={() => setSelectedNeighborhood(null)}
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <div className="neighborhood-modal-body">
+              <p>{locationDescriptions[selectedNeighborhood]}</p>
+            </div>
+            <div className="neighborhood-modal-footer">
+              <button
+                className="cta-button primary"
+                type="button"
+                onClick={() => {
+                  scrollToContact()
+                  setSelectedNeighborhood(null)
+                }}
+              >
+                Schedule a Consultation
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* SECTION 1: WINNING GAME PLAN */}
       <section id="game-plan" className="game-plan fade-in-section">
@@ -1828,28 +1784,48 @@ This email was sent from your website contact form via Brevo.
                 <li>
                   <span className="cost-icon"><FileText size={24} /></span>
                   <div>
-                    <strong><span className="tooltip-trigger" data-tooltip="Closing Costs: Fees paid at settlement including appraisal, inspection, title insurance, loan origination, and recording fees. Typically 2.5-3% of home price in the DMV.">Closing Costs</span></strong>
+                    <div className="label-with-icon">
+                      <strong>Closing Costs</strong>
+                      <span className="tooltip-icon" data-tooltip="Closing Costs: Fees paid at settlement including appraisal, inspection, title insurance, loan origination, and recording fees. Typically 2.5-3% of home price in the DMV.">
+                        <Info size={14} />
+                      </span>
+                    </div>
                     <span>~2.5% - 3%</span>
                   </div>
                 </li>
                 <li>
                   <span className="cost-icon"><Coins size={24} /></span>
                   <div>
-                    <strong>Earnest Money Deposit (<span className="tooltip-trigger" data-tooltip="Earnest Money Deposit: A good-faith deposit showing you're serious about buying. Held in escrow and credited back at closing.">EMD</span>)</strong>
+                    <div className="label-with-icon">
+                      <strong>Earnest Money Deposit (EMD)</strong>
+                      <span className="tooltip-icon" data-tooltip="Earnest Money Deposit: A good-faith deposit showing you're serious about buying. Held in escrow and credited back at closing.">
+                        <Info size={14} />
+                      </span>
+                    </div>
                     <span>3%+</span>
                   </div>
                 </li>
                 <li>
                   <span className="cost-icon"><Search size={24} /></span>
                   <div>
-                    <strong><span className="tooltip-trigger" data-tooltip="Home Inspection: A professional evaluation of the property's condition, including structural elements, systems (HVAC, plumbing, electrical), and safety concerns. Allows you to negotiate repairs or withdraw if major issues are found.">Home Inspection</span></strong>
+                    <div className="label-with-icon">
+                      <strong>Home Inspection</strong>
+                      <span className="tooltip-icon" data-tooltip="Home Inspection: A professional evaluation of the property's condition, including structural elements, systems (HVAC, plumbing, electrical), and safety concerns. Allows you to negotiate repairs or withdraw if major issues are found.">
+                        <Info size={14} />
+                      </span>
+                    </div>
                     <span>~$350 - $750</span>
                   </div>
                 </li>
                 <li>
                   <span className="cost-icon"><BarChart3 size={24} /></span>
                   <div>
-                    <strong><span className="tooltip-trigger" data-tooltip="Appraisal: A professional assessment of the home's value by a licensed appraiser. Required by lenders to ensure the property is worth the loan amount. If the appraisal comes in lower than your offer, you can renegotiate or walk away.">Appraisal</span></strong>
+                    <div className="label-with-icon">
+                      <strong>Appraisal</strong>
+                      <span className="tooltip-icon" data-tooltip="Appraisal: A professional assessment of the home's value by a licensed appraiser. Required by lenders to ensure the property is worth the loan amount. If the appraisal comes in lower than your offer, you can renegotiate or walk away.">
+                        <Info size={14} />
+                      </span>
+                    </div>
                     <span>~$400 - $600+</span>
                   </div>
                 </li>
@@ -1863,7 +1839,12 @@ This email was sent from your website contact form via Brevo.
                 <li>
                   <span className="cost-icon"><Clipboard size={24} /></span>
                   <div>
-                    <strong><span className="tooltip-trigger" data-tooltip="Admin Fee: A standard fee charged by real estate brokerages to cover administrative costs associated with your transaction. This $495 fee helps cover document processing, transaction coordination, compliance requirements, and administrative support throughout your home buying process. This fee is standard in the industry and is typically paid at closing.">Admin Fee</span></strong>
+                    <div className="label-with-icon">
+                      <strong>Admin Fee</strong>
+                      <span className="tooltip-icon" data-tooltip="Admin Fee: A standard fee charged by real estate brokerages to cover administrative costs associated with your transaction. This $495 fee helps cover document processing, transaction coordination, compliance requirements, and administrative support throughout your home buying process. This fee is standard in the industry and is typically paid at closing.">
+                        <Info size={14} />
+                      </span>
+                    </div>
                     <span>${ADMIN_FEE}</span>
                   </div>
                 </li>
