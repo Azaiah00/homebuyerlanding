@@ -918,18 +918,67 @@ export default function HomePage() {
       const tooltipText = trigger.getAttribute('data-tooltip')
       if (!tooltipText) return
 
-      // Calculate position for tooltip (below the trigger)
-      // position: fixed is relative to viewport, so use getBoundingClientRect() directly
-      const tooltipTop = rect.bottom + 12
-      const tooltipLeft = rect.left + rect.width / 2
-      const arrowTop = rect.bottom + 4
-      const arrowLeft = rect.left + rect.width / 2
+      // Estimate tooltip dimensions
+      const estimatedTooltipHeight = 150 // Typical height for tooltip-trigger
+      const estimatedTooltipWidth = 400 // Max width from CSS (500px, but typically less)
+      const spacing = 12 // Space between trigger and tooltip
+      const arrowHeight = 8 // Arrow height
+      const halfTooltipWidth = estimatedTooltipWidth / 2
+      
+      // Viewport dimensions
+      const viewportWidth = window.innerWidth
+      const viewportHeight = window.innerHeight
+      
+      // Calculate initial position (below the trigger by default)
+      let tooltipTop = rect.bottom + spacing
+      let tooltipLeft = rect.left + rect.width / 2
+      let arrowTop = tooltipTop // Arrow at top of tooltip when tooltip is below
+      let arrowLeft = rect.left + rect.width / 2
+      let arrowDirection = 'down' // Arrow points up to trigger
+      
+      // Check if tooltip would overflow bottom of viewport
+      if (tooltipTop + estimatedTooltipHeight > viewportHeight - 10) {
+        // Check if there's more space above
+        const spaceAbove = rect.top
+        const spaceBelow = viewportHeight - rect.bottom
+        if (spaceAbove > spaceBelow && spaceAbove > estimatedTooltipHeight + spacing) {
+          // Position above trigger
+          tooltipTop = rect.top - estimatedTooltipHeight - spacing
+          arrowTop = tooltipTop + estimatedTooltipHeight // Arrow at bottom of tooltip
+          arrowDirection = 'up' // Arrow points down to trigger
+        } else {
+          // Position at bottom of viewport with margin
+          tooltipTop = viewportHeight - estimatedTooltipHeight - 10
+          arrowTop = tooltipTop // Arrow at top of tooltip
+          arrowDirection = 'down'
+        }
+      }
+      
+      // Check if tooltip would overflow left edge
+      if (tooltipLeft - halfTooltipWidth < 10) {
+        tooltipLeft = halfTooltipWidth + 10
+        arrowLeft = rect.left + rect.width / 2
+      }
+      
+      // Check if tooltip would overflow right edge
+      if (tooltipLeft + halfTooltipWidth > viewportWidth - 10) {
+        tooltipLeft = viewportWidth - halfTooltipWidth - 10
+        arrowLeft = rect.left + rect.width / 2
+      }
+      
+      // Check if tooltip would overflow top of viewport (when positioned above)
+      if (tooltipTop < 10) {
+        tooltipTop = 10
+        arrowTop = tooltipTop + estimatedTooltipHeight // Arrow at bottom of tooltip
+        arrowDirection = 'up'
+      }
 
       // Set CSS custom properties
       trigger.style.setProperty('--tooltip-top', `${tooltipTop}px`)
       trigger.style.setProperty('--tooltip-left', `${tooltipLeft}px`)
       trigger.style.setProperty('--tooltip-arrow-top', `${arrowTop}px`)
       trigger.style.setProperty('--tooltip-arrow-left', `${arrowLeft}px`)
+      trigger.style.setProperty('--tooltip-arrow-direction', arrowDirection)
     }
 
     const handleTooltipIconPosition = (e) => {
@@ -940,12 +989,66 @@ export default function HomePage() {
       const tooltipText = trigger.getAttribute('data-tooltip')
       if (!tooltipText) return
 
-      // Calculate position for tooltip icon (above the trigger)
-      // Use top positioning for tooltip above element
-      const tooltipTop = rect.top - 12 // Position above the icon
-      const tooltipLeft = rect.left + rect.width / 2
-      const arrowTop = rect.top - 6 // Arrow at the bottom of tooltip, pointing down
-      const arrowLeft = rect.left + rect.width / 2
+      // Estimate tooltip height (padding + text height)
+      // Tooltip has padding: 0.75rem (12px) top/bottom = 24px
+      // Font size: 0.85rem, line-height: 1.5
+      // Estimate: ~200px for typical tooltip content (can be adjusted)
+      const estimatedTooltipHeight = 200
+      const spacing = 12 // Space between icon and tooltip
+      const arrowHeight = 6 // Arrow height
+      
+      // Calculate initial position (above the icon)
+      let tooltipTop = rect.top - estimatedTooltipHeight - spacing
+      let tooltipLeft = rect.left + rect.width / 2
+      let arrowTop = tooltipTop + estimatedTooltipHeight // Arrow at bottom of tooltip when tooltip is above
+      let arrowLeft = rect.left + rect.width / 2
+      let arrowDirection = 'down' // Arrow points down to icon when tooltip is above
+      
+      // Viewport boundary detection
+      const viewportWidth = window.innerWidth
+      const viewportHeight = window.innerHeight
+      const tooltipWidth = 320 // Max width from CSS
+      const halfTooltipWidth = tooltipWidth / 2
+      
+      // Check if tooltip would overflow top of viewport
+      if (tooltipTop < 10) {
+        // Position below icon instead
+        tooltipTop = rect.bottom + spacing
+        arrowTop = tooltipTop // Arrow at top of tooltip when tooltip is below
+        arrowDirection = 'up' // Arrow should point up when tooltip is below
+      }
+      
+      // Check if tooltip would overflow left edge
+      if (tooltipLeft - halfTooltipWidth < 10) {
+        tooltipLeft = halfTooltipWidth + 10
+        arrowLeft = rect.left + rect.width / 2
+      }
+      
+      // Check if tooltip would overflow right edge
+      if (tooltipLeft + halfTooltipWidth > viewportWidth - 10) {
+        tooltipLeft = viewportWidth - halfTooltipWidth - 10
+        arrowLeft = rect.left + rect.width / 2
+      }
+      
+      // Check if tooltip would overflow bottom of viewport (when positioned below)
+      if (tooltipTop + estimatedTooltipHeight > viewportHeight - 10) {
+        // Try to position above if there's room
+        const spaceAbove = rect.top
+        const spaceBelow = viewportHeight - rect.bottom
+        if (spaceAbove > spaceBelow && spaceAbove > estimatedTooltipHeight + spacing) {
+          tooltipTop = rect.top - estimatedTooltipHeight - spacing
+          arrowTop = tooltipTop + estimatedTooltipHeight // Arrow at bottom of tooltip
+          arrowDirection = 'down'
+        } else {
+          // Position at bottom of viewport with margin
+          tooltipTop = viewportHeight - estimatedTooltipHeight - 10
+          arrowTop = tooltipTop // Arrow at top of tooltip
+          arrowDirection = 'up'
+        }
+      }
+      
+      // Set arrow direction
+      trigger.style.setProperty('--tooltip-icon-arrow-direction', arrowDirection)
 
       // Set CSS custom properties
       trigger.style.setProperty('--tooltip-icon-top', `${tooltipTop}px`)
@@ -966,6 +1069,7 @@ export default function HomePage() {
         trigger.style.removeProperty('--tooltip-left')
         trigger.style.removeProperty('--tooltip-arrow-top')
         trigger.style.removeProperty('--tooltip-arrow-left')
+        trigger.style.removeProperty('--tooltip-arrow-direction')
       })
     })
 
@@ -977,6 +1081,7 @@ export default function HomePage() {
         icon.style.removeProperty('--tooltip-icon-left')
         icon.style.removeProperty('--tooltip-icon-arrow-top')
         icon.style.removeProperty('--tooltip-icon-arrow-left')
+        icon.style.removeProperty('--tooltip-icon-arrow-direction')
       })
     })
 

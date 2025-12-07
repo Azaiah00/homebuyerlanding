@@ -1373,6 +1373,8 @@ section {
   gap: 1.5rem;
   margin: 3rem auto 0;
   max-width: 100%;
+  overflow: visible;
+  position: relative;
   width: 100%;
   overflow: visible;
   position: relative;
@@ -1547,6 +1549,7 @@ section {
   width: 100%;
   overflow: visible;
   position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
@@ -2379,6 +2382,14 @@ section {
   z-index: 2147483647;
   mix-blend-mode: normal !important;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Dynamic arrow direction for tooltip-icon */
+.tooltip-icon[style*="--tooltip-icon-arrow-direction: up"]::before,
+.tooltip-icon[style*="--tooltip-icon-arrow-direction:up"]::before {
+  border-top-color: transparent;
+  border-bottom-color: #2d3748;
+  transform: translateX(-50%) translateY(-6px);
 }
 
 .tooltip-icon:hover::after {
@@ -6058,6 +6069,7 @@ section {
   transform: translateX(-50%);
   border: 8px solid transparent;
   border-bottom-color: #1a202c;
+  border-top-color: transparent;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -6065,6 +6077,13 @@ section {
   visibility: hidden;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   mix-blend-mode: normal !important;
+}
+
+/* Dynamic arrow direction based on custom property */
+.tooltip-trigger[style*="--tooltip-arrow-direction: up"]::before,
+.tooltip-trigger[style*="--tooltip-arrow-direction:up"]::before {
+  border-top-color: #1a202c;
+  border-bottom-color: transparent;
 }
 
 .tooltip-trigger:hover::after,
