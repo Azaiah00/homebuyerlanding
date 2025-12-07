@@ -1696,173 +1696,49 @@ This email was sent from your website contact form via Brevo.
             <div className="location-card">
               <h3 className="location-title">Northern Virginia (NOVA)</h3>
               <ul className="location-list">
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Arlington County']}>
-                    Arlington County
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Fairfax County']}>
-                    Fairfax County
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Loudoun County']}>
-                    Loudoun County
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Alexandria']}>
-                    Alexandria
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Falls Church']}>
-                    Falls Church
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['McLean']}>
-                    McLean
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Tysons Corner']}>
-                    Tysons Corner
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Reston']}>
-                    Reston
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Vienna']}>
-                    Vienna
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Annandale']}>
-                    Annandale
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Springfield']}>
-                    Springfield
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Burke']}>
-                    Burke
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Centreville']}>
-                    Centreville
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Manassas']}>
-                    Manassas
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Woodbridge']}>
-                    Woodbridge
-                  </span>
-                </li>
+                <li>Arlington County</li>
+                <li>Fairfax County</li>
+                <li>Loudoun County</li>
+                <li>Alexandria</li>
+                <li>Falls Church</li>
+                <li>McLean</li>
+                <li>Tysons Corner</li>
+                <li>Reston</li>
+                <li>Vienna</li>
+                <li>Annandale</li>
+                <li>Springfield</li>
+                <li>Burke</li>
+                <li>Centreville</li>
+                <li>Manassas</li>
+                <li>Woodbridge</li>
                 <li>And all Northern Virginia areas</li>
               </ul>
             </div>
             <div className="location-card">
               <h3 className="location-title">Washington DC</h3>
               <ul className="location-list">
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Capitol Hill']}>
-                    Capitol Hill
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Georgetown']}>
-                    Georgetown
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Dupont Circle']}>
-                    Dupont Circle
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Adams Morgan']}>
-                    Adams Morgan
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Logan Circle']}>
-                    Logan Circle
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Shaw']}>
-                    Shaw
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['U Street']}>
-                    U Street
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['SW Waterfront']}>
-                    SW Waterfront
-                  </span>
-                </li>
+                <li>Capitol Hill</li>
+                <li>Georgetown</li>
+                <li>Dupont Circle</li>
+                <li>Adams Morgan</li>
+                <li>Logan Circle</li>
+                <li>Shaw</li>
+                <li>U Street</li>
+                <li>SW Waterfront</li>
                 <li>And all DC neighborhoods</li>
               </ul>
             </div>
             <div className="location-card">
               <h3 className="location-title">Maryland</h3>
               <ul className="location-list">
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Montgomery County']}>
-                    Montgomery County
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Prince George\'s County']}>
-                    Prince George's County
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Bethesda']}>
-                    Bethesda
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Rockville']}>
-                    Rockville
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Gaithersburg']}>
-                    Gaithersburg
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Silver Spring']}>
-                    Silver Spring
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['College Park']}>
-                    College Park
-                  </span>
-                </li>
-                <li>
-                  <span className="tooltip-trigger" data-tooltip={locationDescriptions['Hyattsville']}>
-                    Hyattsville
-                  </span>
-                </li>
+                <li>Montgomery County</li>
+                <li>Prince George's County</li>
+                <li>Bethesda</li>
+                <li>Rockville</li>
+                <li>Gaithersburg</li>
+                <li>Silver Spring</li>
+                <li>College Park</li>
+                <li>Hyattsville</li>
                 <li>And all Maryland areas</li>
               </ul>
             </div>
