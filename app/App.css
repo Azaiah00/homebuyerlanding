@@ -6030,12 +6030,13 @@ section {
 
 .tooltip-trigger::after {
   content: attr(data-tooltip);
-  position: absolute;
-  top: calc(100% + 12px);
-  left: 50%;
+  position: fixed;
+  top: var(--tooltip-top, 0);
+  left: var(--tooltip-left, 0);
   transform: translateX(-50%);
-  background: #1a202c;
-  color: white;
+  background: #1a202c !important;
+  background-color: #1a202c !important;
+  color: white !important;
   padding: 1.25rem 1.5rem;
   border-radius: 12px;
   font-size: 0.95rem;
@@ -6043,7 +6044,7 @@ section {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  z-index: 10000;
+  z-index: 2147483647;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
   width: 320px;
   max-width: 90vw;
@@ -6054,21 +6055,29 @@ section {
   border: 2px solid rgba(201, 169, 97, 0.3);
   word-wrap: break-word;
   overflow-wrap: break-word;
+  overflow: visible;
+  isolation: isolate;
+  mix-blend-mode: normal !important;
+  will-change: opacity, transform;
+  display: block;
 }
 
 .tooltip-trigger::before {
   content: '';
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 50%;
+  position: fixed;
+  top: var(--tooltip-arrow-top, 0);
+  left: var(--tooltip-arrow-left, 0);
   transform: translateX(-50%);
   border: 8px solid transparent;
   border-bottom-color: #1a202c;
+  border-top-color: transparent;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 10001;
+  z-index: 2147483647;
   visibility: hidden;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  mix-blend-mode: normal !important;
 }
 
 .tooltip-trigger:hover::after,
@@ -6080,6 +6089,18 @@ section {
 
 .tooltip-trigger:hover::before {
   transform: translateX(-50%) translateY(4px);
+}
+
+.tooltip-trigger[style*="--tooltip-arrow-direction: up"]::before,
+.tooltip-trigger[style*="--tooltip-arrow-direction:up"]::before {
+  border-top-color: #1a202c;
+  border-bottom-color: transparent;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.tooltip-trigger[style*="--tooltip-arrow-direction: up"]:hover::before,
+.tooltip-trigger[style*="--tooltip-arrow-direction:up"]:hover::before {
+  transform: translateX(-50%) translateY(-4px);
 }
 
 @media (max-width: 768px) {
