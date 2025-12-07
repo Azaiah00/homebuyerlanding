@@ -908,6 +908,114 @@ export default function HomePage() {
     }
   }, [mobileMenuOpen])
 
+  // Tooltip positioning handler - fixes tooltips appearing behind cards
+  useEffect(() => {
+    const handleTooltipPosition = (e) => {
+      const trigger = e.currentTarget
+      if (!trigger) return
+
+      const rect = trigger.getBoundingClientRect()
+      const tooltipText = trigger.getAttribute('data-tooltip')
+      if (!tooltipText) return
+
+      // Calculate position for tooltip (below the trigger)
+      // position: fixed is relative to viewport, so use getBoundingClientRect() directly
+      const tooltipTop = rect.bottom + 12
+      const tooltipLeft = rect.left + rect.width / 2
+      const arrowTop = rect.bottom + 4
+      const arrowLeft = rect.left + rect.width / 2
+
+      // Set CSS custom properties
+      trigger.style.setProperty('--tooltip-top', `${tooltipTop}px`)
+      trigger.style.setProperty('--tooltip-left', `${tooltipLeft}px`)
+      trigger.style.setProperty('--tooltip-arrow-top', `${arrowTop}px`)
+      trigger.style.setProperty('--tooltip-arrow-left', `${arrowLeft}px`)
+    }
+
+    const handleTooltipIconPosition = (e) => {
+      const trigger = e.currentTarget
+      if (!trigger) return
+
+      const rect = trigger.getBoundingClientRect()
+      const tooltipText = trigger.getAttribute('data-tooltip')
+      if (!tooltipText) return
+
+      // Calculate position for tooltip icon (above the trigger)
+      // Use bottom positioning for tooltip above element
+      const tooltipBottom = window.innerHeight - rect.top + 8
+      const tooltipLeft = rect.left + rect.width / 2
+      const arrowBottom = window.innerHeight - rect.top + 2
+      const arrowLeft = rect.left + rect.width / 2
+
+      // Set CSS custom properties
+      trigger.style.setProperty('--tooltip-icon-bottom', `${tooltipBottom}px`)
+      trigger.style.setProperty('--tooltip-icon-left', `${tooltipLeft}px`)
+      trigger.style.setProperty('--tooltip-icon-arrow-bottom', `${arrowBottom}px`)
+      trigger.style.setProperty('--tooltip-icon-arrow-left', `${arrowLeft}px`)
+      trigger.style.setProperty('--tooltip-icon-top', 'auto')
+      trigger.style.setProperty('--tooltip-icon-arrow-top', 'auto')
+    }
+
+    // Attach event listeners to all tooltip triggers
+    const tooltipTriggers = document.querySelectorAll('.tooltip-trigger')
+    const tooltipIcons = document.querySelectorAll('.tooltip-icon')
+
+    tooltipTriggers.forEach(trigger => {
+      trigger.addEventListener('mouseenter', handleTooltipPosition)
+      trigger.addEventListener('mouseleave', () => {
+        // Reset on mouse leave
+        trigger.style.removeProperty('--tooltip-top')
+        trigger.style.removeProperty('--tooltip-left')
+        trigger.style.removeProperty('--tooltip-arrow-top')
+        trigger.style.removeProperty('--tooltip-arrow-left')
+      })
+    })
+
+    tooltipIcons.forEach(icon => {
+      icon.addEventListener('mouseenter', handleTooltipIconPosition)
+      icon.addEventListener('mouseleave', () => {
+        // Reset on mouse leave
+        icon.style.removeProperty('--tooltip-icon-top')
+        icon.style.removeProperty('--tooltip-icon-left')
+        icon.style.removeProperty('--tooltip-icon-arrow-top')
+        icon.style.removeProperty('--tooltip-icon-arrow-left')
+        icon.style.removeProperty('--tooltip-icon-bottom')
+        icon.style.removeProperty('--tooltip-icon-arrow-bottom')
+      })
+    })
+
+    // Update tooltip positions on scroll/resize for visible tooltips
+    const updateVisibleTooltips = () => {
+      tooltipTriggers.forEach(trigger => {
+        if (trigger.matches(':hover')) {
+          const event = { currentTarget: trigger }
+          handleTooltipPosition(event)
+        }
+      })
+      tooltipIcons.forEach(icon => {
+        if (icon.matches(':hover')) {
+          const event = { currentTarget: icon }
+          handleTooltipIconPosition(event)
+        }
+      })
+    }
+
+    window.addEventListener('scroll', updateVisibleTooltips, { passive: true })
+    window.addEventListener('resize', updateVisibleTooltips, { passive: true })
+
+    // Cleanup
+    return () => {
+      tooltipTriggers.forEach(trigger => {
+        trigger.removeEventListener('mouseenter', handleTooltipPosition)
+      })
+      tooltipIcons.forEach(icon => {
+        icon.removeEventListener('mouseenter', handleTooltipIconPosition)
+      })
+      window.removeEventListener('scroll', updateVisibleTooltips)
+      window.removeEventListener('resize', updateVisibleTooltips)
+    }
+  }, [])
+
       // Track active chapter based on scroll position
   useEffect(() => {
     const handleScroll = () => {

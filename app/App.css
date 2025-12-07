@@ -1391,6 +1391,7 @@ section {
   flex-direction: row;
   align-items: flex-start;
   gap: 1.5rem;
+  z-index: 1;
 }
 
 /* Stack vertically on very small screens */
@@ -1582,6 +1583,7 @@ section {
   transition: all 0.3s ease;
   overflow: visible;
   position: relative;
+  z-index: 1;
 }
 
 .money-card:hover {
@@ -1670,6 +1672,7 @@ section {
   transition: all 0.2s ease;
   position: relative;
   overflow: visible;
+  z-index: 1;
 }
 
 .cost-list li:hover {
@@ -2313,6 +2316,7 @@ section {
   color: #718096;
   cursor: help;
   transition: color 0.2s ease;
+  z-index: 2147483646;
 }
 
 .tooltip-icon:hover {
@@ -2321,13 +2325,14 @@ section {
 
 .tooltip-icon::after {
   content: attr(data-tooltip);
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
+  position: fixed;
+  bottom: var(--tooltip-icon-bottom, auto);
+  top: var(--tooltip-icon-top, auto);
+  left: var(--tooltip-icon-left, 0);
   transform: translateX(-50%) translateY(-8px);
   background: #2d3748 !important;
   background-color: #2d3748 !important;
-  color: white;
+  color: white !important;
   padding: 0.75rem 1rem;
   border-radius: 8px;
   font-size: 0.85rem;
@@ -2340,32 +2345,34 @@ section {
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  z-index: 9999999;
+  z-index: 2147483647;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   line-height: 1.5;
   word-wrap: break-word;
   overflow-wrap: break-word;
   overflow: visible;
-  backdrop-filter: none;
+  backdrop-filter: none !important;
   isolation: isolate;
-  mix-blend-mode: normal;
+  mix-blend-mode: normal !important;
   will-change: opacity, transform;
   display: block;
 }
 
 .tooltip-icon::before {
   content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
+  position: fixed;
+  bottom: var(--tooltip-icon-arrow-bottom, auto);
+  top: var(--tooltip-icon-arrow-top, auto);
+  left: var(--tooltip-icon-arrow-left, 0);
   transform: translateX(-50%) translateY(-2px);
   border: 6px solid transparent;
-  border-top-color: #2d3748;
+  border-bottom-color: #2d3748;
+  border-top-color: transparent;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  z-index: 10000000;
-  mix-blend-mode: normal;
+  z-index: 2147483647;
+  mix-blend-mode: normal !important;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
@@ -3959,6 +3966,7 @@ section {
   max-width: 100%;
   overflow: visible;
   position: relative;
+  z-index: 1;
 }
 
 .location-card:hover {
@@ -5991,7 +5999,7 @@ section {
   text-decoration-style: dotted;
   text-underline-offset: 3px;
   transition: color 0.2s ease;
-  z-index: 1;
+  z-index: 2147483646;
   display: inline-block;
 }
 
@@ -6001,13 +6009,13 @@ section {
 
 .tooltip-trigger::after {
   content: attr(data-tooltip);
-  position: absolute;
-  top: calc(100% + 12px);
-  left: 50%;
+  position: fixed;
+  top: var(--tooltip-top, 0);
+  left: var(--tooltip-left, 0);
   transform: translateX(-50%);
   background: #1a202c !important;
   background-color: #1a202c !important;
-  color: white;
+  color: white !important;
   padding: 1.25rem 1.5rem;
   border-radius: 12px;
   font-size: 0.95rem;
@@ -6015,7 +6023,7 @@ section {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  z-index: 9999999;
+  z-index: 2147483647;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
   width: auto;
   min-width: 280px;
@@ -6029,28 +6037,28 @@ section {
   line-height: 1.6;
   visibility: hidden;
   border: 2px solid #c9a961;
-  backdrop-filter: none;
+  backdrop-filter: none !important;
   isolation: isolate;
-  mix-blend-mode: normal;
+  mix-blend-mode: normal !important;
   will-change: opacity, transform;
   display: block;
 }
 
 .tooltip-trigger::before {
   content: '';
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 50%;
+  position: fixed;
+  top: var(--tooltip-arrow-top, 0);
+  left: var(--tooltip-arrow-left, 0);
   transform: translateX(-50%);
   border: 8px solid transparent;
   border-bottom-color: #1a202c;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 10000000;
+  z-index: 2147483647;
   visibility: hidden;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  mix-blend-mode: normal;
+  mix-blend-mode: normal !important;
 }
 
 .tooltip-trigger:hover::after,
