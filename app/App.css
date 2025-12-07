@@ -2337,7 +2337,7 @@ section {
   bottom: auto;
   top: var(--tooltip-icon-top, auto);
   left: var(--tooltip-icon-left, 0);
-  transform: translateX(-50%) translateY(-100%) translateY(-12px);
+  transform: translateX(-50%);
   background: #2d3748 !important;
   background-color: #2d3748 !important;
   color: white !important;
@@ -2395,13 +2395,18 @@ section {
 .tooltip-icon:hover::after {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(-100%) translateY(-12px);
+  transform: translateX(-50%);
 }
 
 .tooltip-icon:hover::before {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(6px);
+}
+
+.tooltip-icon[style*="--tooltip-icon-arrow-direction: up"]:hover::before,
+.tooltip-icon[style*="--tooltip-icon-arrow-direction:up"]:hover::before {
+  transform: translateX(-50%) translateY(-6px);
 }
 
 .breakdown-item.discount {
@@ -6084,17 +6089,29 @@ section {
 .tooltip-trigger[style*="--tooltip-arrow-direction:up"]::before {
   border-top-color: #1a202c;
   border-bottom-color: transparent;
+  transform: translateX(-50%) translateY(-4px);
 }
 
-.tooltip-trigger:hover::after,
+.tooltip-trigger:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%);
+}
+
 .tooltip-trigger:hover::before {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(4px);
+  transform: translateX(-50%);
 }
 
-.tooltip-trigger:hover::before {
-  transform: translateX(-50%) translateY(4px);
+.tooltip-trigger[style*="--tooltip-arrow-direction: up"]:hover::after,
+.tooltip-trigger[style*="--tooltip-arrow-direction:up"]:hover::after {
+  transform: translateX(-50%);
+}
+
+.tooltip-trigger[style*="--tooltip-arrow-direction: up"]:hover::before,
+.tooltip-trigger[style*="--tooltip-arrow-direction:up"]:hover::before {
+  transform: translateX(-50%) translateY(-4px);
 }
 
 /* Alternative positioning for tooltips that might overflow */
