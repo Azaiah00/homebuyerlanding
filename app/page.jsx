@@ -1300,11 +1300,11 @@ This email was sent from your website contact form via Brevo.
   const chapters = [
     { id: 'game-plan', number: 1, title: 'Process' },
     { id: 'money-talk', number: 2, title: 'Budget' },
-    { id: 'buyer-quiz', number: 3, title: 'Buyer Quiz' },
-    { id: 'mortgage-calculator', number: 4, title: 'Mortgage Calculator' },
-    { id: 'closing-cost-calculator', number: 5, title: 'Closing Costs' },
-    { id: 'winning-offer', number: 6, title: 'Winning Offer' },
-    { id: 'faq', number: 7, title: 'FAQ' },
+    { id: 'mortgage-calculator', number: 3, title: 'Mortgage Calculator' },
+    { id: 'closing-cost-calculator', number: 4, title: 'Closing Costs' },
+    { id: 'winning-offer', number: 5, title: 'Winning Offer' },
+    { id: 'faq', number: 6, title: 'FAQ' },
+    { id: 'buyer-quiz', number: 7, title: 'Buyer Quiz' },
     { id: 'glossary', number: 8, title: 'Glossary' },
     { id: 'contact-section', number: 9, title: 'Contact Me' }
   ]
@@ -1758,145 +1758,6 @@ This email was sent from your website contact form via Brevo.
               </ul>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* BUYER QUIZ SECTION */}
-      <section id="buyer-quiz" className="buyer-quiz fade-in-section">
-        <div className="container">
-          <h2 className="section-title">Test Your Home Buying Knowledge</h2>
-          <p className="section-subtitle">Take our fun 4-question quiz to see how much you know about the home buying process!</p>
-          
-          {!showResults ? (
-            <div className="quiz-container">
-              <div className="quiz-progress">
-                <div className="quiz-progress-bar">
-                  <div 
-                    className="quiz-progress-fill" 
-                    style={{ width: `${((currentQuestion + 1) / quizQuestions.length) * 100}%` }}
-                  ></div>
-                </div>
-                <p className="quiz-progress-text">
-                  Question {currentQuestion + 1} of {quizQuestions.length}
-                </p>
-              </div>
-              
-              <div className="quiz-question-card">
-                <h3 className="quiz-question-title">
-                  {quizQuestions[currentQuestion].question}
-                </h3>
-                
-                <div className="quiz-hint-section">
-                  <button
-                    type="button"
-                    onClick={() => toggleHint(currentQuestion)}
-                    className="quiz-hint-button"
-                    aria-label="Toggle hint"
-                  >
-                    <Info size={18} />
-                    {showHint[currentQuestion] ? 'Hide Hint' : 'Need a Hint?'}
-                  </button>
-                  {showHint[currentQuestion] && (
-                    <div className="quiz-hint-popup">
-                      <p>{quizQuestions[currentQuestion].hint}</p>
-                    </div>
-                  )}
-                </div>
-                
-                <div className="quiz-options">
-                  {quizQuestions[currentQuestion].options.map((option, index) => {
-                    const isSelected = quizAnswers[currentQuestion] === index
-                    const isCorrect = index === quizQuestions[currentQuestion].correctAnswer
-                    const showFeedback = quizAnswers[currentQuestion] !== undefined
-                    
-                    return (
-                      <button
-                        key={index}
-                        type="button"
-                        onClick={() => handleQuizAnswer(index)}
-                        disabled={showFeedback}
-                        className={`quiz-option ${isSelected ? 'selected' : ''} ${showFeedback && isCorrect ? 'correct' : ''} ${showFeedback && isSelected && !isCorrect ? 'incorrect' : ''}`}
-                      >
-                        <span className="quiz-option-letter">
-                          {String.fromCharCode(65 + index)}
-                        </span>
-                        <span className="quiz-option-text">{option}</span>
-                        {showFeedback && isCorrect && (
-                          <span className="quiz-option-check">✓</span>
-                        )}
-                        {showFeedback && isSelected && !isCorrect && (
-                          <span className="quiz-option-x">✗</span>
-                        )}
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="quiz-results">
-              <div className="quiz-results-card">
-                <h3 className="quiz-results-title">Quiz Complete!</h3>
-                <div className="quiz-score-display">
-                  <div className="quiz-score-circle">
-                    <span className="quiz-score-number">{quizScore}</span>
-                    <span className="quiz-score-total">/{quizQuestions.length}</span>
-                  </div>
-                  <p className="quiz-score-percentage">
-                    {Math.round((quizScore / quizQuestions.length) * 100)}% Correct
-                  </p>
-                </div>
-                
-                <div className="quiz-results-breakdown">
-                  <h4>Your Answers:</h4>
-                  {quizQuestions.map((question, index) => {
-                    const userAnswer = quizAnswers[index]
-                    const isCorrect = userAnswer === question.correctAnswer
-                    
-                    return (
-                      <div key={question.id} className={`quiz-result-item ${isCorrect ? 'correct' : 'incorrect'}`}>
-                        <div className="quiz-result-question">
-                          <span className="quiz-result-number">{index + 1}.</span>
-                          <span>{question.question}</span>
-                        </div>
-                        <div className="quiz-result-answer">
-                          <span className="quiz-result-label">Your Answer:</span>
-                          <span className={`quiz-result-value ${isCorrect ? 'correct' : 'incorrect'}`}>
-                            {userAnswer !== undefined ? question.options[userAnswer] : 'Not answered'}
-                          </span>
-                        </div>
-                        {!isCorrect && (
-                          <div className="quiz-result-correct">
-                            <span className="quiz-result-label">Correct Answer:</span>
-                            <span className="quiz-result-value correct">
-                              {question.options[question.correctAnswer]}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    )
-                  })}
-                </div>
-                
-                <div className="quiz-results-cta">
-                  <button
-                    type="button"
-                    onClick={resetQuiz}
-                    className="cta-button primary"
-                  >
-                    Take Quiz Again
-                  </button>
-                  <button
-                    type="button"
-                    onClick={scrollToContact}
-                    className="cta-button secondary"
-                  >
-                    Get Your Free Consultation
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
@@ -3053,6 +2914,145 @@ This email was sent from your website contact form via Brevo.
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* BUYER QUIZ SECTION */}
+      <section id="buyer-quiz" className="buyer-quiz fade-in-section">
+        <div className="container">
+          <h2 className="section-title">Test Your Home Buying Knowledge</h2>
+          <p className="section-subtitle">Take our fun 4-question quiz to see how much you know about the home buying process!</p>
+          
+          {!showResults ? (
+            <div className="quiz-container">
+              <div className="quiz-progress">
+                <div className="quiz-progress-bar">
+                  <div 
+                    className="quiz-progress-fill" 
+                    style={{ width: `${((currentQuestion + 1) / quizQuestions.length) * 100}%` }}
+                  ></div>
+                </div>
+                <p className="quiz-progress-text">
+                  Question {currentQuestion + 1} of {quizQuestions.length}
+                </p>
+              </div>
+              
+              <div className="quiz-question-card">
+                <h3 className="quiz-question-title">
+                  {quizQuestions[currentQuestion].question}
+                </h3>
+                
+                <div className="quiz-hint-section">
+                  <button
+                    type="button"
+                    onClick={() => toggleHint(currentQuestion)}
+                    className="quiz-hint-button"
+                    aria-label="Toggle hint"
+                  >
+                    <Info size={18} />
+                    {showHint[currentQuestion] ? 'Hide Hint' : 'Need a Hint?'}
+                  </button>
+                  {showHint[currentQuestion] && (
+                    <div className="quiz-hint-popup">
+                      <p>{quizQuestions[currentQuestion].hint}</p>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="quiz-options">
+                  {quizQuestions[currentQuestion].options.map((option, index) => {
+                    const isSelected = quizAnswers[currentQuestion] === index
+                    const isCorrect = index === quizQuestions[currentQuestion].correctAnswer
+                    const showFeedback = quizAnswers[currentQuestion] !== undefined
+                    
+                    return (
+                      <button
+                        key={index}
+                        type="button"
+                        onClick={() => handleQuizAnswer(index)}
+                        disabled={showFeedback}
+                        className={`quiz-option ${isSelected ? 'selected' : ''} ${showFeedback && isCorrect ? 'correct' : ''} ${showFeedback && isSelected && !isCorrect ? 'incorrect' : ''}`}
+                      >
+                        <span className="quiz-option-letter">
+                          {String.fromCharCode(65 + index)}
+                        </span>
+                        <span className="quiz-option-text">{option}</span>
+                        {showFeedback && isCorrect && (
+                          <span className="quiz-option-check">✓</span>
+                        )}
+                        {showFeedback && isSelected && !isCorrect && (
+                          <span className="quiz-option-x">✗</span>
+                        )}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="quiz-results">
+              <div className="quiz-results-card">
+                <h3 className="quiz-results-title">Quiz Complete!</h3>
+                <div className="quiz-score-display">
+                  <div className="quiz-score-circle">
+                    <span className="quiz-score-number">{quizScore}</span>
+                    <span className="quiz-score-total">/{quizQuestions.length}</span>
+                  </div>
+                  <p className="quiz-score-percentage">
+                    {Math.round((quizScore / quizQuestions.length) * 100)}% Correct
+                  </p>
+                </div>
+                
+                <div className="quiz-results-breakdown">
+                  <h4>Your Answers:</h4>
+                  {quizQuestions.map((question, index) => {
+                    const userAnswer = quizAnswers[index]
+                    const isCorrect = userAnswer === question.correctAnswer
+                    
+                    return (
+                      <div key={question.id} className={`quiz-result-item ${isCorrect ? 'correct' : 'incorrect'}`}>
+                        <div className="quiz-result-question">
+                          <span className="quiz-result-number">{index + 1}.</span>
+                          <span>{question.question}</span>
+                        </div>
+                        <div className="quiz-result-answer">
+                          <span className="quiz-result-label">Your Answer:</span>
+                          <span className={`quiz-result-value ${isCorrect ? 'correct' : 'incorrect'}`}>
+                            {userAnswer !== undefined ? question.options[userAnswer] : 'Not answered'}
+                          </span>
+                        </div>
+                        {!isCorrect && (
+                          <div className="quiz-result-correct">
+                            <span className="quiz-result-label">Correct Answer:</span>
+                            <span className="quiz-result-value correct">
+                              {question.options[question.correctAnswer]}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+                
+                <div className="quiz-results-cta">
+                  <button
+                    type="button"
+                    onClick={resetQuiz}
+                    className="cta-button primary"
+                  >
+                    Take Quiz Again
+                  </button>
+                  <button
+                    type="button"
+                    onClick={scrollToContact}
+                    className="cta-button secondary"
+                  >
+                    Get Your Free Consultation
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

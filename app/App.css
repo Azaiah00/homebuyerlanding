@@ -2340,7 +2340,7 @@ section {
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  z-index: 999999;
+  z-index: 9999999;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   line-height: 1.5;
   word-wrap: break-word;
@@ -2364,7 +2364,7 @@ section {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  z-index: 1000000;
+  z-index: 10000000;
   mix-blend-mode: normal;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
@@ -6015,7 +6015,7 @@ section {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  z-index: 999999;
+  z-index: 9999999;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
   width: auto;
   min-width: 280px;
@@ -6047,7 +6047,7 @@ section {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 1000000;
+  z-index: 10000000;
   visibility: hidden;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   mix-blend-mode: normal;
