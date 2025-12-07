@@ -1681,6 +1681,10 @@ section {
   flex-wrap: nowrap;
 }
 
+.inline-tooltip-icon {
+  gap: 0.2rem;
+}
+
 .cost-list li:hover {
   border-color: #c9a961;
   transform: translateX(5px);

@@ -1702,18 +1702,6 @@ This email was sent from your website contact form via Brevo.
             <div className="neighborhood-modal-body">
               <p>{locationDescriptions[selectedNeighborhood]}</p>
             </div>
-            <div className="neighborhood-modal-footer">
-              <button
-                className="cta-button primary"
-                type="button"
-                onClick={() => {
-                  scrollToContact()
-                  setSelectedNeighborhood(null)
-                }}
-              >
-                Schedule a Consultation
-              </button>
-            </div>
           </div>
         </div>
       )}
@@ -2699,7 +2687,13 @@ This email was sent from your website contact form via Brevo.
                 <strong>Minimum down payment:</strong> Typically 3% for conventional loans (though some programs allow less), and can go up to 20% or more.
               </p>
               <p className="component-description">
-                <strong>Benefits of a larger down payment:</strong> Better loan terms, lower monthly payments, and may eliminate the need for private mortgage insurance (<span className="tooltip-trigger" data-tooltip="Private Mortgage Insurance: Insurance that protects the lender if you default. Typically required when your down payment is less than 20%.">PMI</span>).
+                <strong>Benefits of a larger down payment:</strong> Better loan terms, lower monthly payments, and may eliminate the need for private mortgage insurance (PMI
+                <span className="label-with-icon inline-tooltip-icon">
+                  <span className="tooltip-icon" data-tooltip="Private Mortgage Insurance: Insurance that protects the lender if you default. Typically required when your down payment is less than 20%.">
+                    <Info size={14} />
+                  </span>
+                </span>
+                ).
               </p>
               <p className="component-description">
                 The amount you put down will depend on your financial situation, the type of loan you're using, and your long-term financial goals. <strong>As your realtor, I'll help you understand your options and make the best decision for your situation.</strong>
